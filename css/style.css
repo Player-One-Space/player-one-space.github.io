@@ -293,6 +293,10 @@ img {
     gap: 1.5rem;
 }
 
+.card-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
 .card {
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -783,7 +787,8 @@ img {
         gap: 1rem;
     }
 
-    .card-grid {
+    .card-grid,
+    .card-grid-3 {
         grid-template-columns: 1fr;
     }
 
