@@ -945,7 +945,7 @@ img {
 .careers-page .intro-text .team-highlights li {
     font-size: 0.98rem;
     line-height: 1.7;
-    padding: 0.5rem 0 0.5rem 1.4rem;
+    padding: 0.6rem 0 0.6rem 1rem;
     border-bottom: 1px solid rgba(160, 174, 192, 0.08);
 }
 
@@ -954,7 +954,10 @@ img {
 }
 
 .careers-page .intro-text .team-highlights li::before {
-    top: 0.65rem;
+    top: 1.2rem;
+    transform: none;
+    width: 7px;
+    height: 7px;
 }
 
 .careers-page .intro-text a {
