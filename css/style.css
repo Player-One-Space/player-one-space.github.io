@@ -865,3 +865,127 @@ img {
         grid-template-columns: 1fr;
     }
 }
+
+/* --- Careers / Job Description pages --- */
+.careers-page .page-header {
+    background: linear-gradient(180deg, rgba(160, 174, 192, 0.08) 0%, var(--bg-primary) 100%),
+                radial-gradient(ellipse at top, var(--accent-glow), transparent 60%);
+    padding-bottom: 4rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.careers-page .page-header h1 {
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.careers-page .section {
+    max-width: 880px;
+    padding: 2.5rem 2rem;
+}
+
+.careers-page .section-header {
+    text-align: left;
+    margin-bottom: 1.5rem;
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+}
+
+.careers-page .section-header h2 {
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    margin-bottom: 0;
+}
+
+.careers-page .intro-text {
+    max-width: none;
+    text-align: left;
+    padding: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem 2.25rem;
+}
+
+.careers-page .intro-text p {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.careers-page .intro-text p:last-child {
+    margin-bottom: 0;
+}
+
+.careers-page .intro-text strong {
+    color: var(--text-primary);
+}
+
+.careers-page .intro-text h3 {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+}
+
+.careers-page .intro-text h3:first-child {
+    margin-top: 0;
+}
+
+.careers-page .intro-text .team-highlights {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+}
+
+.careers-page .intro-text .team-highlights li {
+    font-size: 0.98rem;
+    line-height: 1.7;
+    padding: 0.5rem 0 0.5rem 1.4rem;
+    border-bottom: 1px solid rgba(160, 174, 192, 0.08);
+}
+
+.careers-page .intro-text .team-highlights li:last-child {
+    border-bottom: none;
+}
+
+.careers-page .intro-text .team-highlights li::before {
+    top: 0.65rem;
+}
+
+.careers-page .intro-text a {
+    color: var(--accent);
+    border-bottom: 1px solid rgba(160, 174, 192, 0.3);
+}
+
+.careers-page .intro-text a:hover {
+    border-bottom-color: var(--accent);
+}
+
+.careers-page .back-link {
+    max-width: 880px;
+    margin: 2rem auto 0;
+    padding: 0 2rem;
+}
+
+.careers-page .back-link a {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.careers-page .back-link a:hover {
+    color: var(--accent);
+}
+
+@media (max-width: 768px) {
+    .careers-page .intro-text {
+        padding: 1.5rem 1.25rem;
+    }
+    .careers-page .section {
+        padding: 1.5rem 1rem;
+    }
+}
