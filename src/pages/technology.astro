@@ -4,7 +4,7 @@ import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
 import ModuleCard from '../components/ModuleCard.astro';
 
-const sentinelModules = [
+const buddyModules = [
   { tag: 'M01 — VisNav', title: 'Optical relative navigation', body: 'A COTS camera and edge visual AI isolate an approaching object against the starfield — range, 3D pose, and velocity vector, under 5 watts. No radar.' },
   { tag: 'M02 — Pattern-of-Life', title: 'Anomaly detection', body: 'An orbital-mechanics filter tells passive debris from an adversarial inspector that is actively manoeuvring to match your orbit. It spots the difference instantly.' },
   { tag: 'M03 — Panic Packet', title: 'Low-latency alert', body: 'A kilobyte-scale alert — threat class, range, vector, confidence — routed in seconds. No gigabytes of video, no ground round-trip.' },
@@ -18,7 +18,7 @@ const plasmaStages = [
 ---
 <BaseLayout
   title="Technology — Player One Space"
-  description="The integrated stack: Sentinel onboard edge-AI threat detection and Plasma water-plasma propulsion. Detect, classify, evade — autonomously."
+  description="The integrated stack: Buddy, the onboard AI engine, and Plasma water-plasma propulsion. Detect, classify, evade — autonomously."
   path="/technology"
 >
   <Hero
@@ -27,10 +27,10 @@ const plasmaStages = [
     sub="Two products, one integrated stack. The brain that sees the threat, and the legs that move the satellite out of the way — with no human in the loop."
   />
 
-  <Section eyebrow="Sentinel" title="AI that runs on the satellite.">
-    <p class="lead reveal" style="margin-bottom: 2.5rem;">An onboard AI Payload Engine — hardware-agnostic, updatable over the air. It classifies threats before the ground even wakes up.</p>
+  <Section eyebrow="Buddy" title="The onboard AI engine.">
+    <p class="lead reveal" style="margin-bottom: 2.5rem;">A unified onboard AI engine — hardware-agnostic, updatable over the air. It makes autonomous decisions and delivers real-time intelligence from orbit. Flagship capability: it classifies threats before the ground even wakes up.</p>
     <div class="grid grid--3">
-      {sentinelModules.map((m) => <ModuleCard tag={m.tag} title={m.title} body={m.body} />)}
+      {buddyModules.map((m) => <ModuleCard tag={m.tag} title={m.title} body={m.body} />)}
     </div>
   </Section>
 
@@ -54,7 +54,7 @@ const plasmaStages = [
 
   <Section eyebrow="The Combined System" title="The self-defending satellite.">
     <div class="flow reveal">
-      <span class="flow__step display">Sentinel sees a threat</span>
+      <span class="flow__step display">Buddy sees a threat</span>
       <span class="flow__arrow">→</span>
       <span class="flow__step display">classifies it</span>
       <span class="flow__arrow">→</span>
