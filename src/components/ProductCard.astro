@@ -1,0 +1,47 @@
+---
+interface Props {
+  index: string;        // "01" / "02"
+  kicker: string;       // "1st Vertical — Space Systems"
+  name: string;         // "Plasma"
+  tagline: string;      // "Propulsion Engine"
+  body: string;
+  href?: string;
+}
+const { index, kicker, name, tagline, body, href } = Astro.props;
+const Tag = href ? 'a' : 'div';
+---
+<Tag class="pcard reveal" href={href}>
+  <div class="pcard__top">
+    <span class="pcard__index display">{index}</span>
+    <span class="pcard__kicker display">{kicker}</span>
+  </div>
+  <h3 class="pcard__name display">{name}</h3>
+  <div class="pcard__tagline">{tagline}</div>
+  <p class="pcard__body">{body}</p>
+  {href && <span class="pcard__more display">Learn more →</span>}
+</Tag>
+
+<style>
+  .pcard {
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem 1.85rem;
+    transition: border-color 0.25s, transform 0.25s, background 0.25s;
+    height: 100%;
+    color: inherit;
+  }
+  a.pcard:hover { border-color: var(--accent-line); background: var(--surface-hi); transform: translateY(-3px); }
+  .pcard__top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+  .pcard__index {
+    font-size: 0.85rem; color: var(--accent); letter-spacing: 0.1em;
+    border: 1px solid var(--accent-line); border-radius: var(--radius);
+    padding: 0.2rem 0.55rem;
+  }
+  .pcard__kicker { font-size: var(--fs-label); color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; }
+  .pcard__name { font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1; letter-spacing: -0.01em; color: var(--text); }
+  .pcard__tagline { font-size: 1.05rem; color: var(--accent); margin: 0.5rem 0 1.1rem; font-family: var(--font-display); }
+  .pcard__body { font-size: var(--fs-sm); line-height: 1.65; color: var(--text-muted); }
+  .pcard__more { display: inline-block; margin-top: 1.4rem; font-size: var(--fs-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+</style>

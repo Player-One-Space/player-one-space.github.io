@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+---
+<BaseLayout
+  title="Contact — Player One Space"
+  description="Get in touch with Player One Space. Vancouver, BC. dima@playeronespace.com"
+  path="/contact"
+>
+  <Hero
+    eyebrow="Contact"
+    title="Let's talk."
+    sub="Investors, government program offices, satellite operators, and bus manufacturers — we want to hear from you."
+  />
+
+  <Section>
+    <div class="contact">
+      <div class="contact__col reveal">
+        <span class="bracket-label">Reach Us</span>
+        <a href="mailto:dima@playeronespace.com" class="contact__email display">dima@playeronespace.com</a>
+        <div class="contact__social">
+          <a href="https://www.linkedin.com/company/player-one-space" target="_blank" rel="noopener" class="display">LinkedIn</a>
+          <a href="https://x.com/PlayerOneSpace" target="_blank" rel="noopener" class="display">X / Twitter</a>
+        </div>
+      </div>
+      <div class="contact__col reveal">
+        <span class="bracket-label">Headquarters</span>
+        <p class="contact__loc">Vancouver, British Columbia<br>Canada</p>
+        <p class="contact__note">A space innovation company building dual-use products for the global space economy.</p>
+        <a href="mailto:dima@playeronespace.com" class="btn btn--primary">Email Us</a>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+  .contact__email { font-size: clamp(1.4rem, 3.5vw, 2.4rem); color: var(--text); letter-spacing: -0.01em; display: inline-block; }
+  .contact__email:hover { color: var(--accent); }
+  .contact__social { display: flex; gap: 1.5rem; margin-top: 1.5rem; }
+  .contact__social a { font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+  .contact__social a:hover { color: var(--accent); }
+  .contact__loc { font-size: 1.15rem; color: var(--text); line-height: 1.5; margin-bottom: 1rem; }
+  .contact__note { font-size: var(--fs-sm); color: var(--text-muted); margin-bottom: 1.75rem; max-width: 36ch; }
+  @media (max-width: 700px) { .contact { grid-template-columns: 1fr; gap: 2.5rem; } }
+</style>

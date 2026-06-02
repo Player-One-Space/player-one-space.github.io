@@ -1,0 +1,18 @@
+---
+interface Stat { value: string; label: string; }
+interface Props { stats: Stat[]; }
+const { stats } = Astro.props;
+import StatBlock from './StatBlock.astro';
+---
+<div class={`statrow statrow--${stats.length}`}>
+  {stats.map((s) => <StatBlock value={s.value} label={s.label} />)}
+</div>
+
+<style>
+  .statrow { display: grid; gap: 2rem 1.5rem; }
+  .statrow--4 { grid-template-columns: repeat(4, 1fr); }
+  .statrow--3 { grid-template-columns: repeat(3, 1fr); }
+  .statrow--2 { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 900px) { .statrow--4, .statrow--3 { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .statrow { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import ModuleCard from '../components/ModuleCard.astro';
+import StatRow from '../components/StatRow.astro';
+
+const plasmaCaps = [
+  { title: 'Non-toxic & launch-safe', body: 'Water propellant ships as standard cargo. No HAZMAT, no high-pressure vessel, no special handling — compatible even near crewed vehicles.' },
+  { title: 'Scalable architecture', body: 'The same design scales from a 1U CubeSat to a 300 kg smallsat by adding capacitor stages. One physics, any power level.' },
+  { title: 'Refuelable anywhere', body: 'Water ice exists on the Moon, Mars, and asteroids. The only propulsion whose supply chain extends across the solar system.' },
+];
+const plasmaTam = [
+  { value: '$850M+', label: 'Satellite electric propulsion market by 2032' },
+  { value: '60%', label: 'of CubeSats launch with no propulsion today' },
+];
+
+const sentinelCaps = [
+  { title: 'Hardware-agnostic', body: 'Runs on any satellite with a COTS camera and an edge compute board. No custom hardware, no vendor lock-in.' },
+  { title: 'Updatable over the air', body: 'New models deploy to orbit like software. The capability improves long after the satellite has launched.' },
+  { title: 'Edge visual AI platform', body: 'The same onboard architecture can host any computer vision model — a platform, not a single-purpose sensor.' },
+];
+const sentinelTam = [
+  { value: '$2.3B+', label: 'Space domain awareness market by 2030' },
+  { value: '8,000+', label: 'active satellites — every one a potential customer' },
+];
+---
+<BaseLayout
+  title="Products — Player One Space"
+  description="Plasma: water-plasma propulsion. Sentinel: autonomous onboard edge-AI threat detection. Two IP-protected products from Player One Space."
+  path="/products"
+>
+  <Hero
+    eyebrow="Products"
+    title="Two products.<br>One integrated stack."
+    sub="Each is independently valuable. Together, they build the first fully autonomous self-defending satellite."
+  />
+
+  <Section eyebrow="1st Vertical — Space Systems" title="Plasma" id="plasma">
+    <p class="lead reveal" style="margin-bottom: 2.5rem;">A water-plasma pulsed thruster. The legs that let any satellite manoeuvre — station-keeping, collision avoidance, orbit changes, and controlled deorbit — using a propellant that is safe to launch and available across the solar system.</p>
+    <div class="grid grid--3" style="margin-bottom: 3rem;">
+      {plasmaCaps.map((c) => <ModuleCard title={c.title} body={c.body} />)}
+    </div>
+    <StatRow stats={plasmaTam} />
+  </Section>
+
+  <Section eyebrow="2nd Vertical — Edge AI & Defense" title="Sentinel" id="sentinel" alt={true}>
+    <p class="lead reveal" style="margin-bottom: 2.5rem;">Autonomous onboard AI threat detection for any satellite. The brain that sees an approaching object, classifies whether it is debris or a threat, and raises the alarm in seconds — without ever calling home.</p>
+    <div class="grid grid--3" style="margin-bottom: 3rem;">
+      {sentinelCaps.map((c) => <ModuleCard title={c.title} body={c.body} />)}
+    </div>
+    <StatRow stats={sentinelTam} />
+  </Section>
+
+  <Section>
+    <div class="cta reveal">
+      <h2 class="display cta__title">Want the full picture?</h2>
+      <p class="lead">We work with investors, government program offices, and satellite bus partners.</p>
+      <a href="/contact" class="btn btn--primary">Get in Touch</a>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .cta { text-align: center; max-width: 60ch; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
+  .cta__title { font-size: clamp(1.8rem, 4vw, 3rem); }
+</style>

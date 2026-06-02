@@ -1,0 +1,38 @@
+---
+interface Props {
+  photo: string;
+  name: string;
+  role: string;
+  bio: string;
+}
+const { photo, name, role, bio } = Astro.props;
+---
+<div class="tcard reveal">
+  <img class="tcard__photo" src={photo} alt={name} loading="lazy" width="120" height="120" />
+  <h3 class="tcard__name">{name}</h3>
+  <div class="tcard__role display">{role}</div>
+  <p class="tcard__bio">{bio}</p>
+</div>
+
+<style>
+  .tcard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2rem 1.75rem;
+    text-align: center;
+    height: 100%;
+  }
+  .tcard__photo {
+    width: 96px; height: 96px; border-radius: 50%;
+    object-fit: cover; object-position: top;
+    border: 1px solid var(--border-hi);
+    margin-bottom: 1.1rem;
+  }
+  .tcard__name { font-size: 1.25rem; margin-bottom: 0.3rem; }
+  .tcard__role {
+    font-size: var(--fs-label); letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.9rem;
+  }
+  .tcard__bio { font-size: var(--fs-sm); line-height: 1.6; color: var(--text-muted); }
+</style>

@@ -1,0 +1,53 @@
+---
+const year = 2026;
+const links = [
+  { href: '/about', label: 'About' },
+  { href: '/technology', label: 'Technology' },
+  { href: '/products', label: 'Products' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <div class="footer__brand">
+      <div class="display footer__name">PLAYER ONE SPACE</div>
+      <p class="footer__tag">A space innovation company. Vancouver, BC.</p>
+      <a href="mailto:dima@playeronespace.com" class="footer__email">dima@playeronespace.com</a>
+    </div>
+    <nav class="footer__nav">
+      {links.map((l) => <a href={l.href} class="display">{l.label}</a>)}
+    </nav>
+    <div class="footer__social">
+      <a href="https://www.linkedin.com/company/player-one-space" target="_blank" rel="noopener" class="display">LinkedIn</a>
+      <a href="https://x.com/PlayerOneSpace" target="_blank" rel="noopener" class="display">X</a>
+    </div>
+  </div>
+  <div class="wrap footer__base">
+    <span>© {year} Player One Space</span>
+    <span class="display">PLASMA · SENTINEL</span>
+  </div>
+</footer>
+
+<style>
+  .footer { border-top: 1px solid var(--border); background: var(--bg-alt); padding-top: 3.5rem; }
+  .footer__inner {
+    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem;
+    padding-bottom: 2.5rem;
+  }
+  .footer__name { font-size: 1rem; letter-spacing: 0.14em; font-weight: 700; margin-bottom: 0.6rem; }
+  .footer__tag { font-size: var(--fs-sm); color: var(--text-muted); margin-bottom: 0.8rem; max-width: 32ch; }
+  .footer__email { font-size: var(--fs-sm); }
+  .footer__nav, .footer__social { display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer__nav a, .footer__social a {
+    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted);
+  }
+  .footer__nav a:hover, .footer__social a:hover { color: var(--accent); }
+  .footer__base {
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--border); padding: 1.5rem 0;
+    font-size: var(--fs-label); color: var(--text-dim); letter-spacing: 0.06em;
+  }
+  @media (max-width: 700px) {
+    .footer__inner { grid-template-columns: 1fr; gap: 1.8rem; }
+  }
+</style>
