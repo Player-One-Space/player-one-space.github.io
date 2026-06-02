@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import ModuleCard from '../components/ModuleCard.astro';
+import TeamCard from '../components/TeamCard.astro';
+
+const problems = [
+  { tag: 'Blind', title: 'Satellites cannot see threats', body: 'Ground-based space domain awareness takes 30 minutes to 6+ hours to flag a close approach — long after an adversarial satellite is already alongside. No satellite carries onboard intelligence to detect and alert on its own.' },
+  { tag: 'Immobile', title: 'Satellites cannot afford to move', body: '60% of CubeSats launch with zero propulsion, priced out of toxic, expensive options. A satellite that cannot manoeuvre is a sitting target — for proximity operations, debris, and deorbit mandates it cannot meet.' },
+];
+
+const team = [
+  {
+    photo: '/images/dima.jpg',
+    name: 'Dima Anoshin',
+    role: 'CEO & Co-Founder',
+    bio: 'Spacecraft hardware at Khrunichev (Proton/Angara) and LEO satellites at Amazon. 15+ years building data and AI platforms. PhD, Mechanical Engineering.',
+  },
+  {
+    photo: '/images/jay.jpg',
+    name: 'Jay Bowman',
+    role: 'Chief Innovation Officer',
+    bio: 'Inventor of the water-plasma thruster and the Sentinel AI Payload Engine architecture. 12 international patents across advanced hardware and power electronics.',
+  },
+  {
+    photo: '/images/umut.jpg',
+    name: 'Dr. Umut Yıldız',
+    role: 'Chief Scientist',
+    bio: 'NASA / JPL researcher and Caltech postdoc. Built and launched 21 satellites as Chief Scientific Officer at Plan-S. PhD Astrophysics, Leiden University.',
+  },
+];
+
+const experience = ['Amazon', 'Microsoft', 'Khrunichev', 'NASA', 'JPL', 'Caltech', 'Plan-S', 'Herschel / ESA', 'AAC Clyde Space', 'NovaNano', "Int'l Space University"];
+---
+<BaseLayout
+  title="About — Player One Space"
+  description="Player One Space is a space innovation company building IP-protected dual-use space technology. Led by veterans of Amazon, NASA/JPL, Khrunichev, and Plan-S."
+  path="/about"
+>
+  <Hero
+    eyebrow="About"
+    title="The team that has built<br>every layer of the stack."
+    sub="Player One Space is a space innovation company. We solve high-impact problems in the space economy, protect the solutions with IP, and bring them to market as products."
+  />
+
+  <Section eyebrow="The Problem" title="Satellites are blind and immobile.">
+    <p class="lead reveal" style="margin-bottom: 2.5rem;">That is the defining vulnerability of the space age. Fix both and you have the first satellite that can detect a threat, classify it, and manoeuvre to safety — autonomously.</p>
+    <div class="grid grid--2">
+      {problems.map((p) => <ModuleCard tag={p.tag} title={p.title} body={p.body} />)}
+    </div>
+  </Section>
+
+  <Section eyebrow="Approach" title="One company. Two products.<br>A growing portfolio." alt={true}>
+    <p class="lead reveal">We do not bet on a single product. We identify unsolved problems in space, build proprietary solutions, and own the IP. Plasma and Sentinel are the first two — each fundable on its own, and together the foundation of a self-defending satellite no competitor can match today.</p>
+  </Section>
+
+  <Section eyebrow="Leadership" title="Built by operators.">
+    <div class="grid grid--3">
+      {team.map((m) => <TeamCard photo={m.photo} name={m.name} role={m.role} bio={m.bio} />)}
+    </div>
+    <div class="exp reveal">
+      <span class="bracket-label">Combined Experience</span>
+      <div class="exp__chips">
+        {experience.map((e) => <span class="exp__chip display">{e}</span>)}
+      </div>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .exp { margin-top: 3rem; }
+  .exp__chips { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .exp__chip {
+    font-size: var(--fs-label); letter-spacing: 0.06em;
+    padding: 0.45rem 0.85rem; border: 1px solid var(--border);
+    border-radius: var(--radius); color: var(--text-muted);
+    background: var(--surface);
+  }
+</style>

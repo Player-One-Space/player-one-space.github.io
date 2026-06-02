@@ -1,0 +1,25 @@
+---
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  alt?: boolean;
+  id?: string;
+}
+const { eyebrow, title, alt = false, id } = Astro.props;
+---
+<section class={`section ${alt ? 'section--alt' : ''}`} id={id}>
+  <div class="wrap">
+    {(eyebrow || title) && (
+      <div class="section__head reveal">
+        {eyebrow && <span class="bracket-label">{eyebrow}</span>}
+        {title && <h2 set:html={title}></h2>}
+      </div>
+    )}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section__head { margin-bottom: clamp(2rem, 4vw, 3.25rem); max-width: 46ch; }
+  .section__head h2 { margin-top: 0.25rem; }
+</style>

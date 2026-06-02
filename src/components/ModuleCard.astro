@@ -1,0 +1,31 @@
+---
+interface Props {
+  tag?: string;
+  title: string;
+  body: string;
+}
+const { tag, title, body } = Astro.props;
+---
+<div class="mcard reveal">
+  {tag && <span class="mcard__tag display">{tag}</span>}
+  <h3 class="mcard__title">{title}</h3>
+  <p class="mcard__body">{body}</p>
+</div>
+
+<style>
+  .mcard {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem 1.5rem;
+    transition: border-color 0.2s, transform 0.2s, background 0.2s;
+    height: 100%;
+  }
+  .mcard:hover { border-color: var(--border-hi); background: var(--surface-hi); transform: translateY(-2px); }
+  .mcard__tag {
+    font-size: var(--fs-label); letter-spacing: 0.12em; color: var(--accent);
+    text-transform: uppercase; display: block; margin-bottom: 0.85rem;
+  }
+  .mcard__title { font-size: 1.2rem; margin-bottom: 0.65rem; }
+  .mcard__body { font-size: var(--fs-sm); line-height: 1.6; color: var(--text-muted); }
+</style>

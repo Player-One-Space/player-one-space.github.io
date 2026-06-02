@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import StatRow from '../components/StatRow.astro';
+import ProductCard from '../components/ProductCard.astro';
+import ModuleCard from '../components/ModuleCard.astro';
+
+const tam = [
+  { value: '$600B+', label: 'Commercial space market by 2040' },
+  { value: '$30B+', label: 'US defense space budget, per year' },
+  { value: '$850M+', label: 'Satellite electric propulsion by 2032' },
+  { value: '$2.3B+', label: 'Space domain awareness by 2030' },
+];
+
+const whyNow = [
+  { tag: 'Force 01', title: 'Edge AI is flight-ready', body: 'Radiation-tolerant edge compute now runs live AI on orbit. The hardware risk is retired — autonomy is a software problem now.' },
+  { tag: 'Force 02', title: 'Propulsion is breaking', body: 'Xenon demand outpaces supply and hydrazine is being phased out. Operators need a safe, scalable alternative. Water is it.' },
+  { tag: 'Force 03', title: 'Orbit is contested', body: 'Adversarial proximity operations are rising and most satellites cannot see or move. The window to solve both is open now.' },
+];
+---
+<BaseLayout
+  title="Player One Space — A Space Innovation Company"
+  description="Player One Space identifies high-impact problems in the space economy, builds IP-protected products, and launches them. First two products: Plasma propulsion and Sentinel onboard AI."
+  path="/"
+>
+  <Hero
+    variant="full"
+    eyebrow="Player One Space"
+    title="A Space<br>Innovation<br>Company"
+    sub="We identify high-impact problems in the space economy, build IP-protected products, and launch them."
+  />
+
+  <Section eyebrow="Two Verticals" title="Our first two products.<br>Built simultaneously.">
+    <div class="grid grid--2">
+      <ProductCard
+        index="01"
+        kicker="1st Vertical — Space Systems"
+        name="Plasma"
+        tagline="Propulsion Engine"
+        body="A water-plasma pulsed thruster. Non-toxic, launch-safe, and scalable from a 1U CubeSat to deep space — the only propulsion architecture refuelable anywhere there is water ice."
+        href="/products#plasma"
+      />
+      <ProductCard
+        index="02"
+        kicker="2nd Vertical — Edge AI & Defense"
+        name="Sentinel"
+        tagline="Autonomous Onboard AI"
+        body="Onboard AI threat detection for any satellite. Hardware-agnostic and updatable over the air — it sees a threat, classifies it, and alerts in seconds, with no ground loop required."
+        href="/products#sentinel"
+      />
+    </div>
+  </Section>
+
+  <Section eyebrow="Market" title="A massive market.<br>Two uncrowded niches." alt={true}>
+    <StatRow stats={tam} />
+  </Section>
+
+  <Section eyebrow="Why Now" title="The window is open in 2026.">
+    <div class="grid grid--3">
+      {whyNow.map((w) => <ModuleCard tag={w.tag} title={w.title} body={w.body} />)}
+    </div>
+  </Section>
+
+  <Section>
+    <div class="cta reveal">
+      <h2 class="display cta__title">Building what comes after launch.</h2>
+      <p class="lead">Detect. Classify. Evade — autonomously. The self-defending satellite.</p>
+      <a href="/contact" class="btn btn--primary">Get in Touch</a>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .cta { text-align: center; max-width: 60ch; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
+  .cta__title { font-size: clamp(1.8rem, 4vw, 3rem); }
+</style>
