@@ -5,6 +5,49 @@ import Section from '../components/Section.astro';
 import StatRow from '../components/StatRow.astro';
 import ProductCard from '../components/ProductCard.astro';
 import ModuleCard from '../components/ModuleCard.astro';
+import BlogCard from '../components/BlogCard.astro';
+
+const BLOG_URL = 'https://blog.playeronespace.com';
+
+// Pull the latest posts from the Substack RSS feed at build time.
+function decode(s = '') {
+  return s
+    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&#8217;|&#8216;/g, '’')
+    .replace(/&#8220;|&#8221;/g, '"')
+    .replace(/&#8212;/g, '—')
+    .replace(/&#8211;/g, '–')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'")
+    .trim();
+}
+
+async function getPosts() {
+  try {
+    const res = await fetch(`${BLOG_URL}/feed`);
+    if (!res.ok) return [];
+    const xml = await res.text();
+    const items = xml.split('<item>').slice(1).map((chunk) => {
+      const item = chunk.split('</item>')[0];
+      const pick = (tag: string) => decode((item.match(new RegExp(`<${tag}>([\\s\\S]*?)</${tag}>`)) || [])[1] || '');
+      const img = (item.match(/<enclosure[^>]*url="([^"]+)"/) || [])[1] || '';
+      const pub = pick('pubDate');
+      const date = pub
+        ? new Date(pub).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+        : '';
+      return { title: pick('title'), href: pick('link'), excerpt: pick('description'), image: img, date };
+    });
+    return items.slice(0, 3);
+  } catch {
+    return [];
+  }
+}
+
+const posts = await getPosts();
 
 const tam = [
   { value: '$600B+', label: 'Commercial space market by 2040' },
@@ -62,6 +105,20 @@ const whyNow = [
     </div>
   </Section>
 
+  <Section eyebrow="From the Blog" title="Notes from the edge of space." alt={true}>
+    {posts.length > 0 && (
+      <div class="grid grid--3 blog-grid">
+        {posts.map((p) => (
+          <BlogCard href={p.href} title={p.title} excerpt={p.excerpt} date={p.date} image={p.image} />
+        ))}
+      </div>
+    )}
+    <div class="blog-actions reveal">
+      <a href="https://blog.playeronespace.com/" target="_blank" rel="noopener" class="btn btn--ghost">Read the Blog</a>
+      <a href="https://blog.playeronespace.com/subscribe" target="_blank" rel="noopener" class="btn btn--primary">Subscribe</a>
+    </div>
+  </Section>
+
   <Section>
     <div class="cta reveal">
       <h2 class="display cta__title">Building what comes after launch.</h2>
@@ -74,4 +131,6 @@ const whyNow = [
 <style>
   .cta { text-align: center; max-width: 60ch; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
   .cta__title { font-size: clamp(1.8rem, 4vw, 3rem); }
+  .blog-grid { margin-bottom: 2.5rem; }
+  .blog-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
 </style>

@@ -1,0 +1,52 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  excerpt?: string;
+  date?: string;   // human-readable
+  image?: string;
+}
+const { href, title, excerpt, date, image } = Astro.props;
+---
+<a class="bcard reveal" href={href} target="_blank" rel="noopener">
+  {image && (
+    <div class="bcard__media">
+      <img src={image} alt="" loading="lazy" decoding="async" />
+    </div>
+  )}
+  <div class="bcard__body">
+    {date && <span class="bcard__date display">{date}</span>}
+    <h3 class="bcard__title">{title}</h3>
+    {excerpt && <p class="bcard__excerpt">{excerpt}</p>}
+    <span class="bcard__more display">Read post →</span>
+  </div>
+</a>
+
+<style>
+  .bcard {
+    display: flex; flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color 0.25s, transform 0.25s, background 0.25s;
+    height: 100%;
+    color: inherit;
+  }
+  .bcard:hover { border-color: var(--accent-line); background: var(--surface-hi); transform: translateY(-3px); }
+  .bcard__media { aspect-ratio: 16 / 9; overflow: hidden; background: var(--bg-alt); }
+  .bcard__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .bcard:hover .bcard__media img { transform: scale(1.03); }
+  .bcard__media img { transition: transform 0.4s var(--reveal-ease); }
+  .bcard__body { padding: 1.4rem 1.5rem 1.6rem; display: flex; flex-direction: column; flex: 1; }
+  .bcard__date {
+    font-size: var(--fs-label); letter-spacing: 0.12em; color: var(--accent);
+    text-transform: uppercase; margin-bottom: 0.7rem;
+  }
+  .bcard__title { font-size: 1.15rem; line-height: 1.3; margin-bottom: 0.6rem; }
+  .bcard__excerpt { font-size: var(--fs-sm); line-height: 1.6; color: var(--text-muted); margin-bottom: 1.2rem; }
+  .bcard__more {
+    margin-top: auto; font-size: var(--fs-label); letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent);
+  }
+</style>

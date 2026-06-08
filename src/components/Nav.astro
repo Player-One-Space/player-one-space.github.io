@@ -5,6 +5,7 @@ const links = [
   { href: '/about', label: 'About' },
   { href: '/technology', label: 'Technology' },
   { href: '/products', label: 'Products' },
+  { href: 'https://blog.playeronespace.com/', label: 'Blog', external: true },
   { href: '/contact', label: 'Contact' },
 ];
 const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
@@ -16,7 +17,11 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
     <ul class="nav__links">
       {links.map((l) => (
         <li>
-          <a href={l.href} class={`display ${isActive(l.href) ? 'is-active' : ''}`}>{l.label}</a>
+          <a
+            href={l.href}
+            class={`display ${!l.external && isActive(l.href) ? 'is-active' : ''}`}
+            {...(l.external ? { target: '_blank', rel: 'noopener' } : {})}
+          >{l.label}</a>
         </li>
       ))}
     </ul>
