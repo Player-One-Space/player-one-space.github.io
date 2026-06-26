@@ -31,7 +31,12 @@ const team = [
   },
 ];
 
-const experience = ['Amazon', 'Microsoft', 'Khrunichev', 'NASA', 'JPL', 'Caltech', 'Plan-S', 'Herschel / ESA', 'AAC Clyde Space', 'NovaNano', "Int'l Space University"];
+// Combined-experience logo strip. Drop official files at these paths to replace the placeholders.
+const logos = [
+  { name: 'Microsoft', src: '/images/logo-microsoft.svg' },
+  { name: 'Amazon', src: '/images/logo-amazon.svg' },
+  { name: 'NASA', src: '/images/logo-nasa.svg' },
+];
 ---
 <BaseLayout
   title="About — Player One Space"
@@ -61,8 +66,8 @@ const experience = ['Amazon', 'Microsoft', 'Khrunichev', 'NASA', 'JPL', 'Caltech
     </div>
     <div class="exp reveal">
       <span class="bracket-label">Combined Experience</span>
-      <div class="exp__chips">
-        {experience.map((e) => <span class="exp__chip display">{e}</span>)}
+      <div class="exp__logos">
+        {logos.map((l) => <img class="exp__logo" src={l.src} alt={l.name} height="30" loading="lazy" />)}
       </div>
     </div>
   </Section>
@@ -70,11 +75,15 @@ const experience = ['Amazon', 'Microsoft', 'Khrunichev', 'NASA', 'JPL', 'Caltech
 
 <style>
   .exp { margin-top: 3rem; }
-  .exp__chips { display: flex; flex-wrap: wrap; gap: 0.6rem; }
-  .exp__chip {
-    font-size: var(--fs-label); letter-spacing: 0.06em;
-    padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-    border-radius: var(--radius); color: var(--text-muted);
-    background: var(--surface);
+  .exp__logos {
+    display: flex; flex-wrap: wrap; align-items: center;
+    gap: 2.25rem 3rem; margin-top: 1.1rem;
   }
+  /* Force any source logo to white on the dark canvas; muted, brighten on hover. */
+  .exp__logo {
+    height: 30px; width: auto; max-width: 150px; object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.55; transition: opacity 0.25s ease;
+  }
+  .exp__logo:hover { opacity: 1; }
 </style>
