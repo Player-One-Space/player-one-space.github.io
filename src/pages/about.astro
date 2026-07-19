@@ -31,6 +31,15 @@ const team = [
   },
 ];
 
+const advisors = [
+  {
+    photo: '/images/cyrus.jpg',
+    name: 'Dr. Cyrus Neary',
+    role: 'Research Advisor',
+    bio: 'Assistant Professor at the University of British Columbia. His research develops theory and algorithms that enable scalable, generalizable, and compositional AI systems for autonomy, robotics, modelling, and control. Previously a postdoctoral researcher at Mila – the Québec AI Institute. PhD, UT Austin.',
+  },
+];
+
 // Combined-experience logo strip. Drop official files at these paths to replace the placeholders.
 const logos = [
   { name: 'Microsoft', src: '/images/logo-microsoft.svg' },
@@ -64,6 +73,12 @@ const logos = [
     <div class="grid grid--3">
       {team.map((m) => <TeamCard photo={m.photo} name={m.name} role={m.role} bio={m.bio} />)}
     </div>
+    <div class="advisors">
+      <span class="bracket-label reveal">Advisors</span>
+      <div class="grid grid--3" style="margin-top: 1.1rem;">
+        {advisors.map((m) => <TeamCard photo={m.photo} name={m.name} role={m.role} bio={m.bio} />)}
+      </div>
+    </div>
     <div class="exp reveal">
       <span class="bracket-label">Combined Experience</span>
       <div class="exp__logos">
@@ -74,6 +89,7 @@ const logos = [
 </BaseLayout>
 
 <style>
+  .advisors { margin-top: 3.5rem; }
   .exp { margin-top: 3rem; }
   .exp__logos {
     display: flex; flex-wrap: wrap; align-items: center;
