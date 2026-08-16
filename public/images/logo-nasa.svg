@@ -1,3 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 40" role="img" aria-label="NASA">
-  <text x="2" y="29" font-family="Helvetica, Arial, sans-serif" font-size="26" font-weight="700" letter-spacing="1" fill="#1a1a1a">NASA</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 40" role="img" aria-label="NASA">
+  <text x="70" y="30" text-anchor="middle"
+        font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-size="34" font-weight="700" letter-spacing="2.5"
+        fill="#1a1a1a">NASA</text>
 </svg>
