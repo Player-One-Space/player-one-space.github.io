@@ -4,10 +4,27 @@ interface Props {
   eyebrow?: string;
   title: string;
   sub?: string;
+  /** Optional looping background video (muted, autoplay). Poster shown while loading / reduced motion. */
+  video?: string;
+  poster?: string;
 }
-const { variant = 'compact', eyebrow, title, sub } = Astro.props;
+const { variant = 'compact', eyebrow, title, sub, video, poster } = Astro.props;
 ---
-<header class={`hero hero--${variant}`}>
+<header class={`hero hero--${variant} ${video ? 'hero--video' : ''}`}>
+  {video && (
+    <video
+      class="hero__video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      poster={poster}
+      aria-hidden="true"
+    >
+      <source src={video} type="video/mp4" />
+    </video>
+  )}
   <div class="hero__bg"></div>
   <div class="wrap hero__inner">
     {eyebrow && <span class="bracket-label">{eyebrow}</span>}
@@ -27,14 +44,36 @@ const { variant = 'compact', eyebrow, title, sub } = Astro.props;
   .hero--full { min-height: calc(100vh - var(--nav-h)); display: flex; align-items: center; }
   .hero--compact { padding: clamp(3.5rem, 9vw, 7rem) 0 clamp(2rem, 4vw, 3rem); border-bottom: 1px solid var(--border); }
 
-  .hero__bg {
+  .hero__video {
     position: absolute; inset: 0; z-index: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center 65%;
+    pointer-events: none;
+  }
+  .hero__bg {
+    position: absolute; inset: 0; z-index: 1;
     background:
       radial-gradient(900px 500px at 75% 15%, rgba(0,130,243,0.10), transparent 60%),
       radial-gradient(700px 600px at 10% 90%, rgba(0,130,243,0.06), transparent 55%);
     pointer-events: none;
   }
-  .hero__inner { position: relative; z-index: 1; }
+  /* Scrim over the video so text stays readable; heavier at the bottom where Earth is bright. */
+  .hero--video .hero__bg {
+    background:
+      linear-gradient(180deg, rgba(6,10,17,0.45) 0%, rgba(6,10,17,0.25) 45%, rgba(6,10,17,0.72) 100%),
+      radial-gradient(900px 500px at 75% 15%, rgba(0,130,243,0.10), transparent 60%);
+  }
+  /* Soft fade into the page background at the hero's lower edge. */
+  .hero--video::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 120px; z-index: 1;
+    background: linear-gradient(180deg, transparent, var(--bg, #060a11));
+    pointer-events: none;
+  }
+  .hero__inner { position: relative; z-index: 2; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__video { display: none; }
+  }
 
   .hero__title {
     font-size: var(--fs-hero);
