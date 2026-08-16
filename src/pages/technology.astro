@@ -12,13 +12,13 @@ const buddyModules = [
 
 const plasmaStages = [
   { tag: 'P1 — Electrolysis', title: 'Water to H₂/O₂', body: 'Water is split on-board into hydrogen and oxygen. No stored high-pressure gas, no toxic propellant.' },
-  { tag: 'P2 — Marx Generator', title: 'Plasma ionisation', body: 'A solid-state Marx generator ionises the gas into plasma thrust — bypassing the lossy power stages that cap legacy PPTs. Specific impulse of 2,000–10,000 s on a 65.4 W power budget, bound by conservation of energy.' },
-  { tag: 'P3 — 1U Form Factor', title: 'Fits any CubeSat', body: 'The whole system fits a 1U bay and scales by adding capacitor stages — same physics, any power level, from CubeSat to deep space.' },
+  { tag: 'P2 — Micro-Arcjet', title: 'Pulsed arc heating', body: 'A solid-state Marx generator drives a pulsed micro-arc that heats the gas; a converging–diverging nozzle turns that heat into thrust. Target: 5–15 mN at 250–350 s specific impulse — roughly ten times the thrust of electric thrusters that fit the same volume.' },
+  { tag: 'P3 — 1U Form Factor', title: 'Fits any CubeSat', body: 'The whole tank-to-thrust subsystem fits a 1U bay. Larger platforms are served by scaling the propellant load — the physics is unchanged, the tank grows.' },
 ];
 ---
 <BaseLayout
   title="Technology — Player One Space"
-  description="The integrated stack: Buddy, the onboard AI engine, and Plasma water-plasma propulsion. Detect, classify, evade — autonomously."
+  description="The integrated stack: Buddy, the onboard AI engine, and Plasma water-electrolysis propulsion. Detect, classify, respond — autonomously."
   path="/technology"
 >
   <Hero
@@ -34,7 +34,7 @@ const plasmaStages = [
     </div>
   </Section>
 
-  <Section eyebrow="Plasma" title="Water-plasma propulsion.<br>Safe to launch." alt={true}>
+  <Section eyebrow="Plasma" title="Water propulsion.<br>Safe to launch." alt={true}>
     <p class="lead reveal" style="margin-bottom: 2.5rem;">Water is the only propellant that is non-hazardous on launch and exists naturally across the solar system. It ships as standard cargo and refuels anywhere there is ice.</p>
     <div class="grid grid--3" style="margin-bottom: 3rem;">
       {plasmaStages.map((m) => <ModuleCard tag={m.tag} title={m.title} body={m.body} />)}

@@ -7,7 +7,7 @@ import StatRow from '../components/StatRow.astro';
 
 const plasmaCaps = [
   { title: 'Non-toxic & launch-safe', body: 'Water propellant ships as standard cargo. No HAZMAT, no high-pressure vessel, no special handling — compatible even near crewed vehicles.' },
-  { title: 'Scalable architecture', body: 'The same design scales from a 1U CubeSat to a 300 kg smallsat by adding capacitor stages. One physics, any power level.' },
+  { title: 'Sized for small spacecraft', body: 'Built for the platforms where thrust-to-mass matters most. Larger spacecraft are served by scaling the propellant load — the physics is unchanged, the tank grows.' },
   { title: 'Refuelable anywhere', body: 'Water ice exists on the Moon, Mars, and asteroids. The only propulsion whose supply chain extends across the solar system.' },
 ];
 const plasmaTam = [
@@ -27,7 +27,7 @@ const buddyTam = [
 ---
 <BaseLayout
   title="Products — Player One Space"
-  description="Plasma: water-plasma propulsion. Buddy: the onboard, unified AI engine. Two IP-protected products from Player One Space."
+  description="Plasma: water-electrolysis propulsion. Buddy: the onboard, unified AI engine. Two IP-protected products from Player One Space."
   path="/products"
 >
   <Hero
@@ -37,7 +37,7 @@ const buddyTam = [
   />
 
   <Section eyebrow="1st Vertical — Space Systems" title="Plasma" id="plasma">
-    <p class="lead reveal" style="margin-bottom: 2.5rem;">A water-plasma pulsed thruster. The legs that let any satellite manoeuvre — station-keeping, collision avoidance, orbit changes, and controlled deorbit — using a propellant that is safe to launch and available across the solar system.</p>
+    <p class="lead reveal" style="margin-bottom: 2.5rem;">A water-electrolysis pulsed micro-arcjet. The legs that let any satellite manoeuvre — station-keeping, collision avoidance, orbit changes, and controlled deorbit — using a propellant that is safe to launch and available across the solar system.</p>
     <div class="grid grid--3" style="margin-bottom: 3rem;">
       {plasmaCaps.map((c) => <ModuleCard title={c.title} body={c.body} />)}
     </div>
