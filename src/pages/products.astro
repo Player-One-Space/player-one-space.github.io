@@ -18,7 +18,7 @@ const plasmaTam = [
 const buddyCaps = [
   { title: 'Hardware-agnostic', body: 'Runs on any satellite with a COTS camera and an edge compute board. No custom hardware, no vendor lock-in.' },
   { title: 'Updatable over the air', body: 'New models deploy to orbit like software. The capability improves long after the satellite has launched.' },
-  { title: 'Edge visual AI platform', body: 'The same onboard architecture can host any computer vision model — a platform, not a single-purpose sensor.' },
+  { title: 'Propulsion-agnostic', body: 'Commands our own micro-arcjet or a third-party thruster through the same safety-bounded interface — the AI requests a maneuver; a validated controller executes it.' },
 ];
 const buddyTam = [
   { value: '$2.3B+', label: 'Space domain awareness market by 2030' },
@@ -27,29 +27,29 @@ const buddyTam = [
 ---
 <BaseLayout
   title="Products — Player One Space"
-  description="Plasma: water-electrolysis propulsion. Buddy: the onboard, unified AI engine. Two IP-protected products from Player One Space."
+  description="Buddy: the onboard AI engine that commands any propulsion. Plasma: water-electrolysis propulsion built for it. Two IP-protected products from Player One Space."
   path="/products"
 >
   <Hero
     eyebrow="Products"
     title="Two products.<br>One integrated stack."
-    sub="Each is independently valuable. Together, they build the first fully autonomous self-defending satellite."
+    sub="The AI engine leads; the thruster is built for it — and the same AI commands third-party propulsion too. Together, the first fully autonomous self-defending satellite."
   />
 
-  <Section eyebrow="1st Vertical — Space Systems" title="Plasma" id="plasma">
-    <p class="lead reveal" style="margin-bottom: 2.5rem;">A water-electrolysis pulsed micro-arcjet. The legs that let any satellite manoeuvre — station-keeping, collision avoidance, orbit changes, and controlled deorbit — using a propellant that is safe to launch and available across the solar system.</p>
-    <div class="grid grid--3" style="margin-bottom: 3rem;">
-      {plasmaCaps.map((c) => <ModuleCard title={c.title} body={c.body} />)}
-    </div>
-    <StatRow stats={plasmaTam} />
-  </Section>
-
-  <Section eyebrow="2nd Vertical — Edge AI & Defense" title="Buddy" id="buddy" alt={true}>
-    <p class="lead reveal" style="margin-bottom: 2.5rem;">The onboard, unified AI engine that makes autonomous decisions and delivers real-time intelligence from orbit. The brain that sees an approaching object, classifies whether it is debris or a threat, and raises the alarm in seconds — without ever calling home.</p>
+  <Section eyebrow="Flagship — Onboard Autonomy" title="Buddy" id="buddy">
+    <p class="lead reveal" style="margin-bottom: 2.5rem;">The onboard, unified AI engine that makes autonomous decisions and delivers real-time intelligence from orbit. The brain that sees an approaching object, classifies whether it is debris or a threat, and raises the alarm — without ever calling home. And it does not stop at seeing: Buddy commands propulsion through a safety-bounded interface, so the satellite can act on what it detects.</p>
     <div class="grid grid--3" style="margin-bottom: 3rem;">
       {buddyCaps.map((c) => <ModuleCard title={c.title} body={c.body} />)}
     </div>
     <StatRow stats={buddyTam} />
+  </Section>
+
+  <Section eyebrow="Propulsion — Built for Buddy" title="Plasma" id="plasma" alt={true}>
+    <p class="lead reveal" style="margin-bottom: 2.5rem;">A water-electrolysis pulsed micro-arcjet — the first propulsion system designed for Buddy's command interface. The legs that let a small satellite manoeuvre: station-keeping, collision avoidance, orbit changes, and controlled deorbit, on a propellant that is safe to launch.</p>
+    <div class="grid grid--3" style="margin-bottom: 3rem;">
+      {plasmaCaps.map((c) => <ModuleCard title={c.title} body={c.body} />)}
+    </div>
+    <StatRow stats={plasmaTam} />
   </Section>
 
   <Section>
