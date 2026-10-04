@@ -7,7 +7,7 @@ import TeamCard from '../components/TeamCard.astro';
 
 const problems = [
   { tag: 'Blind', title: 'Satellites cannot see threats', body: 'Ground-based space domain awareness takes 30 minutes to 6+ hours to flag a close approach — long after an adversarial satellite is already alongside. No satellite carries onboard intelligence to detect and alert on its own.' },
-  { tag: 'Immobile', title: 'Satellites cannot afford to move', body: '60% of CubeSats launch with zero propulsion, priced out of toxic, expensive options. A satellite that cannot manoeuvre is a sitting target — for proximity operations, debris, and deorbit mandates it cannot meet.' },
+  { tag: 'Immobile', title: 'Satellites cannot afford to move', body: 'More than 80% of CubeSats launch with zero propulsion, priced out of toxic, expensive options. A satellite that cannot manoeuvre is a sitting target — for proximity operations, debris, and deorbit mandates it cannot meet.' },
 ];
 
 const team = [
@@ -15,13 +15,13 @@ const team = [
     photo: '/images/dima.jpg',
     name: 'Dima Anoshin',
     role: 'CEO & Founder',
-    bio: 'Spacecraft hardware at Khrunichev (Proton/Angara) and LEO satellites at Amazon. 15+ years building data and AI platforms. PhD, Mechanical Engineering.',
+    bio: 'Spacecraft hardware at Khrunichev (Proton/Angara). Built large-scale data platforms at Amazon Devices, the same organization that builds Project Kuiper. 15+ years building data and AI platforms. PhD, Mechanical Engineering.',
   },
   {
     photo: '/images/jay.jpg',
     name: 'Jay Bowman',
     role: 'CTO',
-    bio: 'Inventor of the water-electrolysis micro-arcjet thruster. 12 international patents across advanced hardware and power electronics. Owns the technical architecture across both products and leads the propulsion track.',
+    bio: 'Inventor of the water-electrolysis micro-arcjet thruster. Holds 12 patents from earlier work in advanced hardware and power electronics. Owns the technical architecture across both products and leads the propulsion track.',
   },
   {
     photo: '/images/umut-k.jpg',
@@ -31,7 +31,7 @@ const team = [
   },
   {
     photo: '/images/vladimir.jpg',
-    name: 'Vladimir Valv',
+    name: 'Vladimir Valeyev',
     role: 'Lead AI Engineer',
     bio: 'Computer vision and autonomous systems — satellite and SAR imagery, pose estimation, and reinforcement learning for collision avoidance. Builds models that run on constrained edge hardware. Works with our CEO on the onboard perception stack: model training, quantization and edge deployment.',
   },
@@ -89,31 +89,31 @@ const logos = [
 ---
 <BaseLayout
   title="About — Player One Space"
-  description="Player One Space is a space innovation company building the brain that goes on any satellite — onboard AI and propulsion. Canadian-built, dual-use, IP-protected. Led by veterans of Amazon, NASA/JPL, Khrunichev, and Plan-S."
+  description="Player One Space builds autonomous defence for satellites: the brain that goes on any satellite, and the propulsion that moves it. Canadian-built, dual-use. Led by veterans of Amazon, NASA/JPL, Khrunichev, and Plan-S."
   path="/about"
 >
   <Hero
     eyebrow="About"
     title="The team that has built<br>every layer of the stack."
-    sub="Player One Space is a space innovation company. We build the brain that goes on any satellite — and the propulsion that moves it. Two IP-protected products, and a portfolio that grows with each launch."
+    sub="Player One Space builds autonomous defence for satellites. We build the brain that goes on any satellite — and the propulsion that moves it. Detect, decide, manoeuvre."
   />
 
   <Section eyebrow="The Problem" title="Satellites are blind and immobile.">
-    <p class="lead reveal" style="margin-bottom: 2.5rem;">That is the defining vulnerability of the space age. Fix both and you have the first satellite that can detect a threat, classify it, and manoeuvre to safety — autonomously.</p>
+    <p class="lead reveal" style="margin-bottom: 2.5rem;">That is the defining vulnerability of the space age. Fix both and you have a satellite that can detect a threat, classify it, and manoeuvre to safety — autonomously.</p>
     <div class="grid grid--2">
       {problems.map((p) => <ModuleCard tag={p.tag} title={p.title} body={p.body} />)}
     </div>
   </Section>
 
-  <Section eyebrow="Approach" title="One company. Two products.<br>A growing portfolio." alt={true}>
-    <p class="lead reveal">We do not bet on a single product. We identify unsolved problems in space, build proprietary solutions, and own the IP. Plasma and Buddy are the first two — each fundable on its own, and together the foundation of a self-defending satellite no competitor can match today.</p>
+  <Section eyebrow="Approach" title="One company.<br>One system." alt={true}>
+    <p class="lead reveal">Detect, decide, manoeuvre. P1S Buddy is the brain. P1S Plasma is the muscle. Each part also stands on its own, and Buddy works with third-party thrusters. Together they close the loop on one satellite. Our core models and decision thresholds are protected as trade secrets.</p>
   </Section>
 
   <Section eyebrow="Canada" title="A sovereign capability,<br>built in Canada.">
     <p class="lead reveal">Canada has named space domain awareness a priority for strategic autonomy. Its satellites watch the Arctic and the North Atlantic first. We are a Vancouver company — the principal AI work is done here, by the founding team, and the IP stays in Canada. Allied program offices get the capability from a supplier inside their own borders.</p>
   </Section>
 
-  <Section eyebrow="Leadership" title="Built by operators.">
+  <Section eyebrow="Leadership" title="Built by engineers<br>who have shipped.">
     <div class="grid grid--3">
       {team.map((m) => <TeamCard photo={m.photo} name={m.name} role={m.role} bio={m.bio} />)}
     </div>
