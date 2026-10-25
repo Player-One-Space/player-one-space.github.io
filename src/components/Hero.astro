@@ -57,6 +57,15 @@ const { variant = 'compact', eyebrow, title, sub, video, poster } = Astro.props;
       radial-gradient(700px 600px at 10% 90%, rgba(0,130,243,0.06), transparent 55%);
     pointer-events: none;
   }
+  /* Faint grid, fading out from the centre. Only on heroes without video. */
+  .hero:not(.hero--video) .hero__bg {
+    background:
+      radial-gradient(900px 500px at 75% 15%, rgba(0,130,243,0.10), transparent 60%),
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px) 0 0 / 64px 64px,
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px) 0 0 / 64px 64px;
+    -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 25%, transparent 75%);
+            mask-image: radial-gradient(ellipse at 50% 40%, #000 25%, transparent 75%);
+  }
   /* Scrim over the video so text stays readable; heavier at the bottom where Earth is bright. */
   .hero--video .hero__bg {
     background:
@@ -71,8 +80,20 @@ const { variant = 'compact', eyebrow, title, sub, video, poster } = Astro.props;
   }
   .hero__inner { position: relative; z-index: 2; }
 
+  /* One staggered load: eyebrow, title, sub, buttons rise in turn.
+     "backwards" fill so the buttons' hover transform still works after the load. */
+  .hero__inner > * { animation: hero-rise 0.9s var(--reveal-ease) backwards; }
+  .hero__inner > :nth-child(2) { animation-delay: 0.12s; }
+  .hero__inner > :nth-child(3) { animation-delay: 0.24s; }
+  .hero__inner > :nth-child(4) { animation-delay: 0.36s; }
+  @keyframes hero-rise {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: none; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .hero__video { display: none; }
+    .hero__inner > * { animation: none; }
   }
 
   .hero__title {
