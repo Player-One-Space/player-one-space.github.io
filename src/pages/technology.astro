@@ -11,14 +11,14 @@ const buddyModules = [
 ];
 
 const plasmaStages = [
-  { tag: 'P1 — Electrolysis', title: 'Water to H₂/O₂', body: 'Water is split on-board into hydrogen and oxygen. No stored high-pressure gas, no toxic propellant.' },
-  { tag: 'P2 — Micro-Arcjet', title: 'Pulsed arc heating', body: 'A solid-state Marx generator drives a pulsed micro-arc that heats the gas; a converging–diverging nozzle turns that heat into thrust. Target: 5–15 mN at 250–350 s specific impulse — roughly ten times the thrust of electric thrusters that fit the same volume.' },
-  { tag: 'P3 — 1U Form Factor', title: 'Fits any CubeSat', body: 'The whole tank-to-thrust subsystem fits a 1U bay. Larger platforms are served by scaling the propellant load — the physics is unchanged, the tank grows.' },
+  { tag: 'P1 — Electrolysis', title: 'Water to H₂/O₂', body: 'The thruster launches with 250 mL of plain water, unpressurized. On board, it splits the water into hydrogen and oxygen. No toxic propellant.' },
+  { tag: 'P2 — Hybrid Thrust', title: 'Cold gas plus pulsed combustion', body: 'Four modes. H₂, O₂ and mixed cold gas handle fine control and routine work. A pulsed combustion mode gives short, strong pulses when the satellite must move. Moderate thrust: ~8–40 mN cold gas · 1–5 N pulsed.' },
+  { tag: 'P3 — 1U–2U Form Factor', title: 'Sized for small satellites', body: 'The whole tank-to-thrust unit fits a 1U–2U bay, with a structure under 1.5 kg. There is no upper satellite mass limit — a larger satellite just takes longer per manoeuvre.' },
 ];
 ---
 <BaseLayout
   title="Technology — Player One Space"
-  description="The integrated stack: Buddy, the onboard AI engine, and Plasma water-electrolysis propulsion. Detect, classify, respond — autonomously."
+  description="The integrated stack: P1S Buddy, the onboard AI engine, and P1S PELTAST-X, a water-fuelled hybrid thruster. Detect, classify, respond — autonomously."
   path="/technology"
 >
   <Hero
@@ -34,7 +34,7 @@ const plasmaStages = [
     </div>
   </Section>
 
-  <Section eyebrow="Plasma" title="Water propulsion.<br>Safe to launch." alt={true}>
+  <Section eyebrow="PELTAST-X" title="Water propulsion.<br>Safe to launch." alt={true}>
     <p class="lead reveal" style="margin-bottom: 2.5rem;">Water is the only propellant that is non-hazardous on launch and exists naturally across the solar system. It ships as standard cargo and refuels anywhere there is ice.</p>
     <div class="grid grid--3" style="margin-bottom: 3rem;">
       {plasmaStages.map((m) => <ModuleCard tag={m.tag} title={m.title} body={m.body} />)}
@@ -50,6 +50,22 @@ const plasmaStages = [
         </tbody>
       </table>
     </div>
+    <div class="reveal" style="overflow-x:auto; margin-top: 3rem;">
+      <table class="dtable">
+        <thead><tr><th>P1S PELTAST-X at a glance</th><th>Design target</th></tr></thead>
+        <tbody>
+          <tr><td>Propellant</td><td>250 mL of plain water, unpressurized at launch</td></tr>
+          <tr><td>Modes</td><td>H₂ cold gas · O₂ cold gas · mixed cold gas · pulsed combustion</td></tr>
+          <tr><td>Thrust</td><td>~8–40 mN cold gas · 1–5 N pulsed</td></tr>
+          <tr><td>Size</td><td>1U–2U</td></tr>
+          <tr><td>Structure mass</td><td>&lt; 1.5 kg</td></tr>
+          <tr><td>Power</td><td>20 W</td></tr>
+          <tr><td>Gas store refill</td><td>~4.5 minutes</td></tr>
+          <tr><td>Valve response</td><td>2–5 ms</td></tr>
+          <tr class="row-hi"><td>Readiness</td><td>TRL 3 today. Integrated vacuum firing is the next gate. TRL 4 by mid-2027.</td></tr>
+        </tbody>
+      </table>
+    </div>
   </Section>
 
   <Section eyebrow="The Combined System" title="The self-defending satellite.">
@@ -60,9 +76,9 @@ const plasmaStages = [
       <span class="flow__arrow">→</span>
       <span class="flow__step display">sends the alert</span>
       <span class="flow__arrow">→</span>
-      <span class="flow__step flow__step--hi display">Plasma fires, satellite evades</span>
+      <span class="flow__step flow__step--hi display">PELTAST-X fires, satellite evades</span>
     </div>
-    <p class="lead reveal" style="margin-top: 2rem;">No ground loop. No human in the chain. And the AI never touches the plasma directly — it requests a maneuver, and a validated propulsion controller executes it inside a safety envelope. That interface is propulsion-agnostic: it commands our own thruster or a third-party thruster a satellite already carries.</p>
+    <p class="lead reveal" style="margin-top: 2rem;">No ground loop. No human in the chain. And the AI never touches the thruster directly — it requests a maneuver, and a validated propulsion controller executes it inside a safety envelope. That interface is propulsion-agnostic: it commands our own thruster or a third-party thruster a satellite already carries.</p>
   </Section>
 </BaseLayout>
 
