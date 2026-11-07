@@ -12,7 +12,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 ---
 <nav class="nav">
   <div class="nav__inner wrap">
-    <a href="/" class="nav__logo display">PLAYER ONE SPACE</a>
+    <a href="/" class="nav__logo" aria-label="Player One Space home"><img src="/images/p1s-logo.svg" alt="Player One Space" width="221" height="24" /></a>
     <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
     <ul class="nav__links">
       {links.map((l) => (
@@ -39,11 +39,10 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
     z-index: 1000;
   }
   .nav__inner { height: 100%; display: flex; align-items: center; justify-content: space-between; }
-  .nav__logo {
-    font-size: 0.95rem; letter-spacing: 0.14em; color: var(--text);
-    font-weight: 700;
-  }
-  .nav__logo:hover { color: var(--accent); }
+  .nav__logo { display: flex; align-items: center; }
+  .nav__logo img { height: 24px; width: auto; display: block; }
+  .nav__logo:hover img { opacity: 0.85; }
+  @media (max-width: 380px) { .nav__logo img { height: 18px; } }
   .nav__links { display: flex; gap: 2rem; list-style: none; align-items: center; }
   .nav__links a {
     font-size: 0.82rem; letter-spacing: 0.08em; color: var(--text-muted);

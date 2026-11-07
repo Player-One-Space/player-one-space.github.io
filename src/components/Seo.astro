@@ -9,7 +9,7 @@ const {
   title,
   description,
   path = '',
-  image = '/images/earth.jpg',
+  image = '/images/og-image.png',
 } = Astro.props;
 
 const site = Astro.site ?? new URL('https://playeronespace.com');
@@ -26,6 +26,8 @@ const ogImage = new URL(image, site).href;
 <meta property="og:url" content={canonical} />
 <meta property="og:type" content="website" />
 <meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 <meta property="og:site_name" content="Player One Space" />
 
 <!-- Twitter -->

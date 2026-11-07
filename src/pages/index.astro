@@ -49,34 +49,59 @@ async function getPosts() {
 
 const posts = await getPosts();
 
+const problem = [
+  { tag: '01 — Crowded', title: '16,900 more small satellites by 2035', body: 'Most of them have no way to move. Orbit gets busier every launch.' },
+  { tag: '02 — Slow', title: 'The ground reacts in hours', body: 'Warnings go to people on the ground, who reach the satellite a few times a day. A close approach takes seconds.' },
+  { tag: '03 — Exposed', title: 'Everyone else waits', body: 'Starlink dodges on its own, 300,000 times last year. Defence satellites are now targets. Most other satellites wait for the ground.' },
+];
+
 const tam = [
-  { value: '$600B+', label: 'Commercial space market by 2040' },
-  { value: '$30B+', label: 'US defense space budget, per year' },
-  { value: '$850M+', label: 'Satellite electric propulsion by 2032' },
-  { value: '$2.3B+', label: 'Space domain awareness by 2030' },
+  { value: '$40B', label: 'US Space Force budget for 2026. Golden Dome names self-defending satellites as a goal.' },
+  { value: '$2.8B', label: 'Space situational awareness market by 2030, up from $1.7B in 2025' },
+  { value: '16,900', label: 'Small satellites launching 2026–2035' },
+  { value: '~7,400', label: 'Of them fit the brain plus thruster' },
 ];
 
 const whyNow = [
-  { tag: 'Force 01', title: 'Edge AI is flight-ready', body: 'Radiation-tolerant edge compute now runs live AI on orbit. The hardware risk is retired — autonomy is a software problem now.' },
-  { tag: 'Force 02', title: 'Propulsion is breaking', body: 'Xenon demand outpaces supply and hydrazine is being phased out. Operators need a safe, scalable alternative. Water is it.' },
-  { tag: 'Force 03', title: 'Orbit is contested', body: 'Adversarial proximity operations are rising and most satellites cannot see or move. The window to solve both is open now.' },
+  { tag: 'Threats are real', title: 'Orbit is contested', body: 'Adversary satellites already park next to Western satellites without warning.' },
+  { tag: 'The chips are ready', title: 'AI fits on a small satellite', body: 'Edge compute now runs live AI inside a small satellite, at low power.' },
+  { tag: 'Buyers pay today', title: 'Defence money is moving', body: 'Lonestar paid up to $6M for satellite defence. France bought a defence satellite from a start-up.' },
+  { tag: 'New rules', title: 'Five years to come down', body: 'Every satellite must leave orbit within 5 years of end of life. That takes a way to move.' },
+];
+
+const useDefence = [
+  { tag: 'National security', title: 'Move away from threats', body: 'National security satellites spot a hostile approach and move away on their own.' },
+  { tag: 'Tactical operations', title: 'Act when the link is jammed', body: 'The satellite keeps manoeuvring when the link to the ground is jammed or down.' },
+  { tag: 'Defence command', title: 'Fast onboard alerts', body: 'Threat detection runs onboard. A small alert reaches the ground in seconds, not a video download.' },
+];
+const useCommercial = [
+  { tag: 'Large constellations', title: 'Automatic collision avoidance', body: 'Avoid collisions and hold the orbit slot with no person in the loop.' },
+  { tag: 'High-orbit operators', title: 'Protect expensive satellites', body: 'Watch for close approaches and react before they become a problem.' },
+  { tag: 'Insurers', title: 'Lower risk, clean exit', body: 'A satellite that can move is a lower risk, and it can deorbit within the 5-year rule.' },
 ];
 ---
 <BaseLayout
   title="Player One Space — Autonomous Defence For Satellites"
-  description="Player One Space builds the brain that goes on any satellite — onboard AI that spots a non-cooperative approach, and propulsion that manoeuvres away. Decided in orbit, in seconds. One system: P1S Buddy and P1S PELTAST-X."
+  description="Player One Space builds autonomous defence for satellites. Onboard AI that detects, decides and manoeuvres, with no person in the loop. P1S Buddy is the brain. P1S PELTAST-X is the legs."
   path="/"
 >
   <Hero
     variant="full"
     eyebrow="Onboard AI + Propulsion"
     title="Autonomous<br>Defence For<br>Satellites"
-    sub="We build the brain that goes on any satellite — onboard AI that spots a non-cooperative approach, and propulsion that manoeuvres away. Decided in orbit, in seconds."
+    sub="Onboard AI that detects, decides and manoeuvres. No person in the loop. P1S Buddy is the brain. P1S PELTAST-X is the legs."
     video="/videos/earth-hero.mp4"
     poster="/images/earth-hero-poster.jpg"
   />
 
-  <Section eyebrow="Two Products" title="The brain leads.<br>The legs follow.">
+  <Section eyebrow="The Problem" title="Space is getting crowded.<br>Satellites cannot protect themselves.">
+    <div class="grid grid--3">
+      {problem.map((w) => <ModuleCard tag={w.tag} title={w.title} body={w.body} />)}
+    </div>
+  </Section>
+
+  <Section eyebrow="One Kit. Two Products." title="The brain decides.<br>The legs move." alt={true}>
+    <p class="lead reveal" style="margin-bottom: 2.5rem;">Reaction drops from hours to seconds. It works even when the link to the ground is jammed.</p>
     <div class="grid grid--2">
       <ProductCard
         index="01"
@@ -99,13 +124,25 @@ const whyNow = [
     </div>
   </Section>
 
-  <Section eyebrow="Market" title="A massive market.<br>Two uncrowded niches." alt={true}>
-    <StatRow stats={tam} />
+  <Section eyebrow="Use Cases" title="One kit for defence<br>and commercial.">
+    <h3 class="uc__head display reveal">Defence &amp; government</h3>
+    <div class="grid grid--3" style="margin-bottom: 2.5rem;">
+      {useDefence.map((u) => <ModuleCard tag={u.tag} title={u.title} body={u.body} />)}
+    </div>
+    <h3 class="uc__head display reveal">Commercial</h3>
+    <div class="grid grid--3">
+      {useCommercial.map((u) => <ModuleCard tag={u.tag} title={u.title} body={u.body} />)}
+    </div>
   </Section>
 
-  <Section eyebrow="Why Now" title="The window is open in 2026.">
+  <Section eyebrow="Market" title="Dual use.<br>A large, open market." alt={true}>
+    <StatRow stats={tam} />
+    <p class="src reveal">Sources: US Space Force FY2026 request · SSA market research 2025–2030 · Novaspace 2026. The ~7,400 share is our estimate.</p>
+  </Section>
+
+  <Section eyebrow="Why Now" title="The window is open now.">
     <p class="lead reveal" style="margin-bottom: 2.5rem;">Within three years, the number of satellites in orbit will more than double. Space is becoming contested, and no ground team can watch that many satellites or react in time. Satellites will need to defend themselves.</p>
-    <div class="grid grid--3">
+    <div class="grid grid--4">
       {whyNow.map((w) => <ModuleCard tag={w.tag} title={w.title} body={w.body} />)}
     </div>
   </Section>
@@ -127,7 +164,7 @@ const whyNow = [
   <Section>
     <div class="cta reveal">
       <h2 class="display cta__title">Building what comes after launch.</h2>
-      <p class="lead">Detect. Classify. Evade — autonomously. The self-defending satellite.</p>
+      <p class="lead">Detect. Decide. Manoeuvre. The self-defending satellite.</p>
       <a href="/contact" class="btn btn--primary">Get in Touch</a>
     </div>
   </Section>
@@ -136,6 +173,8 @@ const whyNow = [
 <style>
   .cta { text-align: center; max-width: 60ch; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
   .cta__title { font-size: clamp(1.8rem, 4vw, 3rem); }
+  .uc__head { font-size: var(--fs-label); letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1.1rem; }
+  .src { margin-top: 2rem; font-size: var(--fs-label); color: var(--text-dim); }
   .blog-grid { margin-bottom: 2.5rem; }
   .blog-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
 </style>
