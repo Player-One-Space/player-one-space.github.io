@@ -6,7 +6,7 @@ import ModuleCard from '../components/ModuleCard.astro';
 import TeamCard from '../components/TeamCard.astro';
 
 const problems = [
-  { tag: 'Blind', title: 'Satellites cannot see threats', body: 'Ground-based space domain awareness takes 30 minutes to 6+ hours to flag a close approach — long after an adversarial satellite is already alongside. No satellite carries onboard intelligence to detect and alert on its own.' },
+  { tag: 'Blind', title: 'Satellites cannot see threats', body: 'Warnings go to people on the ground, who reach the satellite a few times a day. A close approach takes seconds. Most satellites carry no onboard intelligence to detect a threat and act on their own.' },
   { tag: 'Immobile', title: 'Satellites cannot afford to move', body: 'More than 80% of CubeSats launch with zero propulsion, priced out of toxic, expensive options. A satellite that cannot manoeuvre is a sitting target — for proximity operations, debris, and deorbit mandates it cannot meet.' },
 ];
 
@@ -46,12 +46,6 @@ const team = [
     name: 'Anton',
     role: 'Head of Synthetic Environments',
     bio: 'Environments supervisor at Industrial Light & Magic; previously Digital Domain and DNEG. Architects Hollywood-grade Unreal Engine worlds and synthetic data generation pipelines for machine-vision training, grounded in aerospace systems engineering.',
-  },
-  {
-    photo: '/images/ksenia.jpg',
-    name: 'Ksenia',
-    role: 'AI/ML Engineer',
-    bio: 'Python and C/C++, computer vision and reinforcement learning. Works in Blender and Unreal Engine, and comes from a data analytics background. Supports the AI team on data pipelines, training runs and model evaluation.',
   },
   {
     photo: '/images/elisabeth.jpg',
@@ -107,7 +101,7 @@ const logos = [
 ---
 <BaseLayout
   title="About — Player One Space"
-  description="Player One Space builds autonomous defence for satellites: the brain that goes on any satellite, and the propulsion that moves it. Canadian-built, dual-use. Led by veterans of Amazon, NASA/JPL, and Plan-S."
+  description="Player One Space builds autonomous defence for satellites: the brain that goes on any satellite, and the propulsion that moves it. Canadian-built, dual-use. A team from Amazon, Microsoft, ILM and Plan-S, with advisors from NASA/JPL, UBC and RMC."
   path="/about"
 >
   <Hero

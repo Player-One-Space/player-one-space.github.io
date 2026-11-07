@@ -5,48 +5,48 @@ import Section from '../components/Section.astro';
 import ModuleCard from '../components/ModuleCard.astro';
 
 const buddyModules = [
-  { tag: 'M01 — Safe Maneuver Engine', title: 'Autonomous collision avoidance', body: 'Consumes a conjunction warning and plans, checks, and executes the avoidance maneuver onboard — no human in the loop. Every command passes a mathematical safety shield before it reaches the thruster.' },
-  { tag: 'M02 — VisNav', title: 'Perception of known objects', body: 'A COTS camera and edge visual AI track a nearby satellite of known geometry — range, 3D pose, and velocity vector, under 5 watts. Proximity awareness, inspection, and behaviour characterization.' },
-  { tag: 'M03 — Pattern-of-Life + Alert', title: 'Anomaly detection and alerting', body: 'An orbital-mechanics filter flags an object that is actively manoeuvring to match your orbit, and raises a kilobyte-scale alert — class, range, vector, confidence. No gigabytes of video.' },
+  { tag: 'M01 — Safe Manoeuvre Engine', title: 'Autonomous collision avoidance', body: 'Takes a conjunction warning, then plans, checks and runs the avoidance manoeuvre onboard. No person in the loop. Every command passes a mathematical safety shield before it reaches the thruster.' },
+  { tag: 'M02 — VisNav', title: 'Perception of known objects', body: 'Standard cameras and edge AI track a nearby satellite of known shape: range, 3D pose and velocity. The AI model is designed to run under 5 W. Proximity awareness, inspection, and behaviour characterization.' },
+  { tag: 'M03 — Pattern-of-Life + Alert', title: 'Anomaly detection and alerting', body: 'An orbital-mechanics filter flags an object that is actively manoeuvring to match your orbit, and raises a small alert: class, range, vector, confidence. Kilobytes, not gigabytes of video.' },
 ];
 
 const plasmaStages = [
   { tag: 'P1 — Electrolysis', title: 'Water to H₂/O₂', body: 'The thruster launches with 250 mL of plain water, unpressurized. On board, it splits the water into hydrogen and oxygen. No toxic propellant.' },
   { tag: 'P2 — Hybrid Thrust', title: 'Cold gas plus pulsed combustion', body: 'Four modes. H₂, O₂ and mixed cold gas handle fine control and routine work. A pulsed combustion mode gives short, strong pulses when the satellite must move. Moderate thrust: ~8–40 mN cold gas · 1–5 N pulsed.' },
-  { tag: 'P3 — 1U–2U Form Factor', title: 'Sized for small satellites', body: 'The whole tank-to-thrust unit fits a 1U–2U bay, with a structure under 1.5 kg. There is no upper satellite mass limit — a larger satellite just takes longer per manoeuvre.' },
+  { tag: 'P3 — 1U–2U Form Factor', title: 'Sized for small satellites', body: 'The whole tank-to-thrust unit fits a 1U–2U bay, with a structure under 1.5 kg. It works with satellites of any mass.' },
 ];
 ---
 <BaseLayout
   title="Technology — Player One Space"
-  description="The integrated stack: P1S Buddy, the onboard AI engine, and P1S PELTAST-X, a water-fuelled hybrid thruster. Detect, classify, respond — autonomously."
+  description="P1S Buddy, the onboard AI engine, and P1S PELTAST-X, a water-fuelled hybrid thruster. Detect, decide, manoeuvre. No person in the loop."
   path="/technology"
 >
   <Hero
     eyebrow="Technology"
-    title="Detect. Decide. Act.<br>Autonomously."
-    sub="Two products, one integrated stack. The brain that sees the threat, and the legs that move the satellite out of the way — with no human in the loop."
+    title="Detect. Decide.<br>Manoeuvre."
+    sub="One kit, two products. The brain sees the threat and decides. The legs move the satellite out of the way. No person in the loop."
   />
 
   <Section eyebrow="Buddy" title="The onboard AI engine.">
-    <p class="lead reveal" style="margin-bottom: 2.5rem;">A unified onboard AI engine — hardware-agnostic, updatable over the air. It makes autonomous decisions and delivers real-time intelligence from orbit. Flagship capability: it classifies threats before the ground even wakes up.</p>
+    <p class="lead reveal" style="margin-bottom: 2.5rem;">One AI computer with up to 6 camera modules that sees 360°. It decides onboard, in seconds, with no ground loop. Software updates are sent up from the ground.</p>
     <div class="grid grid--3">
       {buddyModules.map((m) => <ModuleCard tag={m.tag} title={m.title} body={m.body} />)}
     </div>
   </Section>
 
   <Section eyebrow="PELTAST-X" title="Water propulsion.<br>Safe to launch." alt={true}>
-    <p class="lead reveal" style="margin-bottom: 2.5rem;">Water is the only propellant that is non-hazardous on launch and exists naturally across the solar system. It ships as standard cargo and refuels anywhere there is ice.</p>
+    <p class="lead reveal" style="margin-bottom: 2.5rem;">Plain water is not toxic and not under pressure at launch. It ships as standard cargo, with no special handling.</p>
     <div class="grid grid--3" style="margin-bottom: 3rem;">
       {plasmaStages.map((m) => <ModuleCard tag={m.tag} title={m.title} body={m.body} />)}
     </div>
     <div class="reveal" style="overflow-x:auto;">
       <table class="dtable">
-        <thead><tr><th>Propellant</th><th>Launch classification</th><th>Cost / kg</th></tr></thead>
+        <thead><tr><th>Propellant</th><th>Launch classification</th></tr></thead>
         <tbody>
-          <tr><td>Hydrazine</td><td>HAZMAT Class 6.1 — toxic</td><td>$1,800–3,000</td></tr>
-          <tr><td>Xenon</td><td>High-pressure vessel</td><td>$1,500–2,500</td></tr>
-          <tr><td>Iodine</td><td>Corrosive — special manifesting</td><td>$300–800</td></tr>
-          <tr class="row-hi"><td>Water</td><td>Non-hazardous — standard cargo</td><td>Under $1/kg</td></tr>
+          <tr><td>Hydrazine</td><td>HAZMAT Class 6.1, toxic</td></tr>
+          <tr><td>Xenon</td><td>High-pressure vessel</td></tr>
+          <tr><td>Iodine</td><td>Corrosive, special manifesting</td></tr>
+          <tr class="row-hi"><td>Water</td><td>Non-hazardous, standard cargo</td></tr>
         </tbody>
       </table>
     </div>
@@ -59,7 +59,7 @@ const plasmaStages = [
           <tr><td>Thrust</td><td>~8–40 mN cold gas · 1–5 N pulsed</td></tr>
           <tr><td>Size</td><td>1U–2U</td></tr>
           <tr><td>Structure mass</td><td>&lt; 1.5 kg</td></tr>
-          <tr><td>Power</td><td>20 W</td></tr>
+          <tr><td>Power</td><td>20 W at up to 40% duty cycle</td></tr>
           <tr><td>Gas store refill</td><td>~4.5 minutes</td></tr>
           <tr><td>Valve response</td><td>2–5 ms</td></tr>
           <tr class="row-hi"><td>Readiness</td><td>TRL 3 today. TRL 4–5 by the end of 2026. Flight proven in 2028.</td></tr>
@@ -68,7 +68,7 @@ const plasmaStages = [
     </div>
   </Section>
 
-  <Section eyebrow="Roadmap" title="TRL 6 by end of 2026.<br>Flight proven by 2028.">
+  <Section eyebrow="Roadmap" title="Up to TRL 6 by end of 2026.<br>Flight proven by 2028.">
     <p class="lead reveal" style="margin-bottom: 2.5rem;">AI flight proven in 2027. Full system flight proven in 2028.</p>
     <div class="reveal" style="overflow-x:auto;">
       <table class="dtable">
@@ -92,7 +92,7 @@ const plasmaStages = [
       <span class="flow__arrow">→</span>
       <span class="flow__step flow__step--hi display">PELTAST-X fires, satellite evades</span>
     </div>
-    <p class="lead reveal" style="margin-top: 2rem;">No ground loop. No human in the chain. And the AI never touches the thruster directly — it requests a maneuver, and a validated propulsion controller executes it inside a safety envelope. That interface is propulsion-agnostic: it commands our own thruster or a third-party thruster a satellite already carries.</p>
+    <p class="lead reveal" style="margin-top: 2rem;">No ground loop. No person in the chain. The AI never drives the thruster directly. It asks for a manoeuvre, and a validated propulsion controller runs it inside a safe envelope. The same interface works with our thruster or a third-party thruster the satellite already carries.</p>
   </Section>
 </BaseLayout>
 
