@@ -7,11 +7,14 @@ interface Props {
   body: string;
   trl?: string;         // "TRL 4"
   href?: string;
+  image?: string;
+  imageAlt?: string;
 }
-const { index, kicker, name, tagline, body, trl, href } = Astro.props;
+const { index, kicker, name, tagline, body, trl, href, image, imageAlt } = Astro.props;
 const Tag = href ? 'a' : 'div';
 ---
 <Tag class="pcard reveal" href={href}>
+  {image && <div class="pcard__img"><img src={image} alt={imageAlt ?? name} loading="lazy" /></div>}
   <div class="pcard__top">
     <span class="pcard__index display">{index}</span>
     <span class="pcard__kicker display">{kicker}</span>
@@ -35,6 +38,10 @@ const Tag = href ? 'a' : 'div';
     color: inherit;
   }
   a.pcard:hover { border-color: var(--accent-line); background: var(--surface-hi); transform: translateY(-3px); }
+  .pcard__img {
+    background: #d6d6d7; border-radius: var(--radius); margin: -0.85rem -0.85rem 1.75rem; overflow: hidden;
+  }
+  .pcard__img img { width: 100%; aspect-ratio: 14 / 9; object-fit: cover; display: block; }
   .pcard__top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
   .pcard__index {
     font-size: 0.85rem; color: var(--accent); letter-spacing: 0.1em;

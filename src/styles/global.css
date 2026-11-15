@@ -1,19 +1,19 @@
 /* ============================================================
    Player One Space — global theme (Catalyx-inspired)
-   Dark canvas · Geist / Geist Mono / Jura · single orange accent (brand #ff6b1a)
+   Cool charcoal canvas · Geist / Geist Mono / Jura · single orange accent (brand #ff6b1a)
    ============================================================ */
 
 :root {
   /* palette */
-  --bg:            #151414;   /* near-black canvas */
-  --bg-alt:        #1a1918;   /* alternating section */
-  --surface:       #1c1b1b;   /* cards / panels */
-  --surface-hi:    #232221;   /* hover */
-  --border:        #2a2928;
-  --border-hi:     #3a3938;
-  --text:          #ededec;
-  --text-muted:    #9a9a98;
-  --text-dim:      #6a6a68;
+  --bg:            #14161a;   /* cool charcoal canvas */
+  --bg-alt:        #1b1e23;   /* alternating section */
+  --surface:       #22262c;   /* cards / panels */
+  --surface-hi:    #2a2f36;   /* hover */
+  --border:        #323840;
+  --border-hi:     #444b55;
+  --text:          #eef0f2;
+  --text-muted:    #b8bdc4;   /* body copy: ~9:1 on --bg */
+  --text-dim:      #8f96a0;   /* small labels: passes 4.5:1 on --bg and --surface */
   --accent:        #ff6b1a;   /* brand orange (Design/README.md) */
   --accent-hi:     #ff8a47;
   --accent-dim:    rgba(255, 107, 26, 0.12);
@@ -22,7 +22,8 @@
 
   /* type */
   --font-heading: 'Geist Sans', system-ui, -apple-system, sans-serif;
-  --font-body:    'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-body:    'Geist Sans', system-ui, -apple-system, sans-serif;
+  --font-mono:    'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;  /* labels only */
   --font-display: 'Jura Variable', 'Geist Sans', sans-serif;
 
   /* scale */
@@ -31,7 +32,7 @@
   --fs-h2:     clamp(1.75rem, 3.6vw, 2.9rem);
   --fs-h3:     clamp(1.15rem, 1.8vw, 1.4rem);
   --fs-body:   1rem;
-  --fs-sm:     0.875rem;
+  --fs-sm:     0.95rem;
   --fs-label:  0.78rem;
 
   /* rhythm */
@@ -98,7 +99,7 @@ em { font-style: normal; color: var(--accent); }
 
 /* ---------- bracket label ---------- */
 .bracket-label {
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: var(--fs-label);
   letter-spacing: 0.18em;
   text-transform: uppercase;

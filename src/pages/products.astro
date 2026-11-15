@@ -5,72 +5,151 @@ import Section from '../components/Section.astro';
 import ModuleCard from '../components/ModuleCard.astro';
 import StatRow from '../components/StatRow.astro';
 
-const plasmaCaps = [
-  { title: 'Non-toxic & launch-safe', body: 'Launches with unpressurized water, shipped as standard cargo. No HAZMAT, no high-pressure vessel, no special handling — compatible even near crewed vehicles.' },
-  { title: 'Sized for small spacecraft', body: 'A 1U–2U unit with a structure under 1.5 kg. Built for small satellites, and it works with satellites of any mass.' },
-  { title: 'Gentle moves or a fast burst', body: 'Three cold-gas modes for fine control and routine work. A pulsed combustion mode for short, strong moves when the satellite must get away.' },
+const BROCHURE = 'https://drive.google.com/file/d/1_lL6-7Cp8GOpdLGSXi_d7a_q_IT4g1nx/view?usp=sharing';
+
+const buyWays = [
+  { tag: 'Option 01', title: 'Integrated kit', body: 'P1S Buddy and P1S PELTAST-X together. One kit per satellite, one integration.' },
+  { tag: 'Option 02', title: 'P1S Buddy', body: 'The AI unit on its own. Works with any thruster the satellite already carries.' },
+  { tag: 'Option 03', title: 'P1S PELTAST-X', body: 'The water thruster on its own. Gentle moves or a fast burst.' },
+];
+
+const buddyModules = [
+  { tag: 'M01 — Safe Manoeuvre Engine', title: 'Autonomous collision avoidance', body: 'Takes a conjunction warning, then plans, checks and runs the avoidance manoeuvre onboard. No person in the loop. Every command passes a safety shield before it reaches the thruster.' },
+  { tag: 'M02 — VisNav', title: 'Sees what is around it', body: 'Visible, event-based and thermal cameras track nearby objects in sunlight and in eclipse: range, pose and velocity. The AI model is designed to run under 5 W.' },
+  { tag: 'M03 — Pattern-of-Life + Alert', title: 'Spots threats, sends a short alert', body: 'An orbital-mechanics filter flags an object that manoeuvres to match your orbit. It sends a small alert: class, range, vector, confidence. Kilobytes, not video.' },
+];
+const buddyTam = [
+  { value: '$2.8B', label: 'Space situational awareness market by 2030' },
+  { value: '~1,200', label: 'Allied defence satellites: our first customers' },
+];
+
+const plasmaStages = [
+  { tag: 'P1 — Electrolysis', title: 'Water to H₂ and O₂', body: 'The thruster launches with 250 mL of plain water, unpressurized. In orbit it splits the water into hydrogen and oxygen. No toxic propellant.' },
+  { tag: 'P2 — Hybrid thrust', title: 'Cold gas plus pulsed combustion', body: 'H₂, O₂ and mixed cold gas handle fine control and routine work. A pulsed combustion mode gives short, strong pulses when the satellite must move. ~8–40 mN cold gas · 1–5 N pulsed.' },
+  { tag: 'P3 — 2U module', title: 'Sized for small satellites', body: 'The whole unit fits a 2U bay: 1.8 kg dry, 2.0 kg with water. It works with satellites of any mass.' },
 ];
 const plasmaTam = [
   { value: '16,900', label: 'Small satellites launching 2026–2035' },
   { value: '80%+', label: 'of CubeSats launch with no propulsion today' },
 ];
 
-const buddyCaps = [
-  { title: 'Sees 360°', body: 'One AI computer with up to 6 camera modules. Fits many satellite sizes. No vendor lock-in.' },
-  { title: 'Updatable over the air', body: 'New models deploy to orbit like software. The capability improves long after the satellite has launched.' },
-  { title: 'Propulsion-agnostic', body: 'Commands our own PELTAST-X thruster or a third-party thruster through the same safety-bounded interface — the AI asks for a manoeuvre; a validated controller runs it.' },
-];
-const buyWays = [
-  { tag: 'Option 01', title: 'Integrated kit', body: 'P1S Buddy and P1S PELTAST-X together. One kit per satellite, one integration.' },
-  { tag: 'Option 02', title: 'P1S Buddy', body: 'The AI module on its own. Works with any thruster the satellite already carries.' },
-  { tag: 'Option 03', title: 'P1S PELTAST-X', body: 'The water thruster on its own. Gentle moves or a fast burst.' },
-];
-const buddyTam = [
-  { value: '$2.8B', label: 'Space situational awareness market by 2030' },
-  { value: '~1,200', label: 'Allied defence satellites: our first customers' },
+const specs = [
+  ['Role', 'Sees, tracks and reports objects around the satellite', 'Avoidance, station keeping and deorbit'],
+  ['Size', '232 × 191 × 107 mm', '2U, 100 × 100 × 227 mm'],
+  ['Mass', '2.4 kg', '1.8 kg dry, 2.0 kg with water'],
+  ['Power', '25 W orbit average, 31 W peak', '20 W while making gas, 3 W standby'],
+  ['Supply', '28 V DC', '28 V DC'],
+  ['Data', 'Gigabit Ethernet, CSP over CAN, RS-422, PPS', 'CSP over CAN, RS-422'],
+  ['Modes', 'Survey, encounter recording, eclipse watch', 'Cold gas (H₂, O₂ or mixed), pulsed combustion'],
+  ['Performance', '10 cm object in sunlight at 83 km; 1 m object in eclipse at 24 km; 88% of 10 cm crossings seen', '~8–40 mN cold gas, 1–5 N pulsed; 470 N·s total impulse; 24 m/s for a 20 kg satellite'],
+  ['Response', 'Detection report every 0.1 s', 'Valves open in 2–5 ms'],
+  ['Onboard store', '1 TB of encounter recordings', '250 mL of water, unpressurized at launch'],
 ];
 ---
 <BaseLayout
   title="Products — Player One Space"
-  description="Buddy: the onboard AI engine that commands any propulsion. P1S PELTAST-X: a water-fuelled hybrid thruster built for it. One system from Player One Space."
+  description="P1S Buddy, the onboard AI unit, and P1S PELTAST-X, a water-fuelled hybrid thruster. Detect, decide, manoeuvre. No person in the loop."
   path="/products"
 >
   <Hero
     eyebrow="Products"
-    title="Two products.<br>One integrated stack."
-    sub="The AI engine leads; the thruster is built for it — and the same AI commands third-party propulsion too. Together, a satellite that detects a threat and moves away on its own."
+    title="Detect. Decide.<br>Manoeuvre."
+    sub="Two units, one system. P1S Buddy sees the threat and decides. P1S PELTAST-X moves the satellite out of the way. No person in the loop."
   />
 
-  <Section eyebrow="One Kit, Three Ways to Buy" title="Buy the kit,<br>or one part.">
-    <div class="grid grid--3" style="margin-bottom: 2rem;">
+  <Section eyebrow="How it works" title="The self-defending satellite.">
+    <div class="flow reveal">
+      <span class="flow__step display">Buddy sees a threat</span>
+      <span class="flow__arrow">→</span>
+      <span class="flow__step display">classifies it</span>
+      <span class="flow__arrow">→</span>
+      <span class="flow__step display">plans the move</span>
+      <span class="flow__arrow">→</span>
+      <span class="flow__step flow__step--hi display">PELTAST-X fires, satellite moves away</span>
+    </div>
+    <p class="lead reveal" style="margin-top: 2rem;">No ground loop. The AI never drives the thruster directly. It asks for a manoeuvre, and a validated propulsion controller runs it inside a safe envelope. The same interface works with our thruster or a third-party thruster the satellite already carries.</p>
+    <div class="grid grid--3" style="margin-top: 3rem;">
       {buyWays.map((c) => <ModuleCard tag={c.tag} title={c.title} body={c.body} />)}
     </div>
-    <p class="lead reveal">Every flying unit comes with a yearly AI licence. Software updates are sent up from the ground. P1S Buddy first flies on a commercial satellite in December 2027. Both products fly together on one demonstrator satellite in mid-2028.</p>
   </Section>
 
-  <Section eyebrow="Flagship — Onboard Autonomy" title="P1S Buddy" id="buddy" alt={true}>
-    <p class="reveal display" style="display:inline-block; margin:0 0 1.25rem; font-size:var(--fs-label); letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent-line); border-radius:var(--radius); padding:0.2rem 0.55rem;">TRL 4 · TRL 5–6 by end of 2026</p>
-    <p class="lead reveal" style="margin-bottom: 2.5rem;">The onboard, unified AI engine that makes autonomous decisions and delivers real-time intelligence from orbit. Its first job is acting: when a conjunction warning arrives, Buddy plans and runs the avoidance manoeuvre onboard, through a safety-bounded interface — no ground loop, no waiting on a flight-dynamics team. Its second job is seeing: tracking nearby objects of known geometry for proximity awareness, inspection, and threat characterization — with debris tracking as a complementary capability, not the promise. P1S Buddy is TRL 4 today, with TRL 5–6 by the end of 2026. It flies in December 2027 and is flight proven (TRL 9) in 2027.</p>
+  <Section eyebrow="Onboard AI" title="P1S Buddy" id="buddy" alt={true}>
+    <p class="trl reveal display">TRL 4 · TRL 5–6 by end of 2026</p>
+    <div class="prod reveal">
+      <figure class="prod__img"><img src="/images/buddy-front.jpg" alt="P1S Buddy camera unit, front view" loading="lazy" /></figure>
+      <div>
+        <p class="lead">The onboard AI unit that sees what is around the satellite and decides what to do. When a conjunction warning arrives or an object comes close, Buddy plans the avoidance manoeuvre onboard. No ground loop, no waiting on a flight-dynamics team.</p>
+        <p class="lead" style="margin-top: 1rem;">New models go up over the air, so Buddy gets better after launch. It flies in December 2027.</p>
+      </div>
+    </div>
     <div class="grid grid--3" style="margin-bottom: 3rem;">
-      {buddyCaps.map((c) => <ModuleCard title={c.title} body={c.body} />)}
+      {buddyModules.map((m) => <ModuleCard tag={m.tag} title={m.title} body={m.body} />)}
     </div>
     <StatRow stats={buddyTam} />
   </Section>
 
-  <Section eyebrow="Propulsion — Built for Buddy" title="P1S PELTAST-X" id="plasma">
-    <p class="reveal display" style="display:inline-block; margin:0 0 1.25rem; font-size:var(--fs-label); letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent-line); border-radius:var(--radius); padding:0.2rem 0.55rem;">TRL 3 · TRL 4–5 by end of 2026</p>
-    <p class="lead reveal" style="margin-bottom: 2.5rem;">A water-fuelled hybrid thruster: precise cold-gas modes for routine work and a pulsed combustion mode for short, strong manoeuvres. It launches with 250 mL of plain water, unpressurized. Moderate thrust: ~8–40 mN cold gas · 1–5 N pulsed, in a 1U–2U unit (design targets). Built for Buddy's command interface. The legs that let a small satellite manoeuvre: station-keeping, collision avoidance, orbit changes, and controlled deorbit, on a propellant that is safe to launch. P1S PELTAST-X is TRL 3 today, with TRL 4–5 by the end of 2026. It flies in mid-2028 and is flight proven (TRL 9) in 2028.</p>
+  <Section eyebrow="Propulsion" title="P1S PELTAST-X" id="plasma">
+    <p class="trl reveal display">TRL 3 · TRL 4–5 by end of 2026</p>
+    <div class="prod reveal">
+      <figure class="prod__img"><img src="/images/peltast-x.jpg" alt="P1S PELTAST-X 2U thruster module" loading="lazy" /></figure>
+      <div>
+        <p class="lead">A water-fuelled hybrid thruster. Precise cold-gas modes do routine work. A pulsed combustion mode gives short, strong pulses for fast avoidance. Moderate thrust: ~8–40 mN cold gas · 1–5 N pulsed.</p>
+        <p class="lead" style="margin-top: 1rem;">It covers station keeping, collision avoidance, orbit changes and controlled deorbit, on a propellant that is safe to launch. It flies in mid-2028.</p>
+      </div>
+    </div>
     <div class="grid grid--3" style="margin-bottom: 3rem;">
-      {plasmaCaps.map((c) => <ModuleCard title={c.title} body={c.body} />)}
+      {plasmaStages.map((m) => <ModuleCard tag={m.tag} title={m.title} body={m.body} />)}
+    </div>
+    <div class="reveal" style="overflow-x:auto; margin-bottom: 3rem;">
+      <table class="dtable">
+        <thead><tr><th>Propellant</th><th>Launch classification</th></tr></thead>
+        <tbody>
+          <tr><td>Hydrazine</td><td>HAZMAT Class 6.1, toxic</td></tr>
+          <tr><td>Xenon</td><td>High-pressure vessel</td></tr>
+          <tr><td>Iodine</td><td>Corrosive, special manifesting</td></tr>
+          <tr class="row-hi"><td>Water</td><td>Non-hazardous, standard cargo</td></tr>
+        </tbody>
+      </table>
     </div>
     <StatRow stats={plasmaTam} />
+  </Section>
+
+  <Section eyebrow="Specifications" title="Two units.<br>One system." id="specs" alt={true}>
+    <p class="lead reveal" style="margin-bottom: 2rem;">Each unit works on its own or as one subsystem. Both run on 28 V and talk to the host computer over CAN or RS-422.</p>
+    <div class="spec-wrap reveal">
+      <table class="dtable spec">
+        <thead><tr><th></th><th>P1S Buddy</th><th>P1S PELTAST-X</th></tr></thead>
+        <tbody>
+          {specs.map((r) => <tr><td>{r[0]}</td><td>{r[1]}</td><td>{r[2]}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+    <p class="spec-note reveal">Modelled and design values. Bench tests confirm them through 2026–2027.</p>
+    <a href={BROCHURE} target="_blank" rel="noopener" class="btn btn--ghost reveal" style="margin-top: 1.5rem;">Download brochure (PDF)</a>
+  </Section>
+
+  <Section eyebrow="Roadmap" title="Up to TRL 6 by end of 2026.<br>Flight proven by 2028." id="roadmap">
+    <div class="reveal" style="overflow-x:auto;">
+      <table class="dtable">
+        <thead><tr><th>Product</th><th>Today</th><th>End of 2026</th><th>In orbit</th><th>Flight proven</th></tr></thead>
+        <tbody>
+          <tr><td>P1S Buddy · AI unit</td><td>TRL 4</td><td>TRL 5–6</td><td>December 2027</td><td>TRL 9 · 2027</td></tr>
+          <tr><td>P1S PELTAST-X · Propulsion</td><td>TRL 3</td><td>TRL 4–5</td><td>Mid-2028</td><td>TRL 9 · 2028</td></tr>
+          <tr class="row-hi"><td>Buddy + PELTAST-X · Integrated system</td><td>TRL 3</td><td>TRL 4–5</td><td>Mid-2028</td><td>TRL 9 · 2028</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="lead reveal" style="margin-top: 2rem;">Every flying unit comes with a yearly AI licence. Software updates are sent up from the ground.</p>
   </Section>
 
   <Section alt={true}>
     <div class="cta reveal">
       <h2 class="display cta__title">Want the full picture?</h2>
-      <p class="lead">We work with investors, government program offices, and satellite bus partners.</p>
-      <a href="/contact" class="btn btn--primary">Get in Touch</a>
+      <p class="lead">Add P1S Buddy and P1S PELTAST-X to your next mission. Sales and documentation: <a href="mailto:dennis@playeronespace.com">dennis@playeronespace.com</a></p>
+      <div class="cta__btns">
+        <a href="mailto:dennis@playeronespace.com" class="btn btn--primary">Talk to Sales</a>
+        <a href={BROCHURE} target="_blank" rel="noopener" class="btn btn--ghost">Brochure (PDF)</a>
+      </div>
     </div>
   </Section>
 </BaseLayout>
@@ -78,4 +157,27 @@ const buddyTam = [
 <style>
   .cta { text-align: center; max-width: 60ch; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
   .cta__title { font-size: clamp(1.8rem, 4vw, 3rem); }
+  .cta__btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+  .trl {
+    display: inline-block; margin: 0 0 1.5rem; font-size: var(--fs-label); letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); border: 1px solid var(--accent-line); border-radius: var(--radius); padding: 0.2rem 0.55rem;
+  }
+  .prod { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 2.5rem; align-items: center; margin-bottom: 3rem; }
+  .prod__img { background: #d6d6d7; border-radius: var(--radius); overflow: hidden; }
+  .prod__img img { width: 100%; height: auto; display: block; }
+  @media (max-width: 800px) { .prod { grid-template-columns: 1fr; } }
+  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 0.85rem; }
+  .flow__step {
+    font-size: var(--fs-sm); letter-spacing: 0.04em; text-transform: uppercase;
+    padding: 0.6rem 1rem; border: 1px solid var(--border); border-radius: var(--radius);
+    background: var(--surface); color: var(--text-muted);
+  }
+  .flow__step--hi { border-color: var(--accent-line); color: var(--accent); background: var(--accent-dim); }
+  .flow__arrow { color: var(--accent); font-size: 1.1rem; }
+  .spec-wrap { overflow-x: auto; }
+  .spec { min-width: 560px; }
+  .spec th:nth-child(2) { color: var(--accent); }
+  .spec td { color: var(--text-muted); vertical-align: top; }
+  .spec td:first-child { width: 16%; }
+  .spec-note { margin-top: 1rem; font-size: var(--fs-label); color: var(--text-dim); }
 </style>

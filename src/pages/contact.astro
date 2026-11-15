@@ -5,7 +5,7 @@ import Section from '../components/Section.astro';
 ---
 <BaseLayout
   title="Contact — Player One Space"
-  description="Get in touch with Player One Space. Vancouver, BC. dima@playeronespace.com"
+  description="Get in touch with Player One Space. Vancouver, BC. Sales: dennis@playeronespace.com. Investors: dima@playeronespace.com"
   path="/contact"
 >
   <Hero
@@ -17,8 +17,12 @@ import Section from '../components/Section.astro';
   <Section>
     <div class="contact">
       <div class="contact__col reveal">
-        <span class="bracket-label">Reach Us</span>
+        <span class="bracket-label">Sales and documentation</span>
+        <a href="mailto:dennis@playeronespace.com" class="contact__email display">dennis@playeronespace.com</a>
+        <p class="contact__who">Dennis Silin, Head of Sales · <a href="https://drive.google.com/file/d/1_lL6-7Cp8GOpdLGSXi_d7a_q_IT4g1nx/view?usp=sharing" target="_blank" rel="noopener">Brochure (PDF)</a></p>
+        <span class="bracket-label" style="margin-top: 2rem;">Investors and partners</span>
         <a href="mailto:dima@playeronespace.com" class="contact__email display">dima@playeronespace.com</a>
+        <p class="contact__who">Dima Anoshin, CEO</p>
         <div class="contact__social">
           <a href="https://www.linkedin.com/company/player-one-space" target="_blank" rel="noopener" class="display">LinkedIn</a>
           <a href="https://x.com/PlayerOneSpace" target="_blank" rel="noopener" class="display">X / Twitter</a>
@@ -38,6 +42,7 @@ import Section from '../components/Section.astro';
   .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
   .contact__email { font-size: clamp(1.4rem, 3.5vw, 2.4rem); color: var(--text); letter-spacing: -0.01em; display: inline-block; }
   .contact__email:hover { color: var(--accent); }
+  .contact__who { font-size: var(--fs-sm); color: var(--text-muted); margin-top: 0.4rem; }
   .contact__social { display: flex; gap: 1.5rem; margin-top: 1.5rem; }
   .contact__social a { font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
   .contact__social a:hover { color: var(--accent); }

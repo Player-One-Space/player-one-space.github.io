@@ -3,9 +3,10 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const links = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
-  { href: '/technology', label: 'Technology' },
   { href: '/products', label: 'Products' },
+  { href: '/news', label: 'News' },
   { href: 'https://blog.playeronespace.com/', label: 'Blog', external: true },
+  { href: '/careers', label: 'Careers' },
   { href: '/contact', label: 'Contact' },
 ];
 const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
@@ -32,7 +33,7 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
   .nav {
     position: fixed; inset: 0 0 auto 0;
     height: var(--nav-h);
-    background: rgba(21, 20, 20, 0.82);
+    background: rgba(20, 22, 26, 0.82);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--border);
@@ -59,11 +60,11 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
     font-size: 1.4rem; cursor: pointer;
   }
 
-  @media (max-width: 760px) {
+  @media (max-width: 1000px) {
     .nav__toggle { display: block; }
     .nav__links {
       display: none; position: absolute; top: var(--nav-h); left: 0; right: 0;
-      flex-direction: column; gap: 0; background: rgba(21, 20, 20, 0.98);
+      flex-direction: column; gap: 0; background: rgba(20, 22, 26, 0.98);
       border-bottom: 1px solid var(--border); padding: 0.5rem 0;
     }
     .nav__links.open { display: flex; }

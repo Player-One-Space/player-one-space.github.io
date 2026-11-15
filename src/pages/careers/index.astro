@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import Section from '../../components/Section.astro';
+import { jobs, applyEmail } from '../../data/jobs';
+---
+<BaseLayout
+  title="Careers — Player One Space"
+  description="Join Player One Space in Vancouver. We build onboard AI and water propulsion that let satellites protect themselves."
+  path="/careers"
+>
+  <Hero
+    eyebrow="Careers"
+    title="Build satellites<br>that protect themselves."
+    sub="A small team in Vancouver building onboard AI and a water thruster. Your work goes to the bench this year and to orbit after that."
+  />
+
+  <Section eyebrow="Open roles" title="Join the team.">
+    <div class="jobs">
+      {jobs.map((j) => (
+        <a class="job reveal" href={j.external ?? `/careers/${j.slug}`} {...(j.external ? { target: '_blank', rel: 'noopener' } : {})}>
+          <div class="job__main">
+            <span class="job__team display">{j.team}</span>
+            <h3 class="job__title">{j.title}</h3>
+            <p class="job__sum">{j.summary}</p>
+          </div>
+          <div class="job__meta">
+            <span>{j.location}</span>
+            <span>{j.type}</span>
+            <span class="job__more display">{j.external ? 'View on Wellfound ↗' : 'View role →'}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </Section>
+
+  <Section eyebrow="Why join" title="What you get." alt={true}>
+    <div class="grid grid--3">
+      <div class="why reveal"><h3>Real hardware</h3><p>You build units that go to the bench this year and to orbit after that. No paper studies.</p></div>
+      <div class="why reveal"><h3>Ownership</h3><p>A small team. You own your part of the system from design to test.</p></div>
+      <div class="why reveal"><h3>Early equity</h3><p>Salary plus meaningful equity. You join early and share in what we build.</p></div>
+    </div>
+    <p class="lead reveal" style="margin-top: 2.5rem;">Don't see your role? Send your CV and a short note to <a href={`mailto:${applyEmail}`}>{applyEmail}</a>.</p>
+  </Section>
+</BaseLayout>
+
+<style>
+  .jobs { display: flex; flex-direction: column; gap: 1rem; }
+  .job {
+    display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 1.75rem 1.85rem; color: inherit; transition: border-color 0.25s, background 0.25s, transform 0.25s;
+  }
+  .job:hover { border-color: var(--accent-line); background: var(--surface-hi); transform: translateY(-2px); }
+  .job__team { font-size: var(--fs-label); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+  .job__title { font-size: 1.5rem; margin: 0.4rem 0 0.5rem; }
+  .job__sum { font-size: var(--fs-sm); max-width: 62ch; }
+  .job__meta { display: flex; flex-direction: column; gap: 0.35rem; text-align: right; font-size: var(--fs-sm); color: var(--text-muted); white-space: nowrap; }
+  .job__more { margin-top: 0.6rem; font-size: var(--fs-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+  .why { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem 1.5rem; }
+  .why h3 { margin-bottom: 0.6rem; }
+  .why p { font-size: var(--fs-sm); }
+  @media (max-width: 760px) {
+    .job { grid-template-columns: 1fr; gap: 1rem; }
+    .job__meta { text-align: left; white-space: normal; }
+  }
+</style>

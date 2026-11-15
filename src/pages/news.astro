@@ -1,0 +1,226 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+
+const BROCHURE = 'https://drive.google.com/file/d/1_lL6-7Cp8GOpdLGSXi_d7a_q_IT4g1nx/view?usp=sharing';
+
+interface Item {
+  date: string; tag: string; title: string; body: string;
+  img?: string; imgAlt?: string; imgFit?: 'cover' | 'contain' | 'logo';
+  link?: { href: string; label: string; external?: boolean };
+}
+
+// Newest first. Public facts only. Sources: vault (weekly meetings, shareholder updates,
+// Conferences/, Partners/), Slack, Company History photos.
+const news: Item[] = [
+  {
+    date: 'November 2026', tag: 'Product',
+    title: 'P1S PELTAST-X prototype ignites hydrogen',
+    body: 'Our first thruster prototype now ignites hydrogen inside the thruster body, with a miniature spark plug. The nozzle swaps with six bolts, so we test many shapes fast. Machined flight-style parts come next, then firing in our vacuum chamber.',
+    img: '/images/news/peltast-interior.jpg', imgAlt: 'P1S PELTAST-X interior: electrolyser bay', imgFit: 'cover',
+  },
+  {
+    date: 'November 2026', tag: 'Product',
+    title: 'Unit specifications and brochure',
+    body: 'We published the specifications for both units. P1S Buddy is 2.4 kg, runs on 25 W orbit average and sees a 10 cm object in sunlight at 83 km. P1S PELTAST-X is a 2U module with 470 N·s of total impulse from 250 mL of water.',
+    img: '/images/buddy-front.jpg', imgAlt: 'P1S Buddy camera unit', imgFit: 'cover',
+    link: { href: '/products#specs', label: 'See the specs' },
+  },
+  {
+    date: 'November 2026', tag: 'Event',
+    title: 'Our team wins the ESA procurement training at the Canadian Space Agency',
+    body: 'Dennis Silin, our Head of Sales, joined the ESA procurement training at the Canadian Space Agency in Saint-Hubert, Quebec, 3–6 November. His team won the training exercise. We now know the ESA tender process from the inside.',
+    img: '/images/news/csa-esa-training.jpg', imgAlt: 'Winning team at the ESA procurement training, Canadian Space Agency', imgFit: 'cover',
+  },
+  {
+    date: 'October 2026', tag: 'Partnership',
+    title: 'Canadian compute for space AI, with Freyr',
+    body: 'We agreed with Freyr, a Vancouver GPU data centre, to train our space AI on Canadian compute. We train on large GPUs on the ground and fly small edge AI boards in orbit. A trial workload starts when their cluster goes live.',
+  },
+  {
+    date: 'October 2026', tag: 'Event',
+    title: 'Talk at the Mars Society Convention, Los Angeles',
+    body: 'Dennis Silin gave a talk at the International Mars Society Convention in Los Angeles on 23 October and met operators and engineers there.',
+  },
+  {
+    date: 'October 2026', tag: 'Event',
+    title: 'Spacebound 2026, Ottawa',
+    body: 'We joined Spacebound, the Space Canada conference, 19–21 October. We met Canadian satellite companies and operators, and started conversations that continue today.',
+    img: '/images/news/spacebound-2026.jpg', imgAlt: 'Spacebound 2026 by Space Canada', imgFit: 'cover',
+  },
+  {
+    date: 'October 2026', tag: 'Team',
+    title: 'Sales and AI teams grow',
+    body: 'Dennis Silin joins as Head of Sales. He holds an MSc in Astronautics from Cranfield and has shipped flight software to orbit. Elisabeth Smith joins as Senior AI/ML Engineer and Stas Nikulin as AI Engineer. The team is now nine.',
+    link: { href: '/about', label: 'Meet the team' },
+  },
+  {
+    date: 'October 2026', tag: 'Product',
+    title: 'Meet P1S PELTAST-X',
+    body: 'Our thruster is P1S PELTAST-X, invented by our CTO Jay Bowman. It splits water into hydrogen and oxygen in orbit. Three cold-gas modes give fine control. A pulsed combustion mode gives 1–5 N in short bursts for fast avoidance.',
+    img: '/images/peltast-x.jpg', imgAlt: 'P1S PELTAST-X 2U thruster module', imgFit: 'cover',
+    link: { href: '/products#plasma', label: 'Learn more' },
+  },
+  {
+    date: 'October 2026', tag: 'Product',
+    title: 'We bought our own vacuum chamber',
+    body: 'We bought and set up our own vacuum chamber for thruster tests. On 8 October we ran the first pump-down, and it holds vacuum. This is where P1S PELTAST-X fires in space-like conditions, with no waiting for outside test slots.',
+  },
+  {
+    date: 'October 2026', tag: 'Event',
+    title: 'IAC 2026, Antalya',
+    body: 'Umut Kızılyamaç, our Head of Space Systems Engineering, attended the 77th International Astronautical Congress in Antalya, 5–9 October. He met payload-hosting providers for the first flight of P1S Buddy.',
+  },
+  {
+    date: 'October 2026', tag: 'Product',
+    title: 'AI training server and space scene go live',
+    body: 'Our own GPU training server is up and running for the team. Our synthetic-environment team built a photoreal Earth and orbit scene in Unreal Engine. P1S Buddy trains on these images.',
+    img: '/images/news/unreal-earth.jpg', imgAlt: 'Earth rendered in our Unreal Engine scene', imgFit: 'cover',
+  },
+  {
+    date: 'September 2026', tag: 'Event',
+    title: 'Seattle Space Week',
+    body: 'We joined Seattle Space Week, 28 September – 4 October, including the Escape Velocity investor breakfast in Redmond on 30 September. Three space investors shared what makes a space startup fundable.',
+    img: '/images/news/seattle-space-week.jpg', imgAlt: 'Seattle Space Week 2026', imgFit: 'cover',
+  },
+  {
+    date: 'September 2026', tag: 'Product',
+    title: 'Collision-avoidance demo scene built',
+    body: 'We built the scene for our bench demo: satellites in the same orbit, one object closing in. We run it with and without P1S Buddy and the thruster, so the difference is clear. Bench testing runs to March 2027.',
+    img: '/images/news/demo-scene.jpg', imgAlt: 'Demo scene: observer and chaser satellites in orbit', imgFit: 'cover',
+  },
+  {
+    date: 'August 2026', tag: 'Event',
+    title: 'SmallSat 2026, Salt Lake City',
+    body: 'We attended the 40th Small Satellite Conference in Salt Lake City, Utah, 23–26 August. SmallSat is the main yearly meeting of the small-satellite industry.',
+  },
+  {
+    date: 'August 2026', tag: 'Company',
+    title: 'Final round of Creative Destruction Lab Space',
+    body: 'Player One Space reached the final round of the Creative Destruction Lab (CDL) Space stream for 2026/27, after the technical assessment and the business interview.',
+  },
+  {
+    date: 'August 2026', tag: 'Team',
+    title: 'Three engineering leads join',
+    body: 'Vladimir Valeyev joins as Lead AI Engineer. Sergey Kruchinin joins as Head of Embedded Software and brings 25+ years of safety-critical software, including certified avionics. Anton Borisov joins as Head of Synthetic Environments, from ILM.',
+  },
+  {
+    date: 'July 2026', tag: 'Partnership',
+    title: 'Letter of intent with UBC and Prof. Cyrus Neary',
+    body: 'We signed a letter of intent with Prof. Cyrus Neary of the University of British Columbia (AIRE Lab). He advises us on autonomy, learning under uncertainty and sim-to-real transfer for P1S Buddy.',
+    img: '/images/logo-ubc.svg', imgAlt: 'University of British Columbia', imgFit: 'logo',
+  },
+  {
+    date: 'July 2026', tag: 'Partnership',
+    title: 'Royal Military College of Canada: Prof. Manish Jugroot joins as advisor',
+    body: 'Prof. Manish Jugroot directs the RAPPEL Lab at the Royal Military College of Canada. He advises us on propulsion diagnostics and thrust-stand methods for P1S PELTAST-X.',
+    img: '/images/logo-rmc.svg', imgAlt: 'Royal Military College of Canada', imgFit: 'logo',
+  },
+  {
+    date: 'July 2026', tag: 'Team',
+    title: 'Umut Kızılyamaç joins as Head of Space Systems Engineering',
+    body: 'Umut brings 4.5 years at a satellite manufacturer, with 7 platforms and 21 missions. He owns spacecraft systems, power, integration and test, and our path to launch.',
+  },
+  {
+    date: 'June 2026', tag: 'Team',
+    title: 'Jay Bowman joins as CTO',
+    body: 'Jay owns the technical architecture across both products and leads the thruster work himself.',
+  },
+  {
+    date: 'May 2026', tag: 'Content',
+    title: 'Our blog goes live',
+    body: 'We started a plain-language series on how satellites work: how they move, how they know where they are, and how data gets down from space.',
+    link: { href: 'https://blog.playeronespace.com/', label: 'Read the blog', external: true },
+  },
+  {
+    date: 'April 2026', tag: 'Team',
+    title: 'Dr. Umut Yıldız joins as Technical Advisor',
+    body: 'Dr. Yıldız is a NASA/JPL researcher and former Caltech postdoc. He reviews our science and orbital mechanics.',
+  },
+  {
+    date: 'March 2026', tag: 'Company',
+    title: 'Player One Space is founded in Vancouver',
+    body: 'Player One Space Inc. is incorporated in British Columbia to build autonomous defence for satellites.',
+  },
+];
+const tags = ['All', ...Array.from(new Set(news.map((n) => n.tag)))];
+---
+<BaseLayout
+  title="News — Player One Space"
+  description="News from Player One Space: products, events, team and partnerships."
+  path="/news"
+>
+  <Hero eyebrow="News" title="What's new." sub="Products, events, team and partnerships. Newest first." />
+
+  <Section>
+    <div class="filters" role="group" aria-label="Filter news">
+      {tags.map((t, i) => <button class={`filter display ${i === 0 ? 'is-on' : ''}`} data-tag={t}>{t}</button>)}
+    </div>
+    <ol class="news">
+      {news.map((n) => (
+        <li class={`item reveal ${n.img ? 'item--img' : ''}`} data-tag={n.tag}>
+          <div class="item__meta">
+            <span class="item__date display">{n.date}</span>
+            <span class="item__tag display">{n.tag}</span>
+          </div>
+          <div class="item__body">
+            <h2 class="item__title">{n.title}</h2>
+            <p>{n.body}</p>
+            {n.link && (
+              <a class="item__link display" href={n.link.href} {...(n.link.external ? { target: '_blank', rel: 'noopener' } : {})}>{n.link.label} →</a>
+            )}
+          </div>
+          {n.img && (
+            <figure class={`item__img item__img--${n.imgFit ?? 'cover'}`}>
+              <img src={n.img} alt={n.imgAlt ?? ''} loading="lazy" />
+            </figure>
+          )}
+        </li>
+      ))}
+    </ol>
+    <div class="press reveal">
+      <p>Press and media: <a href="mailto:dima@playeronespace.com">dima@playeronespace.com</a> · <a href={BROCHURE} target="_blank" rel="noopener">Product brochure (PDF)</a></p>
+    </div>
+  </Section>
+</BaseLayout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter');
+  const items = document.querySelectorAll<HTMLElement>('.item');
+  buttons.forEach((b) => b.addEventListener('click', () => {
+    buttons.forEach((x) => x.classList.toggle('is-on', x === b));
+    const tag = b.dataset.tag;
+    items.forEach((it) => { it.hidden = tag !== 'All' && it.dataset.tag !== tag; });
+  }));
+</script>
+
+<style>
+  .filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+  .filter {
+    background: transparent; border: 1px solid var(--border-hi); border-radius: var(--radius); cursor: pointer;
+    color: var(--text-muted); font-size: var(--fs-label); letter-spacing: 0.1em; text-transform: uppercase; padding: 0.45rem 0.9rem;
+  }
+  .filter:hover { border-color: var(--accent); color: var(--accent); }
+  .filter.is-on { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+  .news { list-style: none; border-top: 1px solid var(--border); }
+  .item { display: grid; grid-template-columns: 180px 1fr; gap: 2rem; padding: 2rem 0; border-bottom: 1px solid var(--border); align-items: start; }
+  .item--img { grid-template-columns: 180px 1fr 300px; }
+  .item__meta { display: flex; flex-direction: column; gap: 0.5rem; }
+  .item__date { font-size: var(--fs-label); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); }
+  .item__tag { font-size: var(--fs-label); letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+  .item__title { font-size: var(--fs-h3); margin-bottom: 0.6rem; }
+  .item__body p { max-width: 64ch; }
+  .item__link { display: inline-block; margin-top: 0.9rem; font-size: var(--fs-label); letter-spacing: 0.08em; text-transform: uppercase; }
+  .item__img { border-radius: var(--radius); overflow: hidden; aspect-ratio: 16 / 10; background: var(--surface); }
+  .item__img img { width: 100%; height: 100%; display: block; }
+  .item__img--cover img { object-fit: cover; }
+  .item__img--logo { background: #eef0f2; display: flex; align-items: center; justify-content: center; padding: 1.5rem; }
+  .item__img--logo img { object-fit: contain; max-height: 90px; }
+  .press { margin-top: 2.5rem; font-size: var(--fs-sm); }
+  @media (max-width: 900px) {
+    .item, .item--img { grid-template-columns: 1fr; gap: 0.75rem; }
+    .item__meta { flex-direction: row; gap: 1rem; }
+    .item__img { max-width: 520px; }
+  }
+</style>

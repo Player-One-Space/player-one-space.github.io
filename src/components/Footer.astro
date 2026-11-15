@@ -2,8 +2,9 @@
 const year = 2026;
 const links = [
   { href: '/about', label: 'About' },
-  { href: '/technology', label: 'Technology' },
   { href: '/products', label: 'Products' },
+  { href: '/news', label: 'News' },
+  { href: '/careers', label: 'Careers' },
   { href: '/contact', label: 'Contact' },
 ];
 ---
@@ -12,7 +13,8 @@ const links = [
     <div class="footer__brand">
       <img class="footer__logo" src="/images/p1s-logo.svg" alt="Player One Space" width="221" height="24" />
       <p class="footer__tag">Autonomous defence for satellites. Vancouver, BC.</p>
-      <a href="mailto:dima@playeronespace.com" class="footer__email">dima@playeronespace.com</a>
+      <p class="footer__line">Sales: <a href="mailto:dennis@playeronespace.com">dennis@playeronespace.com</a></p>
+      <p class="footer__line">Investors: <a href="mailto:dima@playeronespace.com">dima@playeronespace.com</a></p>
     </div>
     <nav class="footer__nav">
       {links.map((l) => <a href={l.href} class="display">{l.label}</a>)}
@@ -38,7 +40,7 @@ const links = [
   }
   .footer__logo { height: 22px; width: auto; display: block; margin-bottom: 0.9rem; }
   .footer__tag { font-size: var(--fs-sm); color: var(--text-muted); margin-bottom: 0.8rem; max-width: 32ch; }
-  .footer__email { font-size: var(--fs-sm); }
+  .footer__line { font-size: var(--fs-sm); color: var(--text-muted); margin-bottom: 0.3rem; }
   .footer__nav, .footer__social { display: flex; flex-direction: column; gap: 0.7rem; }
   .footer__nav a, .footer__social a {
     font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted);
