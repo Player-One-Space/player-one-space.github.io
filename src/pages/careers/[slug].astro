@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import Section from '../../components/Section.astro';
+import { jobs, applyEmail } from '../../data/jobs';
+
+export function getStaticPaths() {
+  return jobs.filter((j) => !j.external).map((job) => ({ params: { slug: job.slug }, props: { job } }));
+}
+const { job } = Astro.props;
+const subject = encodeURIComponent(`Application: ${job.title}`);
+---
+<BaseLayout
+  title={`${job.title} — Careers — Player One Space`}
+  description={job.summary}
+  path={`/careers/${job.slug}`}
+>
+  <Hero eyebrow={job.team} title={job.title} sub={job.summary} />
+
+  <Section>
+    <div class="jd">
+      <aside class="jd__side reveal">
+        <dl>
+          <dt>Location</dt><dd>{job.location}</dd>
+          <dt>Type</dt><dd>{job.type}</dd>
+          <dt>Work eligibility</dt><dd>Must be eligible to work in Canada. We support relocation for the right person.</dd>
+        </dl>
+        <a class="btn btn--primary" href={`mailto:${applyEmail}?subject=${subject}`}>Apply now</a>
+        <a class="jd__back display" href="/careers">← All roles</a>
+      </aside>
+      <div class="jd__body">
+        {job.intro?.map((p) => <p class="lead reveal">{p}</p>)}
+        {job.sections?.map((s) => (
+          <div class="jd__sec reveal">
+            <h2 class="jd__h">{s.title}</h2>
+            <ul>{s.items.map((i) => <li>{i}</li>)}</ul>
+          </div>
+        ))}
+        <div class="jd__sec reveal">
+          <h2 class="jd__h">How to apply</h2>
+          <p>Email <a href={`mailto:${applyEmail}?subject=${subject}`}>{applyEmail}</a> with your CV or LinkedIn and a short note about hardware you built and tested. Links to papers, projects or test reports help. We read every application.</p>
+        </div>
+      </div>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .jd { display: grid; grid-template-columns: 280px 1fr; gap: 3.5rem; align-items: start; }
+  .jd__side {
+    position: sticky; top: calc(var(--nav-h) + 1.5rem);
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;
+    display: flex; flex-direction: column; gap: 1.25rem;
+  }
+  .jd__side dt { font-size: var(--fs-label); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); }
+  .jd__side dd { font-size: var(--fs-sm); color: var(--text); margin: 0.2rem 0 0.9rem; }
+  .jd__side .btn { justify-content: center; }
+  .jd__back { font-size: var(--fs-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+  .jd__body .lead { margin-bottom: 1.25rem; }
+  .jd__sec { margin-top: 2.5rem; }
+  .jd__h { font-size: var(--fs-h3); margin-bottom: 1rem; }
+  .jd__sec ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .jd__sec li { position: relative; padding-left: 1.4rem; color: var(--text-muted); max-width: 70ch; }
+  .jd__sec li::before { content: ''; position: absolute; left: 0; top: 0.7em; width: 0.5rem; height: 2px; background: var(--accent); }
+  .jd__sec p { max-width: 70ch; }
+  @media (max-width: 860px) {
+    .jd { grid-template-columns: 1fr; gap: 2rem; }
+    .jd__side { position: static; order: 2; }
+  }
+</style>
