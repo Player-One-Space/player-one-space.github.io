@@ -7,18 +7,19 @@ const BROCHURE = 'https://drive.google.com/file/d/1_lL6-7Cp8GOpdLGSXi_d7a_q_IT4g
 
 interface Item {
   date: string; tag: string; title: string; body: string;
-  img?: string; imgAlt?: string; imgFit?: 'cover' | 'contain' | 'logo' | 'tall'; imgPos?: string;
+  img?: string; imgAlt?: string; imgFit?: 'cover' | 'logo' | 'tall'; imgPos?: string;
   link?: { href: string; label: string; external?: boolean };
   points?: string[]; pointsLabel?: string;
 }
 
-// Newest first. Public facts only. Sources: vault (weekly meetings, shareholder updates,
-// Conferences/, Partners/), Slack, Company History photos.
+// Newest first. Public facts only. Keep it short: what we build, who joins, who we work with.
+// Removed items (CDL application, VC takeaways, first logo, NASA handbook) are kept in
+// the vault: Marketing&PR/News/2026-11-15_Removed_From_Website.md
 const news: Item[] = [
   {
     date: 'November 2026', tag: 'Product',
     title: 'P1S PELTAST-X prototype ignites hydrogen',
-    body: 'Our first thruster prototype now ignites hydrogen inside the thruster body, with a miniature spark plug. The nozzle swaps with six bolts, so we test many shapes fast. Machined flight-style parts come next, then firing in our vacuum chamber.',
+    body: 'Our first thruster prototype now ignites hydrogen inside the thruster body, with a miniature spark plug. The nozzle swaps with six bolts, so we test many shapes fast. Machined parts come next, then firing in our vacuum chamber.',
     img: '/images/news/peltast-interior.jpg', imgAlt: 'P1S PELTAST-X interior: electrolyser bay', imgFit: 'cover',
   },
   {
@@ -29,38 +30,26 @@ const news: Item[] = [
     link: { href: '/products#specs', label: 'See the specs' },
   },
   {
-    date: 'November 2026', tag: 'Product',
-    title: 'Bench computer for the hardware-in-the-loop demo',
-    body: 'For our hardware-in-the-loop bench we chose the NVIDIA Jetson Orin NX. We develop with headroom on the NX and fly the smallest part that closes the loop: the pin-compatible Orin Nano. Same carrier board, same software.',
-    img: '/images/news/jetson-orin-nx.jpg', imgAlt: 'NVIDIA Jetson Orin NX developer kit and SSD on a desk', imgFit: 'cover', imgPos: 'center 15%',
-  },
-  {
     date: 'November 2026', tag: 'Event',
     title: 'Our team wins the ESA procurement training at the Canadian Space Agency',
     body: 'Dennis Silin, our Head of Sales, joined the ESA procurement training at the Canadian Space Agency in Saint-Hubert, Quebec, 3–6 November. His team won the training exercise. We now know the ESA tender process from the inside.',
     img: '/images/news/csa-esa-training.jpg', imgAlt: 'Winning team at the ESA procurement training, Canadian Space Agency', imgFit: 'cover',
   },
   {
+    date: 'November 2026', tag: 'Product',
+    title: 'Bench computer for the hardware-in-the-loop demo',
+    body: 'For our hardware-in-the-loop bench we chose the NVIDIA Jetson Orin NX. We develop with headroom on the NX and fly the smallest part that closes the loop: the pin-compatible Orin Nano. Same carrier board, same software.',
+    img: '/images/news/jetson-orin-nx.jpg', imgAlt: 'NVIDIA Jetson Orin NX developer kit and SSD on a desk', imgFit: 'cover', imgPos: 'center 15%',
+  },
+  {
+    date: 'October 2026', tag: 'Product',
+    title: 'We bought our own vacuum chamber',
+    body: 'We bought and set up our own vacuum chamber for thruster tests. On 8 October we ran the first pump-down, and it holds vacuum. This is where P1S PELTAST-X fires in space-like conditions, with no waiting for outside test slots.',
+  },
+  {
     date: 'October 2026', tag: 'Partnership',
     title: 'Canadian compute for space AI, with Freyr',
     body: 'We agreed with Freyr, a Vancouver GPU data centre, to train our space AI on Canadian compute. We train on large GPUs on the ground and fly small edge AI boards in orbit. A trial workload starts when their cluster goes live.',
-  },
-  {
-    date: 'October 2026', tag: 'Event',
-    title: 'Talk at the Mars Society Convention, Los Angeles',
-    body: 'Dennis Silin gave a talk at the International Mars Society Convention in Los Angeles on 23 October and met operators and engineers there.',
-  },
-  {
-    date: 'October 2026', tag: 'Event',
-    title: 'Spacebound 2026, Ottawa',
-    body: 'We joined Spacebound, the Space Canada conference, 19–21 October. We met Canadian satellite companies and operators, and started conversations that continue today.',
-    img: '/images/news/spacebound-2026.jpg', imgAlt: 'Spacebound 2026 by Space Canada', imgFit: 'cover',
-  },
-  {
-    date: 'October 2026', tag: 'Team',
-    title: 'Sales and AI teams grow',
-    body: 'Dennis Silin joins as Head of Sales. He holds an MSc in Astronautics from Cranfield and has shipped flight software to orbit. Elisabeth Smith joins as Senior AI/ML Engineer and Stas Nikulin as AI Engineer. The team is now nine.',
-    link: { href: '/about', label: 'Meet the team' },
   },
   {
     date: 'October 2026', tag: 'Product',
@@ -70,71 +59,30 @@ const news: Item[] = [
     link: { href: '/products#plasma', label: 'Learn more' },
   },
   {
-    date: 'October 2026', tag: 'Product',
-    title: 'We bought our own vacuum chamber',
-    body: 'We bought and set up our own vacuum chamber for thruster tests. On 8 October we ran the first pump-down, and it holds vacuum. This is where P1S PELTAST-X fires in space-like conditions, with no waiting for outside test slots.',
+    date: 'October 2026', tag: 'Team',
+    title: 'Sales and AI teams grow',
+    body: 'Dennis Silin joins as Head of Sales. He holds an MSc in Astronautics from Cranfield and has shipped flight software to orbit. Elisabeth Smith joins as Senior AI/ML Engineer and Stas Nikulin as AI Engineer. The team is now nine.',
+    link: { href: '/about', label: 'Meet the team' },
   },
   {
-    date: 'October 2026', tag: 'Event',
-    title: 'IAC 2026, Antalya',
-    body: 'Umut Kızılyamaç, our Head of Space Systems Engineering, attended the 77th International Astronautical Congress in Antalya, 5–9 October. He met payload-hosting providers for the first flight of P1S Buddy.',
-  },
-  {
-    date: 'October 2026', tag: 'Product',
-    title: 'AI training server and space scene go live',
-    body: 'Our own GPU training server is up and running for the team. Our synthetic-environment team built a photoreal Earth and orbit scene in Unreal Engine. P1S Buddy trains on these images.',
-    img: '/images/news/unreal-earth.jpg', imgAlt: 'Earth rendered in our Unreal Engine scene', imgFit: 'cover',
-  },
-  {
-    date: 'September 2026', tag: 'Event',
-    title: 'Seattle Space Week: what three space VCs told us',
-    body: 'At Seattle Space Week we joined "Escape Velocity: Building an Investable Space Startup" in Redmond. Cameron Borumand (FUSE), Jordan Baker (Athenaeum Ventures) and Stefan Kalb (Massive Tech Ventures) spoke openly about what gets a space startup funded. These are our notes.',
-    img: '/images/news/seattle-escape-velocity-panel.jpg', imgAlt: 'Cameron Borumand, Stefan Kalb and Jordan Baker on the Escape Velocity panel', imgFit: 'cover',
-    pointsLabel: 'Read the 12 takeaways',
+    date: 'August–October 2026', tag: 'Event',
+    title: 'On the road: five events in ten weeks',
+    body: 'We met operators, hosting providers, investors and suppliers across North America and Europe. In Seattle we met Michael Reilly of Varda Space Industries, next to a capsule that has flown and come back. Build it, fly it, let the flight open the next door: that is our path too.',
+    img: '/images/news/dima-varda-michael-reilly.jpg', imgAlt: 'Dima Anoshin with Michael Reilly of Varda next to a Varda W-series capsule', imgFit: 'tall', imgPos: 'center 30%',
+    pointsLabel: 'See all five events',
     points: [
-      'Return the fund. No deal unless they believe you can return the whole fund. Ask what multiple that takes, then work back to a revenue number.',
-      'Show a near-term revenue path. A 30-year vision is great, but investors want money back in 3 to 5 years.',
-      'Do not depend on one customer. Take grants and government contracts, but do not rely on them alone. Policy can change every 4 years.',
-      'Have a plan for flight heritage. Nobody flies you until you have flown.',
-      'Team, team, market, product. They back the founder first, and ask: what is your right to win?',
-      'Honesty is non-negotiable. Even a small stretch in your bio is a red flag.',
-      'Green flags: you build fast, you have deep domain expertise, and you can name your next 10 hires.',
-      'Know what must be true for the next round. Talk to growth investors early and hit the milestones you promised.',
-      'Warm intro first, events second, cold email still works. A soft pass is not a no.',
-      'Pitch the difference, not the tech. Explain why a customer buys yours, and pass the grandmother test.',
-      'Find a unique insight. Investors follow founders with a new insight, not market maps.',
-      'Choose the partner, not just the fund.',
+      'SmallSat 2026, Salt Lake City, 23–26 August: the main yearly meeting of the small-satellite industry.',
+      'Seattle Space Week, 28 September – 4 October: the Space Northwest Symposium in Federal Way and the Escape Velocity investor breakfast in Redmond.',
+      'IAC 2026, Antalya, 5–9 October: Umut Kızılyamaç met payload-hosting providers for the first flight of P1S Buddy.',
+      'Spacebound 2026, Ottawa, 19–21 October: Dennis Silin met Canadian satellite companies and operators.',
+      'Mars Society Convention, Los Angeles, 23 October: Dennis Silin gave a talk.',
     ],
   },
   {
-    date: 'September 2026', tag: 'Event',
-    title: 'Meeting Varda Space Industries at Space Northwest',
-    body: 'At the Space Northwest Symposium we met Michael Reilly of Varda Space Industries, next to a W-series capsule that has flown and come back. Build it, fly it, and let the flight open the next door: that is our path too.',
-    img: '/images/news/dima-varda-michael-reilly.jpg', imgAlt: 'Dima Anoshin with Michael Reilly of Varda next to a Varda W-series capsule', imgFit: 'tall', imgPos: 'center 30%',
-  },
-  {
-    date: 'September 2026', tag: 'Event',
-    title: 'Space Northwest Symposium',
-    body: 'Seattle Space Week opened with the Space Northwest Symposium in Federal Way on 29 September. Panels covered launch resiliency and reusable vehicles, with speakers from Space Systems Command, Stoke Space and Varda.',
-    img: '/images/news/space-northwest-symposium.jpg', imgAlt: 'Launch resiliency panel at the Space Northwest Symposium', imgFit: 'cover', imgPos: 'center 55%',
-  },
-  {
-    date: 'September 2026', tag: 'Product',
-    title: 'Collision-avoidance demo scene built',
-    body: 'We built the scene for our bench demo: satellites in the same orbit, one object closing in. We run it with and without P1S Buddy and the thruster, so the difference is clear. Bench testing runs to March 2027.',
+    date: 'September–October 2026', tag: 'Product',
+    title: 'Simulation and AI training stack ready',
+    body: 'We built the scene for our bench demo: satellites in the same orbit, one object closing in. We run it with and without P1S Buddy and the thruster, so the difference is clear. A photoreal Earth in Unreal Engine and our own GPU training server feed the AI. Bench testing runs to March 2027.',
     img: '/images/news/demo-scene.jpg', imgAlt: 'Demo scene: observer and chaser satellites in orbit', imgFit: 'cover',
-  },
-  {
-    date: 'August 2026', tag: 'Event',
-    title: 'SmallSat 2026, Salt Lake City',
-    body: 'We attended the 40th Small Satellite Conference in Salt Lake City, Utah, 23–26 August. SmallSat is the main yearly meeting of the small-satellite industry.',
-    img: '/images/news/smallsat-2026.jpg', imgAlt: 'Opening screen of the 40th Small Satellite Conference', imgFit: 'cover', imgPos: 'center 45%',
-  },
-  {
-    date: 'August 2026', tag: 'Company',
-    title: 'We applied to Creative Destruction Lab Space',
-    body: 'We applied to the Creative Destruction Lab (CDL) Space stream for 2026/27. The application started on a flight, over in-flight Starlink Wi-Fi. In August we completed the technical assessment and the business interview.',
-    img: '/images/news/cdl-application.jpg', imgAlt: 'CDL Space application page next to in-flight Starlink Wi-Fi', imgFit: 'cover',
   },
   {
     date: 'August 2026', tag: 'Team',
@@ -159,28 +107,9 @@ const news: Item[] = [
     body: 'Umut brings 4.5 years at a satellite manufacturer, with 7 platforms and 21 missions. He owns spacecraft systems, power, integration and test, and our path to launch.',
   },
   {
-    date: 'June 2026', tag: 'Company',
-    title: 'NASA Systems Engineering Handbook as our design reference',
-    body: 'We design by the book. The NASA Systems Engineering Handbook is our main reference for requirements, interfaces, reviews, and integration and test.',
-    img: '/images/news/nasa-se-handbook.jpg', imgAlt: 'NASA Systems Engineering Handbook', imgFit: 'tall', imgPos: 'center 60%',
-  },
-  {
     date: 'June 2026', tag: 'Team',
     title: 'Jay Bowman joins as CTO',
     body: 'Jay owns the technical architecture across both products and leads the thruster work himself.',
-  },
-  {
-    date: 'May 2026', tag: 'Content',
-    title: 'Our blog goes live',
-    body: 'We started a plain-language series on how satellites work: how they move, how they know where they are, and how data gets down from space.',
-    link: { href: 'https://blog.playeronespace.com/', label: 'Read the blog', external: true },
-  },
-  {
-    date: 'April 2026', tag: 'Company',
-    title: 'Hello, world: our first logo',
-    body: 'We opened our X account in April 2026 with our very first logo: a hungry yellow moon on its orbit. The logo grew up since then. The spirit did not.',
-    img: '/images/news/first-logo-x.jpg', imgAlt: 'Player One Space X profile with the first logo', imgFit: 'cover', imgPos: 'center 30%',
-    link: { href: 'https://x.com/PlayerOneSpace', label: 'Follow us on X', external: true },
   },
   {
     date: 'April 2026', tag: 'Team',
@@ -197,10 +126,10 @@ const tags = ['All', ...Array.from(new Set(news.map((n) => n.tag)))];
 ---
 <BaseLayout
   title="News — Player One Space"
-  description="News from Player One Space: products, events, team and partnerships."
+  description="News from Player One Space: products, team, partnerships and events."
   path="/news"
 >
-  <Hero eyebrow="News" title="What's new." sub="Products, events, team and partnerships. Newest first." />
+  <Hero eyebrow="News" title="What's new." sub="What we build, who joins, who we work with. Newest first." />
 
   <Section>
     <div class="filters" role="group" aria-label="Filter news">
@@ -219,7 +148,7 @@ const tags = ['All', ...Array.from(new Set(news.map((n) => n.tag)))];
             {n.points && (
               <details class="item__more">
                 <summary class="display">{n.pointsLabel ?? 'Read more'}</summary>
-                <ol>{n.points.map((pt) => <li>{pt}</li>)}</ol>
+                <ul>{n.points.map((pt) => <li>{pt}</li>)}</ul>
               </details>
             )}
             {n.link && (
@@ -269,7 +198,7 @@ const tags = ['All', ...Array.from(new Set(news.map((n) => n.tag)))];
   .item__link { display: inline-block; margin-top: 0.9rem; font-size: var(--fs-label); letter-spacing: 0.08em; text-transform: uppercase; }
   .item__more { margin-top: 1rem; }
   .item__more summary { cursor: pointer; font-size: var(--fs-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
-  .item__more ol { margin: 1rem 0 0 1.2rem; display: flex; flex-direction: column; gap: 0.5rem; color: var(--text-muted); max-width: 64ch; }
+  .item__more ul { margin: 1rem 0 0 1.2rem; display: flex; flex-direction: column; gap: 0.5rem; color: var(--text-muted); max-width: 64ch; }
   .item__more li::marker { color: var(--accent); }
   .item__img { border-radius: var(--radius); overflow: hidden; aspect-ratio: 16 / 10; background: var(--surface); }
   .item__img img { width: 100%; height: 100%; display: block; }
