@@ -9,11 +9,46 @@ export function getStaticPaths() {
 }
 const { job } = Astro.props;
 const subject = encodeURIComponent(`Application: ${job.title}`);
+
+// JobPosting structured data, so the role can show in Google job search.
+const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const descriptionHtml = [
+  ...(job.intro ?? []).map((p) => `<p>${esc(p)}</p>`),
+  ...(job.sections ?? []).map(
+    (s) => `<h3>${esc(s.title)}</h3><ul>${s.items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>`
+  ),
+].join('') || `<p>${esc(job.summary)}</p>`;
+const jobLd = {
+  '@context': 'https://schema.org',
+  '@type': 'JobPosting',
+  title: job.title,
+  description: descriptionHtml,
+  ...(job.posted ? { datePosted: job.posted } : {}),
+  employmentType: 'FULL_TIME',
+  directApply: false,
+  url: `https://playeronespace.com/careers/${job.slug}/`,
+  hiringOrganization: {
+    '@type': 'Organization',
+    name: 'Player One Space',
+    sameAs: 'https://playeronespace.com/',
+    logo: 'https://playeronespace.com/icon-512.png',
+  },
+  jobLocation: {
+    '@type': 'Place',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Vancouver',
+      addressRegion: 'BC',
+      addressCountry: 'CA',
+    },
+  },
+};
 ---
 <BaseLayout
   title={`${job.title} — Careers — Player One Space`}
   description={job.summary}
   path={`/careers/${job.slug}`}
+  jsonLd={jobLd}
 >
   <Hero eyebrow={job.team} title={job.title} sub={job.summary} />
 
@@ -26,7 +61,7 @@ const subject = encodeURIComponent(`Application: ${job.title}`);
           <dt>Work eligibility</dt><dd>Must be eligible to work in Canada. We support relocation for the right person.</dd>
         </dl>
         <a class="btn btn--primary" href={`mailto:${applyEmail}?subject=${subject}`}>Apply now</a>
-        <a class="jd__back display" href="/careers">← All roles</a>
+        <a class="jd__back display" href="/careers/">← All roles</a>
       </aside>
       <div class="jd__body">
         {job.intro?.map((p) => <p class="lead reveal">{p}</p>)}

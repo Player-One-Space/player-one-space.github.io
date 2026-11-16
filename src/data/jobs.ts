@@ -8,6 +8,8 @@ export interface Job {
   location: string;
   type: string;
   summary: string;
+  /** Date the role was posted (YYYY-MM-DD). Used by Google job search. */
+  posted?: string;
   external?: string;
   intro?: string[];
   sections?: JobSection[];
@@ -25,6 +27,7 @@ export const jobs: Job[] = [
   },
   {
     slug: 'space-optical-engineer',
+    posted: '2026-11-15',
     title: 'Space Optical Engineer',
     team: 'Hardware · P1S Buddy',
     location: 'Vancouver, BC · On-site or hybrid',
@@ -72,6 +75,7 @@ export const jobs: Job[] = [
   },
   {
     slug: 'thruster-engineer',
+    posted: '2026-11-15',
     title: 'Thruster Engineer',
     team: 'Propulsion · P1S PELTAST-X',
     location: 'Vancouver, BC · On-site',

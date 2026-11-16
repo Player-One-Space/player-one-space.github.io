@@ -2,14 +2,14 @@
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const links = [
   { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/products', label: 'Products' },
-  { href: '/news', label: 'News' },
+  { href: '/about/', label: 'About' },
+  { href: '/products/', label: 'Products' },
+  { href: '/news/', label: 'News' },
   { href: 'https://blog.playeronespace.com/', label: 'Blog', external: true },
-  { href: '/careers', label: 'Careers' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/careers/', label: 'Careers' },
+  { href: '/contact/', label: 'Contact' },
 ];
-const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href.replace(/\/$/, '')));
 ---
 <nav class="nav">
   <div class="nav__inner wrap">
