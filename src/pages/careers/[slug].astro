@@ -27,6 +27,15 @@ const jobLd = {
   employmentType: 'FULL_TIME',
   directApply: false,
   url: `https://playeronespace.com/careers/${job.slug}/`,
+  ...(job.pay
+    ? {
+        baseSalary: {
+          '@type': 'MonetaryAmount',
+          currency: 'CAD',
+          value: { '@type': 'QuantitativeValue', minValue: job.pay.min, maxValue: job.pay.max, unitText: 'YEAR' },
+        },
+      }
+    : {}),
   hiringOrganization: {
     '@type': 'Organization',
     name: 'Player One Space',
@@ -43,6 +52,10 @@ const jobLd = {
     },
   },
 };
+const fmtK = (n: number) => `$${Math.round(n / 1000)}K`;
+const payText = job.pay
+  ? `${fmtK(job.pay.min)}–${fmtK(job.pay.max)} CAD base${job.pay.equity ? `, plus ${job.pay.equity} equity` : ''}`
+  : undefined;
 ---
 <BaseLayout
   title={`${job.title} — Careers — Player One Space`}
@@ -58,7 +71,8 @@ const jobLd = {
         <dl>
           <dt>Location</dt><dd>{job.location}</dd>
           <dt>Type</dt><dd>{job.type}</dd>
-          <dt>Work eligibility</dt><dd>Must be eligible to work in Canada. We support relocation for the right person.</dd>
+          {payText && <><dt>Pay</dt><dd>{payText}</dd></>}
+          <dt>Work eligibility</dt><dd>{job.eligibility ?? 'Must be eligible to work in Canada. We support relocation for the right person.'}</dd>
         </dl>
         <a class="btn btn--primary" href={`mailto:${applyEmail}?subject=${subject}`}>Apply now</a>
         <a class="jd__back display" href="/careers/">← All roles</a>
@@ -73,7 +87,7 @@ const jobLd = {
         ))}
         <div class="jd__sec reveal">
           <h2 class="jd__h">How to apply</h2>
-          <p>Email <a href={`mailto:${applyEmail}?subject=${subject}`}>{applyEmail}</a> with your CV or LinkedIn and a short note about hardware you built and tested. Links to papers, projects or test reports help. We read every application.</p>
+          <p>Email <a href={`mailto:${applyEmail}?subject=${subject}`}>{applyEmail}</a> {job.applyNote ?? 'with your CV or LinkedIn and a short note about hardware you built and tested. Links to papers, projects or test reports help. We read every application.'}</p>
         </div>
       </div>
     </div>

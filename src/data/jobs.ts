@@ -10,6 +10,12 @@ export interface Job {
   summary: string;
   /** Date the role was posted (YYYY-MM-DD). Used by Google job search. */
   posted?: string;
+  /** Base pay range in CAD per year. Shown on the page and sent to Google. */
+  pay?: { min: number; max: number; equity?: string };
+  /** Overrides the default work-eligibility line. */
+  eligibility?: string;
+  /** Overrides the default note under "How to apply". */
+  applyNote?: string;
   external?: string;
   intro?: string[];
   sections?: JobSection[];
@@ -18,12 +24,64 @@ export interface Job {
 export const jobs: Job[] = [
   {
     slug: 'head-of-space-ai',
+    posted: '2026-11-16',
     title: 'Head of Space AI',
     team: 'AI · P1S Buddy',
-    location: 'Vancouver, BC · Onsite or remote',
+    location: 'Vancouver, BC · On-site or remote in Canada',
     type: 'Full-time · Salary + equity',
+    pay: { min: 160000, max: 200000, equity: '0.5%–1.5%' },
+    eligibility: 'Must be eligible to work in Canada. Pacific Time preferred. We cannot sponsor a visa or pay relocation for this role.',
+    applyNote: 'with your CV or LinkedIn and a short note about an AI system you took from prototype to production. Links to code, papers or demos help. We read every application.',
     summary: 'Own the onboard autonomy stack end to end: sensing, perception, decision and the edge runtime that flies on the satellite.',
-    external: 'https://wellfound.com/jobs/4701944-head-of-space-ai',
+    intro: [
+      'P1S Buddy is the onboard AI unit that lets a satellite see what is around it and act on its own, with no person in the loop. It runs on edge compute inside the spacecraft and works with P1S PELTAST-X, our water thruster, to move the satellite out of danger.',
+      'You will own the AI that makes this work, from camera to decision. This is a hands-on role. You write code, lead the AI team, and take the system from simulation to hardware that flies.',
+    ],
+    sections: [
+      {
+        title: 'What you will do',
+        items: [
+          'Design the full pipeline from sensing to action: cameras, perception, decision and the interface to the thruster controller.',
+          'Lead perception work: detection, segmentation, tracking, visual odometry and anomaly detection.',
+          'Run edge AI: model compression, hardware-aware inference, ONNX and TensorRT deployment, real-time processing on embedded hardware.',
+          'Build the MLOps base: data pipelines, training and evaluation, model versions, deployment and monitoring.',
+          'Turn research (computer vision, deep learning, reinforcement learning, autonomy) into flight software.',
+          'Mentor engineers. Set how we build and review code. Lead the root-cause work when something fails.',
+        ],
+      },
+      {
+        title: 'In your first year',
+        items: [
+          'A written autonomy architecture the whole team builds to.',
+          'A strong AI team with clear ways of working.',
+          'Data and model pipelines that anyone on the team can re-run and get the same result.',
+          'AI that works on spacecraft hardware or in high-fidelity simulation.',
+          'A clear path from prototype to onboard flight software.',
+        ],
+      },
+      {
+        title: 'What you bring',
+        items: [
+          '10+ years in engineering, with deep hands-on work in at least one area of machine perception.',
+          'Strong software and systems skills: Python, C/C++, Linux, GPU computing, containers.',
+          'Practical knowledge of hardware: cameras, optics, sensors and embedded compute.',
+          'ML systems you took from prototype to production.',
+          'Proven technical leadership.',
+        ],
+      },
+      {
+        title: 'Nice to have',
+        items: [
+          'Reinforcement learning and learning-based control.',
+          'Robotics, simulation and hardware-in-the-loop testing.',
+          'Visual odometry, SLAM and state estimation.',
+          'Planning, control and robotics middleware.',
+          'Real-time systems and flight software.',
+          'Satellites, spacecraft systems or orbital dynamics.',
+          'Cloud platforms (AWS, GCP or similar) for ground-side pipelines.',
+        ],
+      },
+    ],
   },
   {
     slug: 'space-optical-engineer',
