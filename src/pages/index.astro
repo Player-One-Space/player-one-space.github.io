@@ -79,11 +79,44 @@ const useCommercial = [
   { tag: 'High-orbit operators', title: 'Protect expensive satellites', body: 'Watch for close approaches and react before they become a problem.' },
   { tag: 'Insurers', title: 'Lower risk, clean exit', body: 'A satellite that can move is a lower risk, and it can deorbit within the 5-year rule.' },
 ];
+
+// Organization + WebSite structured data. Helps Google show the right name, logo and links.
+const homeLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Player One Space',
+    alternateName: 'P1S',
+    url: 'https://playeronespace.com/',
+    logo: 'https://playeronespace.com/icon-512.png',
+    description: 'Autonomous defence for satellites. Onboard AI and propulsion that let a satellite detect, decide and manoeuvre with no person in the loop.',
+    email: 'dima@playeronespace.com',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Vancouver',
+      addressRegion: 'BC',
+      addressCountry: 'CA',
+    },
+    sameAs: [
+      'https://www.linkedin.com/company/player-one-space',
+      'https://x.com/PlayerOneSpace',
+      'https://blog.playeronespace.com/',
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Player One Space',
+    alternateName: 'P1S',
+    url: 'https://playeronespace.com/',
+  },
+];
 ---
 <BaseLayout
   title="Player One Space — Autonomous Defence For Satellites"
   description="Player One Space builds autonomous defence for satellites. Onboard AI that detects, decides and manoeuvres, with no person in the loop. P1S Buddy is the brain. P1S PELTAST-X is the legs."
   path="/"
+  jsonLd={homeLd}
 >
   <Hero
     variant="full"
@@ -110,7 +143,7 @@ const useCommercial = [
         tagline="Onboard AI Engine"
         trl="TRL 4 · TRL 5–6 by end of 2026"
         body="The onboard AI engine that makes autonomous decisions and delivers real-time intelligence from orbit — no ground loop. It commands propulsion through a safety-bounded interface: our own thruster, or any third-party thruster a satellite already carries."
-        href="/products#buddy"
+        href="/products/#buddy"
         image="/images/buddy-front.jpg"
         imageAlt="P1S Buddy camera unit, front view"
       />
@@ -121,7 +154,7 @@ const useCommercial = [
         tagline="Propulsion Engine"
         trl="TRL 3 · TRL 4–5 by end of 2026"
         body="A water-fuelled hybrid thruster: precise cold-gas modes for routine work and a pulsed combustion mode for short, strong manoeuvres. Launches with 250 mL of plain water, unpressurized. Built for Buddy's command interface."
-        href="/products#plasma"
+        href="/products/#plasma"
         image="/images/peltast-x.jpg"
         imageAlt="P1S PELTAST-X 2U thruster module"
       />
@@ -169,7 +202,7 @@ const useCommercial = [
     <div class="cta reveal">
       <h2 class="display cta__title">Building what comes after launch.</h2>
       <p class="lead">Detect. Decide. Manoeuvre. The self-defending satellite.</p>
-      <a href="/contact" class="btn btn--primary">Get in Touch</a>
+      <a href="/contact/" class="btn btn--primary">Get in Touch</a>
     </div>
   </Section>
 </BaseLayout>

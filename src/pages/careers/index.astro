@@ -18,7 +18,7 @@ import { jobs, applyEmail } from '../../data/jobs';
   <Section eyebrow="Open roles" title="Join the team.">
     <div class="jobs">
       {jobs.map((j) => (
-        <a class="job reveal" href={j.external ?? `/careers/${j.slug}`} {...(j.external ? { target: '_blank', rel: 'noopener' } : {})}>
+        <a class="job reveal" href={j.external ?? `/careers/${j.slug}/`} {...(j.external ? { target: '_blank', rel: 'noopener' } : {})}>
           <div class="job__main">
             <span class="job__team display">{j.team}</span>
             <h3 class="job__title">{j.title}</h3>

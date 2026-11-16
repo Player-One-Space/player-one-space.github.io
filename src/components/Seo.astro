@@ -4,16 +4,22 @@ interface Props {
   description: string;
   path?: string;
   image?: string;
+  jsonLd?: object | object[];
 }
 const {
   title,
   description,
   path = '',
   image = '/images/og-image.png',
+  jsonLd,
 } = Astro.props;
 
 const site = Astro.site ?? new URL('https://playeronespace.com');
-const canonical = new URL(path, site).href;
+// GitHub Pages serves /about/ and 301-redirects /about to it.
+// The canonical URL must be the final URL, so it always ends with a slash.
+const canonicalPath = path === '' || path.endsWith('/') ? path : `${path}/`;
+const canonical = new URL(canonicalPath, site).href;
+const ldItems = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 const ogImage = new URL(image, site).href;
 ---
 <title>{title}</title>
@@ -36,3 +42,8 @@ const ogImage = new URL(image, site).href;
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
+
+<!-- Structured data (schema.org) -->
+{ldItems.map((item) => (
+  <script type="application/ld+json" set:html={JSON.stringify(item)} />
+))}

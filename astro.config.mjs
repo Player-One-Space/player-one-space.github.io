@@ -7,5 +7,5 @@ export default defineConfig({
   trailingSlash: 'ignore',
   build: { assets: '_astro' },
   // Technology was merged into Products (2026-11-15). Keep old links working.
-  redirects: { '/technology': '/products' },
+  redirects: { '/technology': '/products/' },
 });
