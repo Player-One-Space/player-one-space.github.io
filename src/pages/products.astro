@@ -6,6 +6,7 @@ import ModuleCard from '../components/ModuleCard.astro';
 import StatRow from '../components/StatRow.astro';
 
 const BROCHURE = '/player-one-space-brochure.pdf';
+const PRESENTATION = '/player-one-space-company-presentation.pdf';
 
 const buyWays = [
   { tag: 'Option 01', title: 'Integrated kit', body: 'P1S Buddy and P1S PELTAST-X together. One kit per satellite, one integration.' },
@@ -148,6 +149,7 @@ const specs = [
       <p class="lead">Add P1S Buddy and P1S PELTAST-X to your next mission. Sales and documentation: <a href="mailto:dennis@playeronespace.com">dennis@playeronespace.com</a></p>
       <div class="cta__btns">
         <a href="mailto:dennis@playeronespace.com" class="btn btn--primary">Talk to Sales</a>
+        <a href={PRESENTATION} target="_blank" rel="noopener" class="btn btn--ghost">Company presentation (PDF)</a>
         <a href={BROCHURE} target="_blank" rel="noopener" class="btn btn--ghost">Brochure (PDF)</a>
       </div>
     </div>

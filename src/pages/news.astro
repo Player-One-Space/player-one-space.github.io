@@ -4,6 +4,7 @@ import Hero from '../components/Hero.astro';
 import Section from '../components/Section.astro';
 
 const BROCHURE = '/player-one-space-brochure.pdf';
+const PRESENTATION = '/player-one-space-company-presentation.pdf';
 
 interface Item {
   date: string; tag: string; title: string; body: string;
@@ -171,7 +172,7 @@ const tags = ['All', ...Array.from(new Set(news.map((n) => n.tag)))];
       ))}
     </ol>
     <div class="press reveal">
-      <p>Press and media: <a href="mailto:dima@playeronespace.com">dima@playeronespace.com</a> · <a href={BROCHURE} target="_blank" rel="noopener">Product brochure (PDF)</a></p>
+      <p>Press and media: <a href="mailto:dima@playeronespace.com">dima@playeronespace.com</a> · <a href={PRESENTATION} target="_blank" rel="noopener">Company presentation (PDF)</a> · <a href={BROCHURE} target="_blank" rel="noopener">Product brochure (PDF)</a></p>
     </div>
   </Section>
 </BaseLayout>
