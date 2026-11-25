@@ -1,4 +1,5 @@
 ---
+interface Stat { value: string; label: string; }
 interface Props {
   variant?: 'full' | 'compact';
   eyebrow?: string;
@@ -7,8 +8,11 @@ interface Props {
   /** Optional looping background video (muted, autoplay). Poster shown while loading / reduced motion. */
   video?: string;
   poster?: string;
+  /** Full variant only: key numbers shown in a strip at the bottom of the hero. */
+  stats?: Stat[];
+  statsNote?: string;
 }
-const { variant = 'compact', eyebrow, title, sub, video, poster } = Astro.props;
+const { variant = 'compact', eyebrow, title, sub, video, poster, stats, statsNote } = Astro.props;
 ---
 <header class={`hero hero--${variant} ${video ? 'hero--video' : ''}`}>
   {video && (
@@ -28,7 +32,7 @@ const { variant = 'compact', eyebrow, title, sub, video, poster } = Astro.props;
   <div class="hero__bg"></div>
   <div class="wrap hero__inner">
     {eyebrow && <span class="bracket-label">{eyebrow}</span>}
-    <h1 class="display hero__title" set:html={title}></h1>
+    <h1 class="hero__title" set:html={title}></h1>
     {sub && <p class="lead hero__sub">{sub}</p>}
     {variant === 'full' && (
       <div class="hero__cta">
@@ -37,73 +41,116 @@ const { variant = 'compact', eyebrow, title, sub, video, poster } = Astro.props;
       </div>
     )}
   </div>
+  {variant === 'full' && stats && (
+    <div class="hero__strip">
+      <div class="wrap">
+        <dl class="hero__stats">
+          {stats.map((s) => (
+            <div class="hero__stat">
+              <dd>{s.value}</dd>
+              <dt>{s.label}</dt>
+            </div>
+          ))}
+        </dl>
+        {statsNote && <p class="hero__note">{statsNote}</p>}
+      </div>
+    </div>
+  )}
 </header>
 
 <style>
   .hero { position: relative; overflow: hidden; }
-  .hero--full { min-height: calc(100vh - var(--nav-h)); display: flex; align-items: center; }
-  .hero--compact { padding: clamp(3.5rem, 9vw, 7rem) 0 clamp(2rem, 4vw, 3rem); border-bottom: 1px solid var(--border); }
+  .hero--full {
+    min-height: 100vh; min-height: 100svh;
+    display: flex; flex-direction: column;
+    padding-top: calc(var(--nav-h) + clamp(2.5rem, 9vh, 6.5rem));
+  }
+  .hero--compact {
+    padding: calc(var(--nav-h) + clamp(3.5rem, 9vw, 7.5rem)) 0 clamp(2.5rem, 5vw, 4rem);
+  }
 
   .hero__video {
-    position: absolute; inset: 0; z-index: 0;
+    position: absolute; left: 0; top: 10%; z-index: 0;
     width: 100%; height: 100%;
-    object-fit: cover; object-position: center 65%;
+    object-fit: cover; object-position: center 70%;
     pointer-events: none;
   }
-  .hero__bg {
-    position: absolute; inset: 0; z-index: 1;
-    background:
-      radial-gradient(900px 500px at 75% 15%, rgba(255,107,26,0.10), transparent 60%),
-      radial-gradient(700px 600px at 10% 90%, rgba(255,107,26,0.06), transparent 55%);
-    pointer-events: none;
-  }
-  /* Faint grid, fading out from the centre. Only on heroes without video. */
+  .hero__bg { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+  /* Faint blueprint grid on heroes without video. Fades out to the right and down. */
   .hero:not(.hero--video) .hero__bg {
     background:
-      radial-gradient(900px 500px at 75% 15%, rgba(255,107,26,0.10), transparent 60%),
-      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px) 0 0 / 64px 64px,
-      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px) 0 0 / 64px 64px;
-    -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 25%, transparent 75%);
-            mask-image: radial-gradient(ellipse at 50% 40%, #000 25%, transparent 75%);
+      linear-gradient(var(--line) 1px, transparent 1px) 0 calc(var(--nav-h) - 1px) / 80px 80px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 80px 80px;
+    -webkit-mask-image: radial-gradient(120% 100% at 100% 0%, #000 0%, transparent 62%);
+            mask-image: radial-gradient(120% 100% at 100% 0%, #000 0%, transparent 62%);
+    opacity: 0.8;
   }
-  /* Scrim over the video so text stays readable; heavier at the bottom where Earth is bright. */
+  /* Scrim over the video: dark at the top-left where the text sits, clear over Earth. */
   .hero--video .hero__bg {
     background:
-      linear-gradient(180deg, rgba(6,10,17,0.45) 0%, rgba(6,10,17,0.25) 45%, rgba(6,10,17,0.72) 100%),
-      radial-gradient(900px 500px at 75% 15%, rgba(255,107,26,0.10), transparent 60%);
+      linear-gradient(180deg, rgba(6,6,7,0.72) 0%, rgba(6,6,7,0.28) 42%, rgba(6,6,7,0) 62%, rgba(6,6,7,0.55) 100%),
+      linear-gradient(90deg, rgba(6,6,7,0.5) 0%, rgba(6,6,7,0) 55%);
   }
-  /* Soft fade into the page background at the hero's lower edge. */
-  .hero--video::after {
-    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 120px; z-index: 1;
-    background: linear-gradient(180deg, transparent, var(--bg, #060a11));
-    pointer-events: none;
-  }
-  .hero__inner { position: relative; z-index: 2; }
+  .hero__inner { position: relative; z-index: 2; width: 100%; }
 
-  /* One staggered load: eyebrow, title, sub, buttons rise in turn.
-     "backwards" fill so the buttons' hover transform still works after the load. */
-  .hero__inner > * { animation: hero-rise 0.9s var(--reveal-ease) backwards; }
-  .hero__inner > :nth-child(2) { animation-delay: 0.12s; }
-  .hero__inner > :nth-child(3) { animation-delay: 0.24s; }
-  .hero__inner > :nth-child(4) { animation-delay: 0.36s; }
+  /* One staggered load: eyebrow, title, sub, buttons rise in turn. */
+  .hero__inner > *, .hero__strip { animation: hero-rise 1s var(--reveal-ease) backwards; }
+  .hero__inner > :nth-child(2) { animation-delay: 0.1s; }
+  .hero__inner > :nth-child(3) { animation-delay: 0.2s; }
+  .hero__inner > :nth-child(4) { animation-delay: 0.3s; }
+  .hero__strip { animation-delay: 0.45s; }
   @keyframes hero-rise {
-    from { opacity: 0; transform: translateY(16px); }
+    from { opacity: 0; transform: translateY(18px); }
     to { opacity: 1; transform: none; }
   }
-
   @media (prefers-reduced-motion: reduce) {
     .hero__video { display: none; }
-    .hero__inner > * { animation: none; }
+    .hero--video { background: url('/images/earth-hero-poster.jpg') center 70% / cover no-repeat; }
+    .hero__inner > *, .hero__strip { animation: none; }
   }
 
   .hero__title {
     font-size: var(--fs-hero);
-    line-height: 1.0;
-    letter-spacing: -0.01em;
-    max-width: 16ch;
+    font-weight: 500;
+    line-height: 0.94;
+    letter-spacing: -0.05em;
+    max-width: 14ch;
     color: var(--text);
+    text-wrap: initial;
   }
-  .hero--compact .hero__title { font-size: clamp(2.2rem, 5vw, 3.6rem); }
-  .hero__sub { margin-top: 1.5rem; color: var(--text); }
-  .hero__cta { margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+  .hero--compact .hero__title { font-size: var(--fs-page); line-height: 0.98; letter-spacing: -0.045em; max-width: 20ch; }
+  .hero__sub { margin-top: clamp(1.25rem, 2.5vw, 2rem); color: var(--text); max-width: 46ch; text-shadow: 0 0 24px rgba(6,6,7,0.9); }
+  .hero--compact .hero__sub { color: var(--text-muted); max-width: 58ch; }
+  .hero__cta { margin-top: clamp(1.75rem, 3vw, 2.5rem); display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+  /* Key-number strip pinned to the bottom of the full hero */
+  .hero__strip {
+    position: relative; z-index: 2; margin-top: auto;
+    padding-top: clamp(3rem, 8vh, 6rem);
+  }
+  .hero__stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--line-hi);
+    background: rgba(6, 6, 7, 0.42);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  }
+  .hero__stat { padding: 1.1rem 1.25rem 1.2rem; border-left: 1px solid var(--line-hi); }
+  .hero__stat:first-child { border-left: none; padding-left: 0; background: none; }
+  .hero__stat dd {
+    font-size: clamp(1.5rem, 2.8vw, 2.5rem); font-weight: 500; line-height: 1; letter-spacing: -0.04em; color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+  .hero__stat dt {
+    margin-top: 0.55rem; font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); line-height: 1.4;
+  }
+  .hero__note {
+    font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: rgba(237, 233, 230, 0.6); padding: 0.75rem 0 1rem;
+  }
+  @media (max-width: 760px) {
+    .hero__stats { grid-template-columns: repeat(2, 1fr); }
+    .hero__stat:nth-child(odd) { border-left: none; padding-left: 0; }
+    .hero__stat:nth-child(n + 3) { border-top: 1px solid var(--line-hi); }
+  }
 </style>

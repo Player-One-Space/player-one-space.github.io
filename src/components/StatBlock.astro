@@ -6,24 +6,26 @@ interface Props {
 const { value, label } = Astro.props;
 ---
 <div class="stat reveal">
-  <div class="display stat__value">{value}</div>
+  <div class="stat__value">{value}</div>
   <div class="stat__label">{label}</div>
 </div>
 
 <style>
-  .stat { border-top: 1px solid var(--border); padding-top: 1.25rem; }
+  .stat { padding: 1.5rem 1.6rem 2rem; }
   .stat__value {
+    font-family: var(--font-heading);
     font-size: var(--fs-stat);
     line-height: 0.95;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.04em;
     color: var(--text);
-    font-weight: 600;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
   }
   .stat__label {
-    margin-top: 0.75rem;
+    margin-top: 1.5rem;
     font-size: var(--fs-sm);
     color: var(--text-muted);
     line-height: 1.45;
-    max-width: 22ch;
+    max-width: 26ch;
   }
 </style>

@@ -1,57 +1,79 @@
 ---
 const year = 2026;
 const links = [
-  { href: '/about/', label: 'About' },
   { href: '/products/', label: 'Products' },
+  { href: '/about/', label: 'About' },
   { href: '/news/', label: 'News' },
   { href: '/careers/', label: 'Careers' },
   { href: '/contact/', label: 'Contact' },
 ];
 ---
 <footer class="footer">
-  <div class="wrap footer__inner">
-    <div class="footer__brand">
-      <img class="footer__logo" src="/images/p1s-logo.svg" alt="Player One Space" width="221" height="24" />
-      <p class="footer__tag">Autonomous defence for satellites. Vancouver, BC.</p>
-      <p class="footer__line">Sales: <a href="mailto:dennis@playeronespace.com">dennis@playeronespace.com</a></p>
-      <p class="footer__line">Investors: <a href="mailto:dima@playeronespace.com">dima@playeronespace.com</a></p>
+  <div class="wrap">
+    <div class="footer__top">
+      <p class="footer__statement">Detect. Decide. Manoeuvre.</p>
     </div>
-    <nav class="footer__nav">
-      {links.map((l) => <a href={l.href} class="display">{l.label}</a>)}
-      <a href="https://blog.playeronespace.com/" target="_blank" rel="noopener" class="display">Blog</a>
-    </nav>
-    <div class="footer__social">
-      <a href="https://blog.playeronespace.com/subscribe" target="_blank" rel="noopener" class="display">Subscribe</a>
-      <a href="https://www.linkedin.com/company/player-one-space" target="_blank" rel="noopener" class="display">LinkedIn</a>
-      <a href="https://x.com/PlayerOneSpace" target="_blank" rel="noopener" class="display">X</a>
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <img class="footer__logo" src="/images/p1s-logo.svg" alt="Player One Space" width="221" height="24" />
+        <p class="footer__tag">Autonomous defence for satellites. Vancouver, BC.</p>
+      </div>
+      <div class="footer__col">
+        <span class="footer__h">Site</span>
+        {links.map((l) => <a href={l.href}>{l.label}</a>)}
+      </div>
+      <div class="footer__col">
+        <span class="footer__h">Follow</span>
+        <a href="https://blog.playeronespace.com/" target="_blank" rel="noopener">Blog</a>
+        <a href="https://blog.playeronespace.com/subscribe" target="_blank" rel="noopener">Subscribe</a>
+        <a href="https://www.linkedin.com/company/player-one-space" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://x.com/PlayerOneSpace" target="_blank" rel="noopener">X</a>
+      </div>
+      <div class="footer__col">
+        <span class="footer__h">Sales</span>
+        <a href="mailto:dennis@playeronespace.com">dennis@playeronespace.com</a>
+        <span class="footer__h footer__h--gap">Investors</span>
+        <a href="mailto:dima@playeronespace.com">dima@playeronespace.com</a>
+      </div>
     </div>
-  </div>
-  <div class="wrap footer__base">
-    <span>© {year} Player One Space</span>
-    <span class="display">BUDDY · PELTAST-X</span>
+    <div class="footer__base">
+      <span>© {year} Player One Space</span>
+      <span>P1S Buddy · P1S PELTAST-X</span>
+    </div>
   </div>
 </footer>
 
 <style>
-  .footer { border-top: 1px solid var(--border); background: var(--bg-alt); padding-top: 3.5rem; }
+  .footer { border-top: 1px solid var(--line); background: var(--bg); }
+  .footer__top {
+    display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; flex-wrap: wrap;
+    padding: clamp(3rem, 6vw, 5rem) 0 clamp(2rem, 4vw, 3rem);
+  }
+  .footer__statement {
+    font-size: clamp(1.9rem, 5.6vw, 5rem); line-height: 1; letter-spacing: -0.045em;
+    font-weight: 500; color: rgba(237, 233, 230, 0.22);
+  }
   .footer__inner {
-    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 2rem;
-    padding-bottom: 2.5rem;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1.6fr; gap: 2.5rem 2rem;
+    padding: 2.5rem 0 3rem; border-top: 1px solid var(--line);
   }
-  .footer__logo { height: 22px; width: auto; display: block; margin-bottom: 0.9rem; }
-  .footer__tag { font-size: var(--fs-sm); color: var(--text-muted); margin-bottom: 0.8rem; max-width: 32ch; }
-  .footer__line { font-size: var(--fs-sm); color: var(--text-muted); margin-bottom: 0.3rem; }
-  .footer__nav, .footer__social { display: flex; flex-direction: column; gap: 0.7rem; }
-  .footer__nav a, .footer__social a {
-    font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted);
+  .footer__logo { height: 20px; width: auto; display: block; margin-bottom: 1rem; }
+  .footer__tag { font-size: var(--fs-sm); color: var(--text-muted); max-width: 30ch; }
+  .footer__col { display: flex; flex-direction: column; gap: 0.6rem; align-items: flex-start; }
+  .footer__h {
+    font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.35rem;
   }
-  .footer__nav a:hover, .footer__social a:hover { color: var(--accent); }
+  .footer__h--gap { margin-top: 1rem; }
+  .footer__col a { font-size: var(--fs-sm); color: var(--text); }
+  .footer__col a:hover { color: var(--accent); }
   .footer__base {
-    display: flex; justify-content: space-between; align-items: center;
-    border-top: 1px solid var(--border); padding: 1.5rem 0;
-    font-size: var(--fs-label); color: var(--text-dim); letter-spacing: 0.06em;
+    display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+    border-top: 1px solid var(--line); padding: 1.4rem 0;
+    font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim);
   }
-  @media (max-width: 700px) {
-    .footer__inner { grid-template-columns: 1fr; gap: 1.8rem; }
+  @media (max-width: 860px) {
+    .footer__inner { grid-template-columns: 1fr 1fr; }
+    .footer__brand { grid-column: 1 / -1; }
   }
 </style>

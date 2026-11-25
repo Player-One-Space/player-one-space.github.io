@@ -1,60 +1,100 @@
 ---
 interface Props {
   index: string;        // "01" / "02"
-  kicker: string;       // "1st Vertical — Space Systems"
-  name: string;         // "Plasma"
-  tagline: string;      // "Propulsion Engine"
+  kicker: string;
+  name: string;         // "P1S Buddy"
+  tagline: string;      // "Onboard AI Engine"
   body: string;
-  trl?: string;         // "TRL 4"
+  trl?: string;
   href?: string;
   image?: string;
   imageAlt?: string;
+  /** Short spec rows shown under the body: [label, value] */
+  specs?: [string, string][];
+  /** Put the image on the right */
+  flip?: boolean;
 }
-const { index, kicker, name, tagline, body, trl, href, image, imageAlt } = Astro.props;
-const Tag = href ? 'a' : 'div';
+const { index, kicker, name, tagline, body, trl, href, image, imageAlt, specs, flip = false } = Astro.props;
 ---
-<Tag class="pcard reveal" href={href}>
-  {image && <div class="pcard__img"><img src={image} alt={imageAlt ?? name} loading="lazy" /></div>}
-  <div class="pcard__top">
-    <span class="pcard__index display">{index}</span>
-    <span class="pcard__kicker display">{kicker}</span>
+<article class={`pcard reveal ${flip ? 'pcard--flip' : ''}`}>
+  {image && (
+    <a class="pcard__plate" href={href} tabindex="-1" aria-hidden="true">
+      <img src={image} alt={imageAlt ?? name} loading="lazy" />
+      <span class="pcard__fig">Fig. {index} — {name}</span>
+      <i class="tick tick--tl"></i><i class="tick tick--tr"></i><i class="tick tick--bl"></i><i class="tick tick--br"></i>
+    </a>
+  )}
+  <div class="pcard__data">
+    <div class="pcard__top">
+      <span class="pcard__index">{index}</span>
+      <span class="pcard__kicker">{kicker}</span>
+    </div>
+    <h3 class="pcard__name">{name}</h3>
+    <div class="pcard__tagline">{tagline}</div>
+    <p class="pcard__body">{body}</p>
+    {specs && (
+      <dl class="pcard__specs">
+        {specs.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}
+      </dl>
+    )}
+    <div class="pcard__foot">
+      {trl && <span class="chip">{trl}</span>}
+      {href && <a class="btn btn--ghost" href={href}>Learn more</a>}
+    </div>
   </div>
-  <h3 class="pcard__name display">{name}</h3>
-  <div class="pcard__tagline">{tagline}</div>
-  {trl && <span class="pcard__trl display">{trl}</span>}
-  <p class="pcard__body">{body}</p>
-  {href && <span class="pcard__more display">Learn more →</span>}
-</Tag>
+</article>
 
 <style>
   .pcard {
-    display: block;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 2rem 1.85rem;
-    transition: border-color 0.25s, transform 0.25s, background 0.25s;
-    height: 100%;
-    color: inherit;
+    display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    border: 1px solid var(--line);
   }
-  a.pcard:hover { border-color: var(--accent-line); background: var(--surface-hi); transform: translateY(-3px); }
-  .pcard__img {
-    background: #d6d6d7; border-radius: var(--radius); margin: -0.85rem -0.85rem 1.75rem; overflow: hidden;
+  .pcard + :global(.pcard) { border-top: none; }
+  .pcard--flip { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .pcard--flip .pcard__plate { order: 2; border-right: none; border-left: 1px solid var(--line); }
+
+  /* Light studio plate: the render sits on its own grey background */
+  .pcard__plate {
+    position: relative; display: block; overflow: hidden;
+    background: var(--plate); border-right: 1px solid var(--line);
+    min-height: clamp(20rem, 40vw, 34rem);
   }
-  .pcard__img img { width: 100%; aspect-ratio: 14 / 9; object-fit: cover; display: block; }
-  .pcard__top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-  .pcard__index {
-    font-size: 0.85rem; color: var(--accent); letter-spacing: 0.1em;
-    border: 1px solid var(--accent-line); border-radius: var(--radius);
-    padding: 0.2rem 0.55rem;
+  .pcard__plate img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 1.2s var(--reveal-ease);
   }
-  .pcard__kicker { font-size: var(--fs-label); color: var(--text-muted); letter-spacing: 0.12em; text-transform: uppercase; }
-  .pcard__name { font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1; letter-spacing: -0.01em; color: var(--text); }
-  .pcard__tagline { font-size: 1.05rem; color: var(--accent); margin: 0.5rem 0 1.1rem; font-family: var(--font-display); }
-  .pcard__trl {
-    display: inline-block; margin-bottom: 1.1rem; font-size: var(--fs-label); letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--accent); border: 1px solid var(--accent-line); border-radius: var(--radius); padding: 0.2rem 0.55rem;
+  .pcard:hover .pcard__plate img { transform: scale(1.035); }
+  .pcard__fig {
+    position: absolute; left: 1.4rem; bottom: 1.2rem; z-index: 1;
+    font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase; color: #3a3a3c;
   }
-  .pcard__body { font-size: var(--fs-sm); line-height: 1.65; color: var(--text-muted); }
-  .pcard__more { display: inline-block; margin-top: 1.4rem; font-size: var(--fs-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+  .tick { position: absolute; width: 12px; height: 12px; border: 0 solid #55555a; z-index: 1; }
+  .tick--tl { top: 14px; left: 14px; border-top-width: 1px; border-left-width: 1px; }
+  .tick--tr { top: 14px; right: 14px; border-top-width: 1px; border-right-width: 1px; }
+  .tick--bl { bottom: 14px; left: 14px; border-bottom-width: 1px; border-left-width: 1px; }
+  .tick--br { bottom: 14px; right: 14px; border-bottom-width: 1px; border-right-width: 1px; }
+  .pcard__fig { left: 2.4rem; bottom: 0.85rem; }
+
+  .pcard__data { padding: clamp(1.6rem, 3vw, 2.75rem); display: flex; flex-direction: column; }
+  .pcard__top {
+    display: flex; align-items: center; gap: 0.75rem; margin-bottom: clamp(1.75rem, 3.5vw, 3rem);
+    font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .pcard__index { color: var(--accent); }
+  .pcard__kicker { color: var(--text-muted); }
+  .pcard__kicker::before { content: '/'; color: var(--text-dim); margin-right: 0.75rem; }
+  .pcard__name { font-size: clamp(2.2rem, 4.4vw, 3.75rem); line-height: 0.95; letter-spacing: -0.045em; color: var(--text); }
+  .pcard__tagline { font-size: 1.1rem; color: var(--accent); margin: 0.7rem 0 1.4rem; letter-spacing: -0.01em; }
+  .pcard__body { font-size: var(--fs-sm); line-height: 1.6; color: var(--text-muted); max-width: 48ch; }
+  .pcard__specs { margin-top: 1.75rem; border-top: 1px solid var(--line); }
+  .pcard__specs div { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1rem; padding: 0.7rem 0; border-bottom: 1px solid var(--line); }
+  .pcard__specs dt { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); padding-top: 0.2rem; }
+  .pcard__specs dd { font-size: var(--fs-sm); color: var(--text); font-variant-numeric: tabular-nums; }
+  .pcard__foot { margin-top: auto; padding-top: 2rem; display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+
+  @media (max-width: 900px) {
+    .pcard, .pcard--flip { grid-template-columns: 1fr; }
+    .pcard__plate, .pcard--flip .pcard__plate { order: 0; border: none; border-bottom: 1px solid var(--line); min-height: 0; aspect-ratio: 14 / 10; }
+  }
 </style>

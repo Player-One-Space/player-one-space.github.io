@@ -15,38 +15,47 @@ import Section from '../components/Section.astro';
   />
 
   <Section>
-    <div class="contact">
-      <div class="contact__col reveal">
+    <div class="contact reveal">
+      <div class="contact__col">
         <span class="bracket-label">Sales and documentation</span>
-        <a href="mailto:dennis@playeronespace.com" class="contact__email display">dennis@playeronespace.com</a>
+        <a href="mailto:dennis@playeronespace.com" class="contact__email">dennis@playeronespace.com</a>
         <p class="contact__who">Dennis Silin, Head of Sales · <a href="/player-one-space-brochure.pdf" target="_blank" rel="noopener">Brochure (PDF)</a></p>
-        <span class="bracket-label" style="margin-top: 2rem;">Investors and partners</span>
-        <a href="mailto:dima@playeronespace.com" class="contact__email display">dima@playeronespace.com</a>
-        <p class="contact__who">Dima Anoshin, CEO · <a href="/player-one-space-company-presentation.pdf" target="_blank" rel="noopener">Company presentation (PDF)</a></p>
-        <div class="contact__social">
-          <a href="https://www.linkedin.com/company/player-one-space" target="_blank" rel="noopener" class="display">LinkedIn</a>
-          <a href="https://x.com/PlayerOneSpace" target="_blank" rel="noopener" class="display">X / Twitter</a>
-        </div>
       </div>
-      <div class="contact__col reveal">
-        <span class="bracket-label">Headquarters</span>
-        <p class="contact__loc">Vancouver, British Columbia<br>Canada</p>
-        <p class="contact__note">A Canadian company building autonomous defence for satellites, for allied operators and the global space economy.</p>
-        <a href="mailto:dima@playeronespace.com" class="btn btn--primary">Email Us</a>
+      <div class="contact__col">
+        <span class="bracket-label">Investors and partners</span>
+        <a href="mailto:dima@playeronespace.com" class="contact__email">dima@playeronespace.com</a>
+        <p class="contact__who">Dima Anoshin, CEO · <a href="/player-one-space-company-presentation.pdf" target="_blank" rel="noopener">Company presentation (PDF)</a></p>
+      </div>
+      <div class="contact__col contact__col--wide">
+        <p class="contact__loc">Vancouver, British Columbia, Canada<br /><span>A Canadian company building autonomous defence for satellites, for allied operators and the global space economy.</span></p>
+        <div class="contact__social">
+          <a href="https://www.linkedin.com/company/player-one-space" target="_blank" rel="noopener" class="display">LinkedIn ↗</a>
+          <a href="https://x.com/PlayerOneSpace" target="_blank" rel="noopener" class="display">X / Twitter ↗</a>
+        </div>
       </div>
     </div>
   </Section>
 </BaseLayout>
 
 <style>
-  .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
-  .contact__email { font-size: clamp(1.4rem, 3.5vw, 2.4rem); color: var(--text); letter-spacing: -0.01em; display: inline-block; }
+  .contact { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); }
+  .contact__col { padding: clamp(1.6rem, 3.5vw, 3rem); display: flex; flex-direction: column; align-items: flex-start; }
+  .contact__col + .contact__col { border-left: 1px solid var(--line); }
+  .contact__col--wide { grid-column: 1 / -1; border-left: none !important; border-top: 1px solid var(--line); flex-direction: row; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+  .contact__email {
+    font-family: var(--font-heading); text-transform: none; font-weight: 500;
+    font-size: clamp(1.35rem, 2.6vw, 2.25rem); color: var(--text); letter-spacing: -0.035em; line-height: 1.1;
+    margin-top: clamp(2rem, 6vw, 5rem); word-break: break-word;
+  }
   .contact__email:hover { color: var(--accent); }
-  .contact__who { font-size: var(--fs-sm); color: var(--text-muted); margin-top: 0.4rem; }
-  .contact__social { display: flex; gap: 1.5rem; margin-top: 1.5rem; }
-  .contact__social a { font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+  .contact__who { font-size: var(--fs-sm); color: var(--text-muted); margin-top: 0.75rem; }
+  .contact__social { display: flex; gap: 1.5rem; }
+  .contact__social a { font-size: var(--fs-label); color: var(--text); }
   .contact__social a:hover { color: var(--accent); }
-  .contact__loc { font-size: 1.15rem; color: var(--text); line-height: 1.5; margin-bottom: 1rem; }
-  .contact__note { font-size: var(--fs-sm); color: var(--text-muted); margin-bottom: 1.75rem; max-width: 36ch; }
-  @media (max-width: 700px) { .contact { grid-template-columns: 1fr; gap: 2.5rem; } }
+  .contact__loc { font-size: clamp(1.2rem, 1.8vw, 1.5rem); color: var(--text); line-height: 1.2; letter-spacing: -0.02em; }
+  .contact__loc span { color: var(--text-muted); font-size: var(--fs-sm); line-height: 1.55; letter-spacing: 0; display: block; margin-top: 0.6rem; max-width: 52ch; }
+  @media (max-width: 760px) {
+    .contact { grid-template-columns: 1fr; }
+    .contact__col + .contact__col { border-left: none; border-top: 1px solid var(--line); }
+  }
 </style>

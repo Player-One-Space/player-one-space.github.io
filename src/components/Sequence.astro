@@ -1,0 +1,156 @@
+---
+// Animated scene: one object closes in on the same orbit, the satellite sees it,
+// plans a move and steps to a higher orbit. Pure SVG + CSS, one 16 s loop.
+// The three steps on the right light up in time with the scene.
+interface Step { title: string; body: string; }
+interface Props { steps: Step[]; }
+const { steps } = Astro.props;
+---
+<div class="seq reveal">
+  <figure class="seq__scene">
+    <svg viewBox="0 30 1200 500" role="img" aria-label="Illustration: an object closes in on the same orbit. The satellite detects it, plans a manoeuvre and moves to a higher orbit. The object passes below.">
+      <defs>
+        <radialGradient id="seq-earth" cx="50%" cy="0%" r="60%">
+          <stop offset="0" stop-color="#1a1c22" />
+          <stop offset="1" stop-color="#08080a" />
+        </radialGradient>
+        <linearGradient id="seq-cone" x1="1" y1="0" x2="0" y2="0">
+          <stop offset="0" stop-color="#ff6b1a" stop-opacity="0.42" />
+          <stop offset="1" stop-color="#ff6b1a" stop-opacity="0" />
+        </linearGradient>
+      </defs>
+
+      <!-- stars -->
+      <g fill="#ede9e6" opacity="0.5">
+        <circle cx="88" cy="62" r="1" /><circle cx="212" cy="138" r="0.8" /><circle cx="342" cy="44" r="1.1" />
+        <circle cx="468" cy="112" r="0.7" /><circle cx="596" cy="58" r="0.9" /><circle cx="742" cy="96" r="0.7" />
+        <circle cx="858" cy="36" r="1" /><circle cx="968" cy="128" r="0.8" /><circle cx="1092" cy="72" r="1.1" />
+        <circle cx="1148" cy="176" r="0.7" /><circle cx="42" cy="196" r="0.7" /><circle cx="668" cy="170" r="0.6" />
+      </g>
+
+      <!-- Earth limb -->
+      <circle cx="600" cy="2060" r="1610" fill="url(#seq-earth)" stroke="rgba(237,233,230,0.28)" stroke-width="1" />
+
+      <!-- current orbit (dashes drift to show motion) -->
+      <circle class="seq-orbit" cx="600" cy="2060" r="1740" fill="none" stroke="rgba(237,233,230,0.34)" stroke-width="1" stroke-dasharray="2 9" />
+      <text class="seq-t" x="24" y="356" fill="rgba(237,233,230,0.55)">Current orbit</text>
+
+      <!-- planned higher orbit: draws in during "decide" -->
+      <path class="seq-plan" pathLength="100" d="M 1100.6 331.6 A 1800 1800 0 0 0 99.4 331.6" fill="none" stroke="#ff6b1a" stroke-width="1.25" stroke-dasharray="100" />
+      <text class="seq-t seq-plan-t" x="1176" y="300" text-anchor="end" fill="#ff6b1a">Planned orbit</text>
+
+      <!-- our satellite, held 5 degrees right of centre -->
+      <g transform="rotate(5 600 2060)">
+        <g class="seq-sat">
+          <polygon class="seq-cone" points="600,320 40,212 40,438" fill="url(#seq-cone)" />
+          <g class="seq-burn" fill="#ff6b1a">
+            <rect x="576" y="317" width="9" height="6" /><rect x="562" y="318" width="7" height="4" opacity="0.7" /><rect x="551" y="319" width="5" height="2" opacity="0.45" />
+          </g>
+          <rect x="608" y="315" width="20" height="10" fill="none" stroke="#ede9e6" stroke-width="1" />
+          <rect x="572" y="315" width="20" height="10" fill="none" stroke="#ede9e6" stroke-width="1" />
+          <rect x="592" y="312" width="16" height="16" fill="#ff6b1a" />
+          <text class="seq-t" x="600" y="290" text-anchor="middle" fill="#ede9e6" transform="rotate(-5 600 290)">Your satellite</text>
+        </g>
+      </g>
+
+      <!-- the object: same orbit, closing from behind -->
+      <g class="seq-obj">
+        <rect x="594" y="314" width="12" height="12" fill="#ede9e6" transform="rotate(45 600 320)" />
+        <g class="seq-lock" fill="none" stroke="#ff6b1a" stroke-width="1.25">
+          <path d="M 580 308 V 300 H 588" /><path d="M 612 300 H 620 V 308" /><path d="M 620 332 V 340 H 612" /><path d="M 588 340 H 580 V 332" />
+        </g>
+        <text class="seq-t seq-lock-t" x="600" y="364" text-anchor="middle" fill="#ff6b1a">Object</text>
+      </g>
+    </svg>
+    <figcaption class="seq__cap">Illustration. Not to scale. Time is sped up.</figcaption>
+  </figure>
+
+  <ol class="seq__steps">
+    {steps.map((s, i) => (
+      <li class={`seq__step seq__step--${i + 1}`}>
+        <span class="seq__n">0{i + 1}</span>
+        <div>
+          <h3 class="seq__title">{s.title}</h3>
+          <p class="seq__body">{s.body}</p>
+        </div>
+      </li>
+    ))}
+  </ol>
+</div>
+
+<style>
+  .seq { border: 1px solid var(--line); }
+  .seq__scene { position: relative; border-bottom: 1px solid var(--line); background: #040405; overflow: hidden; aspect-ratio: 1200 / 500; }
+  .seq__scene svg { width: 100%; height: 100%; display: block; }
+  .seq__cap {
+    position: absolute; left: 1.25rem; bottom: 1rem;
+    font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim);
+  }
+  .seq-t { font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  .seq__steps { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); }
+  .seq__step {
+    flex: 1; display: grid; grid-template-columns: 2.25rem 1fr; gap: 0.5rem;
+    padding: 1.5rem 1.6rem 2rem; border-right: 1px solid var(--line); position: relative;
+  }
+  .seq__step:last-child { border-right: none; }
+  .seq__step::before { content: ''; position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: var(--accent); opacity: 0; }
+  .seq__n { font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 500; letter-spacing: 0.08em; color: var(--accent); padding-top: 0.45rem; }
+  .seq__title { font-size: clamp(1.5rem, 2.3vw, 2rem); letter-spacing: -0.035em; line-height: 1; margin-bottom: 0.7rem; }
+  .seq__body { font-size: var(--fs-sm); line-height: 1.55; max-width: 38ch; }
+
+  /* ---- Static state (reduced motion): the move is done, the object passes below ---- */
+  .seq-obj { transform-box: view-box; transform-origin: 600px 2060px; transform: rotate(1.5deg); }
+  .seq-sat { transform: translateY(-60px); }
+  .seq-burn { opacity: 0; }
+  .seq-cone { opacity: 0.5; }
+
+  /* ---- The 16 s loop ----
+     0–16%  object approaches   16–36% detect   36–52% decide
+     52–74% manoeuvre           74–94% object passes below   94–100% reset */
+  @media (prefers-reduced-motion: no-preference) {
+    .seq__scene svg > * { animation: seq-fade 16s linear infinite; }
+    .seq-orbit { animation: seq-drift 16s linear infinite, seq-fade 16s linear infinite !important; }
+    .seq-obj { animation: seq-obj 16s linear infinite, seq-fade 16s linear infinite !important; }
+    .seq-sat { animation: seq-sat 16s cubic-bezier(0.5, 0, 0.2, 1) infinite; }
+    .seq-burn { animation: seq-burn 16s steps(1) infinite; }
+    .seq-cone { animation: seq-cone 16s ease-in-out infinite; }
+    .seq-lock, .seq-lock-t { animation: seq-lock 16s linear infinite; }
+    .seq-plan { animation: seq-plan 16s linear infinite !important; }
+    .seq-plan-t { animation: seq-plan-t 16s linear infinite !important; }
+    .seq__step--1 { animation: seq-s1 16s linear infinite; }
+    .seq__step--2 { animation: seq-s2 16s linear infinite; }
+    .seq__step--3 { animation: seq-s3 16s linear infinite; }
+    .seq__step--1::before { animation: seq-b1 16s linear infinite; }
+    .seq__step--2::before { animation: seq-b2 16s linear infinite; }
+    .seq__step--3::before { animation: seq-b3 16s linear infinite; }
+  }
+  @keyframes seq-fade { 0%, 100% { opacity: 0; } 4%, 95% { opacity: 1; } }
+  @keyframes seq-drift { from { stroke-dashoffset: 0; } to { stroke-dashoffset: 220; } }
+  @keyframes seq-obj { from { transform: rotate(-21deg); } to { transform: rotate(13deg); } }
+  @keyframes seq-sat { 0%, 54% { transform: translateY(0); } 68%, 100% { transform: translateY(-60px); } }
+  @keyframes seq-burn {
+    0%, 53% { opacity: 0; } 54% { opacity: 1; } 56% { opacity: 0.2; } 58% { opacity: 1; } 60% { opacity: 0.2; }
+    62% { opacity: 1; } 64% { opacity: 0.2; } 66% { opacity: 1; } 68%, 100% { opacity: 0; }
+  }
+  @keyframes seq-cone { 0%, 100% { opacity: 0.25; } 16% { opacity: 0.35; } 20%, 50% { opacity: 1; } 74% { opacity: 0.4; } }
+  @keyframes seq-lock { 0%, 17% { opacity: 0; } 18% { opacity: 1; } 19% { opacity: 0; } 20% { opacity: 1; } 21% { opacity: 0; } 22%, 100% { opacity: 1; } }
+  @keyframes seq-plan { 0%, 36% { stroke-dashoffset: 100; opacity: 1; } 50%, 95% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+  @keyframes seq-plan-t { 0%, 46% { opacity: 0; } 50%, 95% { opacity: 1; } 100% { opacity: 0; } }
+  @keyframes seq-s1 { 0%, 15% { opacity: 0.4; } 17%, 35% { opacity: 1; } 37%, 100% { opacity: 0.4; } }
+  @keyframes seq-s2 { 0%, 35% { opacity: 0.4; } 37%, 51% { opacity: 1; } 53%, 100% { opacity: 0.4; } }
+  @keyframes seq-s3 { 0%, 51% { opacity: 0.4; } 53%, 94% { opacity: 1; } 97%, 100% { opacity: 0.4; } }
+  @keyframes seq-b1 { 0%, 15% { opacity: 0; } 17%, 35% { opacity: 1; } 37%, 100% { opacity: 0; } }
+  @keyframes seq-b2 { 0%, 35% { opacity: 0; } 37%, 51% { opacity: 1; } 53%, 100% { opacity: 0; } }
+  @keyframes seq-b3 { 0%, 51% { opacity: 0; } 53%, 94% { opacity: 1; } 97%, 100% { opacity: 0; } }
+
+  @media (max-width: 900px) {
+    .seq__steps { grid-template-columns: 1fr; }
+    .seq__step { border-right: none; border-bottom: 1px solid var(--line); }
+    .seq__step:last-child { border-bottom: none; }
+    .seq__step::before { right: auto; bottom: 0; top: 0; left: -1px; width: 2px; height: auto; }
+    .seq__cap { position: static; padding: 0.6rem 1rem 0.8rem; }
+    .seq__scene { aspect-ratio: auto; }
+    .seq-t { font-size: 20px; }
+  }
+</style>
