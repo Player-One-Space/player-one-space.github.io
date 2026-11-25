@@ -111,51 +111,51 @@ const logos = [
   />
 
   <Section eyebrow="The Problem" title="Satellites are blind and immobile.">
-    <p class="lead reveal" style="margin-bottom: 2.5rem;">That is the defining vulnerability of the space age. Fix both and you have a satellite that can detect a threat, classify it, and manoeuvre to safety — autonomously.</p>
+    <p class="lead reveal offset">That is the defining vulnerability of the space age. Fix both and you have a satellite that can detect a threat, classify it, and manoeuvre to safety — autonomously.</p>
     <div class="grid grid--2">
       {problems.map((p) => <ModuleCard tag={p.tag} title={p.title} body={p.body} />)}
     </div>
   </Section>
 
   <Section eyebrow="Approach" title="One company.<br>One system." alt={true}>
-    <p class="lead reveal">Detect, decide, manoeuvre. P1S Buddy is the brain. P1S PELTAST-X is the muscle. Each part also stands on its own, and Buddy works with third-party thrusters. Together they close the loop on one satellite. Our core models and decision thresholds are protected as trade secrets. We design by the NASA Systems Engineering Handbook: clear requirements, interfaces, reviews, and integration and test.</p>
+    <p class="lead reveal offset">Detect, decide, manoeuvre. P1S Buddy is the brain. P1S PELTAST-X is the muscle. Each part also stands on its own, and Buddy works with third-party thrusters. Together they close the loop on one satellite. Our core models and decision thresholds are protected as trade secrets. We design by the NASA Systems Engineering Handbook: clear requirements, interfaces, reviews, and integration and test.</p>
   </Section>
 
   <Section eyebrow="Canada" title="A sovereign capability,<br>built in Canada.">
-    <p class="lead reveal">Canada has named space domain awareness a priority for strategic autonomy. Its satellites watch the Arctic and the North Atlantic first. We are a Vancouver company — the principal AI work is done here, by the founding team, and the IP stays in Canada. Allied program offices get the capability from a supplier inside their own borders.</p>
+    <p class="lead reveal offset">Canada has named space domain awareness a priority for strategic autonomy. Its satellites watch the Arctic and the North Atlantic first. We are a Vancouver company — the principal AI work is done here, by the founding team, and the IP stays in Canada. Allied program offices get the capability from a supplier inside their own borders.</p>
   </Section>
 
   <Section eyebrow="Leadership" title="Built by engineers<br>who have shipped.">
     <div class="grid grid--3">
       {team.map((m) => <TeamCard photo={m.photo} name={m.name} role={m.role} bio={m.bio} />)}
     </div>
-    <div class="advisors">
+    <div class="sub">
       <span class="bracket-label reveal">Advisors</span>
-      <div class="grid grid--3" style="margin-top: 1.1rem;">
+      <div class="grid grid--3">
         {advisors.map((m) => <TeamCard photo={m.photo} name={m.name} role={m.role} bio={m.bio} />)}
       </div>
     </div>
-    <div class="exp reveal">
+    <div class="sub reveal">
       <span class="bracket-label">Combined Experience</span>
       <div class="exp__logos">
-        {logos.map((l) => <img class="exp__logo" src={l.src} alt={l.name} height="30" loading="lazy" />)}
+        {logos.map((l) => <div class="exp__cell"><img class="exp__logo" src={l.src} alt={l.name} height="28" loading="lazy" /></div>)}
       </div>
     </div>
   </Section>
 </BaseLayout>
 
 <style>
-  .advisors { margin-top: 3.5rem; }
-  .exp { margin-top: 3rem; }
-  .exp__logos {
-    display: flex; flex-wrap: wrap; align-items: center;
-    gap: 2.25rem 3rem; margin-top: 1.1rem;
-  }
-  /* Force any source logo to white on the dark canvas; muted, brighten on hover. */
+  .sub { margin-top: clamp(3.5rem, 7vw, 6rem); }
+  .sub .bracket-label { color: var(--text); margin-bottom: 1.1rem; }
+  .exp__logos { display: grid; grid-template-columns: repeat(7, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  .exp__cell { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: center; padding: 2rem 1.25rem; min-height: 7rem; }
+  /* Force any source logo to the light text colour on the dark canvas; muted, brighten on hover. */
   .exp__logo {
-    height: 30px; width: auto; max-width: 150px; object-fit: contain;
+    height: 28px; width: auto; max-width: 100%; object-fit: contain;
     filter: brightness(0) invert(1);
-    opacity: 0.55; transition: opacity 0.25s ease;
+    opacity: 0.5; transition: opacity 0.25s ease;
   }
-  .exp__logo:hover { opacity: 1; }
+  .exp__cell:hover .exp__logo { opacity: 1; }
+  @media (max-width: 960px) { .exp__logos { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 560px) { .exp__logos { grid-template-columns: repeat(2, 1fr); } }
 </style>

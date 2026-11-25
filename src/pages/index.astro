@@ -6,6 +6,7 @@ import StatRow from '../components/StatRow.astro';
 import ProductCard from '../components/ProductCard.astro';
 import ModuleCard from '../components/ModuleCard.astro';
 import BlogCard from '../components/BlogCard.astro';
+import Sequence from '../components/Sequence.astro';
 
 const BLOG_URL = 'https://blog.playeronespace.com';
 
@@ -80,6 +81,21 @@ const useCommercial = [
   { tag: 'Insurers', title: 'Lower risk, clean exit', body: 'A satellite that can move is a lower risk, and it can deorbit within the 5-year rule.' },
 ];
 
+// Hero strip: four key numbers. Same values as the spec table on /products/.
+const heroStats = [
+  { value: '0.1 s', label: 'Detection report rate' },
+  { value: '83 km', label: '10 cm object seen in sunlight' },
+  { value: '1–5 N', label: 'Pulsed thrust on water' },
+  { value: '0', label: 'People in the loop' },
+];
+
+// Detect / decide / manoeuvre steps next to the animated scene.
+const loop = [
+  { title: 'Detect', body: 'Visible, event-based and thermal cameras track nearby objects in sunlight and in eclipse.' },
+  { title: 'Decide', body: 'P1S Buddy plans the avoidance manoeuvre onboard. Every command passes a safety shield before it reaches the thruster.' },
+  { title: 'Manoeuvre', body: 'P1S PELTAST-X fires. A pulsed combustion mode gives short, strong pulses when the satellite must move.' },
+];
+
 // Organization + WebSite structured data. Helps Google show the right name, logo and links.
 const homeLd = [
   {
@@ -121,70 +137,81 @@ const homeLd = [
   <Hero
     variant="full"
     eyebrow="Onboard AI + Propulsion"
-    title="Autonomous<br>Defence For<br>Satellites"
+    title="Autonomous<br>defence for<br>satellites"
     sub="Onboard AI that detects, decides and manoeuvres. No person in the loop. P1S Buddy is the brain. P1S PELTAST-X is the legs."
     video="/videos/earth-hero.mp4"
     poster="/images/earth-hero-poster.jpg"
+    stats={heroStats}
+    statsNote="Modelled and design values. Bench tests confirm them through 2026–2027."
   />
 
-  <Section eyebrow="The Problem" title="Space is getting crowded.<br>Satellites cannot protect themselves.">
+  <Section eyebrow="The Problem" title="Space is getting crowded. Satellites cannot protect themselves.">
     <div class="grid grid--3">
       {problem.map((w) => <ModuleCard tag={w.tag} title={w.title} body={w.body} />)}
     </div>
   </Section>
 
-  <Section eyebrow="One Kit. Two Products." title="The brain decides.<br>The legs move." alt={true}>
-    <p class="lead reveal" style="margin-bottom: 2.5rem;">Reaction drops from hours to seconds. It works even when the link to the ground is jammed.</p>
-    <div class="grid grid--2">
-      <ProductCard
-        index="01"
-        kicker="Flagship — Onboard Autonomy"
-        name="P1S Buddy"
-        tagline="Onboard AI Engine"
-        trl="TRL 4 · TRL 5–6 by end of 2026"
-        body="The onboard AI engine that makes autonomous decisions and delivers real-time intelligence from orbit — no ground loop. It commands propulsion through a safety-bounded interface: our own thruster, or any third-party thruster a satellite already carries."
-        href="/products/#buddy"
-        image="/images/buddy-front.jpg"
-        imageAlt="P1S Buddy camera unit, front view"
-      />
-      <ProductCard
-        index="02"
-        kicker="Propulsion — Built for Buddy"
-        name="P1S PELTAST-X"
-        tagline="Propulsion Engine"
-        trl="TRL 3 · TRL 4–5 by end of 2026"
-        body="A water-fuelled hybrid thruster: precise cold-gas modes for routine work and a pulsed combustion mode for short, strong manoeuvres. Launches with 250 mL of plain water, unpressurized. Built for Buddy's command interface."
-        href="/products/#plasma"
-        image="/images/peltast-x.jpg"
-        imageAlt="P1S PELTAST-X 2U thruster module"
-      />
+  <Section eyebrow="How It Works" title="The brain decides.<br>The legs move." alt={true}>
+    <p class="lead reveal offset">Reaction drops from hours to seconds. It works even when the link to the ground is jammed.</p>
+    <Sequence steps={loop} />
+  </Section>
+
+  <Section eyebrow="One Kit. Two Products." title="Two units.<br>One system.">
+    <ProductCard
+      index="01"
+      kicker="Flagship — Onboard Autonomy"
+      name="P1S Buddy"
+      tagline="Onboard AI Engine"
+      trl="TRL 4 · TRL 5–6 by end of 2026"
+      body="The onboard AI engine that makes autonomous decisions and delivers real-time intelligence from orbit — no ground loop. It commands propulsion through a safety-bounded interface: our own thruster, or any third-party thruster a satellite already carries."
+      href="/products/#buddy"
+      image="/images/buddy-front.jpg"
+      imageAlt="P1S Buddy camera unit, front view"
+      specs={[['Size', '232 × 191 × 107 mm'], ['Mass', '2.4 kg'], ['Power', '25 W orbit average, 31 W peak']]}
+    />
+    <ProductCard
+      index="02"
+      kicker="Propulsion — Built for Buddy"
+      name="P1S PELTAST-X"
+      tagline="Propulsion Engine"
+      trl="TRL 3 · TRL 4–5 by end of 2026"
+      body="A water-fuelled hybrid thruster: precise cold-gas modes for routine work and a pulsed combustion mode for short, strong manoeuvres. Launches with 250 mL of plain water, unpressurized. Built for Buddy's command interface."
+      href="/products/#plasma"
+      image="/images/peltast-x.jpg"
+      imageAlt="P1S PELTAST-X 2U thruster module"
+      specs={[['Size', '2U, 100 × 100 × 227 mm'], ['Mass', '1.8 kg dry, 2.0 kg with water'], ['Power', '20 W while making gas, 3 W standby']]}
+      flip={true}
+    />
+  </Section>
+
+  <Section eyebrow="Use Cases" title="One kit for defence and commercial." alt={true}>
+    <div class="uc reveal">
+      <h3 class="uc__head">Defence &amp; government</h3>
+      <div class="grid grid--3">
+        {useDefence.map((u) => <ModuleCard tag={u.tag} title={u.title} body={u.body} />)}
+      </div>
+    </div>
+    <div class="uc reveal">
+      <h3 class="uc__head">Commercial</h3>
+      <div class="grid grid--3">
+        {useCommercial.map((u) => <ModuleCard tag={u.tag} title={u.title} body={u.body} />)}
+      </div>
     </div>
   </Section>
 
-  <Section eyebrow="Use Cases" title="One kit for defence<br>and commercial.">
-    <h3 class="uc__head display reveal">Defence &amp; government</h3>
-    <div class="grid grid--3" style="margin-bottom: 2.5rem;">
-      {useDefence.map((u) => <ModuleCard tag={u.tag} title={u.title} body={u.body} />)}
-    </div>
-    <h3 class="uc__head display reveal">Commercial</h3>
-    <div class="grid grid--3">
-      {useCommercial.map((u) => <ModuleCard tag={u.tag} title={u.title} body={u.body} />)}
-    </div>
-  </Section>
-
-  <Section eyebrow="Market" title="Dual use.<br>A large, open market." alt={true}>
+  <Section eyebrow="Market" title="Dual use.<br>A large, open market.">
     <StatRow stats={tam} />
     <p class="src reveal">Sources: US Space Force FY2026 request · SSA market research 2025–2030 · Novaspace 2026. The ~7,400 share is our estimate.</p>
   </Section>
 
-  <Section eyebrow="Why Now" title="The window is open now.">
-    <p class="lead reveal" style="margin-bottom: 2.5rem;">Within three years, the number of satellites in orbit will more than double. Space is becoming contested, and no ground team can watch that many satellites or react in time. Satellites will need to defend themselves.</p>
+  <Section eyebrow="Why Now" title="The window is open now." alt={true}>
+    <p class="lead reveal offset">Within three years, the number of satellites in orbit will more than double. Space is becoming contested, and no ground team can watch that many satellites or react in time. Satellites will need to defend themselves.</p>
     <div class="grid grid--4">
       {whyNow.map((w) => <ModuleCard tag={w.tag} title={w.title} body={w.body} />)}
     </div>
   </Section>
 
-  <Section eyebrow="From the Blog" title="Notes from the edge of space." alt={true}>
+  <Section eyebrow="From the Blog" title="Notes from the edge of space.">
     {posts.length > 0 && (
       <div class="grid grid--3 blog-grid">
         {posts.map((p) => (
@@ -198,20 +225,38 @@ const homeLd = [
     </div>
   </Section>
 
-  <Section>
-    <div class="cta reveal">
-      <h2 class="display cta__title">Building what comes after launch.</h2>
+  <section class="cta">
+    <img class="cta__img" src="/images/earth.jpg" alt="" loading="lazy" />
+    <div class="wrap cta__inner reveal">
+      <span class="bracket-label">Next Step</span>
+      <h2 class="cta__title">Building what comes after launch.</h2>
       <p class="lead">Detect. Decide. Manoeuvre. The self-defending satellite.</p>
       <a href="/contact/" class="btn btn--primary">Get in Touch</a>
     </div>
-  </Section>
+  </section>
 </BaseLayout>
 
 <style>
-  .cta { text-align: center; max-width: 60ch; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
-  .cta__title { font-size: clamp(1.8rem, 4vw, 3rem); }
-  .uc__head { font-size: var(--fs-label); letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1.1rem; }
-  .src { margin-top: 2rem; font-size: var(--fs-label); color: var(--text-dim); }
-  .blog-grid { margin-bottom: 2.5rem; }
-  .blog-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .uc + .uc { margin-top: clamp(2.5rem, 5vw, 4rem); }
+  .uc__head {
+    font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text); margin-bottom: 1.1rem;
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+  .uc__head::before { content: ''; width: 7px; height: 7px; background: var(--accent); }
+  .src { margin-top: 1.5rem; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.04em; color: var(--text-dim); }
+  .blog-grid { margin-bottom: 2rem; }
+  .blog-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+  .cta { position: relative; overflow: hidden; border-top: 1px solid var(--line); padding: clamp(6rem, 16vw, 13rem) 0; }
+  .cta__img {
+    position: absolute; right: -8%; top: 50%; width: min(78vw, 980px); aspect-ratio: 1; transform: translateY(-38%);
+    object-fit: cover; opacity: 0.9; pointer-events: none;
+    -webkit-mask-image: radial-gradient(closest-side, #000 82%, transparent 100%);
+            mask-image: radial-gradient(closest-side, #000 82%, transparent 100%);
+  }
+  .cta::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--bg) 18%, rgba(6,6,7,0.55) 55%, rgba(6,6,7,0.1) 100%); pointer-events: none; }
+  .cta__inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: flex-start; }
+  .cta__title { font-size: clamp(2.4rem, 6.4vw, 6rem); line-height: 0.95; letter-spacing: -0.05em; max-width: 13ch; margin-bottom: 1.5rem; }
+  .cta .lead { margin-bottom: 2rem; color: var(--text); }
 </style>

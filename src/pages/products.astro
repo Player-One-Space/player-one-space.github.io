@@ -62,46 +62,46 @@ const specs = [
     <div class="flow reveal">
       <span class="flow__step display">Buddy sees a threat</span>
       <span class="flow__arrow">→</span>
-      <span class="flow__step display">classifies it</span>
+      <span class="flow__step display">Classifies it</span>
       <span class="flow__arrow">→</span>
-      <span class="flow__step display">plans the move</span>
+      <span class="flow__step display">Plans the move</span>
       <span class="flow__arrow">→</span>
       <span class="flow__step flow__step--hi display">PELTAST-X fires, satellite moves away</span>
     </div>
-    <p class="lead reveal" style="margin-top: 2rem;">No ground loop. The AI never drives the thruster directly. It asks for a manoeuvre, and a validated propulsion controller runs it inside a safe envelope. The same interface works with our thruster or a third-party thruster the satellite already carries.</p>
-    <div class="grid grid--3" style="margin-top: 3rem;">
+    <p class="lead reveal flow-lead">No ground loop. The AI never drives the thruster directly. It asks for a manoeuvre, and a validated propulsion controller runs it inside a safe envelope. The same interface works with our thruster or a third-party thruster the satellite already carries.</p>
+    <div class="grid grid--3">
       {buyWays.map((c) => <ModuleCard tag={c.tag} title={c.title} body={c.body} />)}
     </div>
   </Section>
 
   <Section eyebrow="Onboard AI" title="P1S Buddy" id="buddy" alt={true}>
-    <p class="trl reveal display">TRL 4 · TRL 5–6 by end of 2026</p>
     <div class="prod reveal">
-      <figure class="prod__img"><img src="/images/buddy-front.jpg" alt="P1S Buddy camera unit, front view" loading="lazy" /></figure>
-      <div>
+      <figure class="prod__img plate"><img src="/images/buddy-front.jpg" alt="P1S Buddy camera unit, front view" loading="lazy" /><figcaption>Fig. 01 — P1S Buddy</figcaption></figure>
+      <div class="prod__txt">
+        <span class="chip">TRL 4 · TRL 5–6 by end of 2026</span>
         <p class="lead">The onboard AI unit that sees what is around the satellite and decides what to do. When a conjunction warning arrives or an object comes close, Buddy plans the avoidance manoeuvre onboard. No ground loop, no waiting on a flight-dynamics team.</p>
-        <p class="lead" style="margin-top: 1rem;">New models go up over the air, so Buddy gets better after launch. It flies in December 2027.</p>
+        <p class="lead">New models go up over the air, so Buddy gets better after launch. It flies in December 2027.</p>
       </div>
     </div>
-    <div class="grid grid--3" style="margin-bottom: 3rem;">
+    <div class="grid grid--3 sub-grid">
       {buddyModules.map((m) => <ModuleCard tag={m.tag} title={m.title} body={m.body} />)}
     </div>
     <StatRow stats={buddyTam} />
   </Section>
 
   <Section eyebrow="Propulsion" title="P1S PELTAST-X" id="plasma">
-    <p class="trl reveal display">TRL 3 · TRL 4–5 by end of 2026</p>
-    <div class="prod reveal">
-      <figure class="prod__img"><img src="/images/peltast-x.jpg" alt="P1S PELTAST-X 2U thruster module" loading="lazy" /></figure>
-      <div>
+    <div class="prod prod--flip reveal">
+      <figure class="prod__img plate"><img src="/images/peltast-x.jpg" alt="P1S PELTAST-X 2U thruster module" loading="lazy" /><figcaption>Fig. 02 — P1S PELTAST-X</figcaption></figure>
+      <div class="prod__txt">
+        <span class="chip">TRL 3 · TRL 4–5 by end of 2026</span>
         <p class="lead">A water-fuelled hybrid thruster. Precise cold-gas modes do routine work. A pulsed combustion mode gives short, strong pulses for fast avoidance. Moderate thrust: ~8–40 mN cold gas · 1–5 N pulsed.</p>
-        <p class="lead" style="margin-top: 1rem;">It covers station keeping, collision avoidance, orbit changes and controlled deorbit, on a propellant that is safe to launch. It flies in mid-2028.</p>
+        <p class="lead">It covers station keeping, collision avoidance, orbit changes and controlled deorbit, on a propellant that is safe to launch. It flies in mid-2028.</p>
       </div>
     </div>
-    <div class="grid grid--3" style="margin-bottom: 3rem;">
+    <div class="grid grid--3 sub-grid">
       {plasmaStages.map((m) => <ModuleCard tag={m.tag} title={m.title} body={m.body} />)}
     </div>
-    <div class="reveal" style="overflow-x:auto; margin-bottom: 3rem;">
+    <div class="reveal tbl">
       <table class="dtable">
         <thead><tr><th>Propellant</th><th>Launch classification</th></tr></thead>
         <tbody>
@@ -116,7 +116,7 @@ const specs = [
   </Section>
 
   <Section eyebrow="Specifications" title="Two units.<br>One system." id="specs" alt={true}>
-    <p class="lead reveal" style="margin-bottom: 2rem;">Each unit works on its own or as one subsystem. Both run on 28 V and talk to the host computer over CAN or RS-422.</p>
+    <p class="lead reveal offset">Each unit works on its own or as one subsystem. Both run on 28 V and talk to the host computer over CAN or RS-422.</p>
     <div class="spec-wrap reveal">
       <table class="dtable spec">
         <thead><tr><th></th><th>P1S Buddy</th><th>P1S PELTAST-X</th></tr></thead>
@@ -125,7 +125,7 @@ const specs = [
         </tbody>
       </table>
     </div>
-    <p class="spec-note reveal">Modelled and design values. Bench tests confirm them through 2026–2027.</p>
+    <p class="fineprint reveal">Modelled and design values. Bench tests confirm them through 2026–2027.</p>
     <a href={BROCHURE} target="_blank" rel="noopener" class="btn btn--ghost reveal" style="margin-top: 1.5rem;">Download brochure (PDF)</a>
   </Section>
 
@@ -140,14 +140,15 @@ const specs = [
         </tbody>
       </table>
     </div>
-    <p class="lead reveal" style="margin-top: 2rem;">Every flying unit comes with a yearly AI licence. Software updates are sent up from the ground.</p>
+    <p class="lead reveal" style="margin-top: 2.5rem;">Every flying unit comes with a yearly AI licence. Software updates are sent up from the ground.</p>
   </Section>
 
   <Section alt={true}>
-    <div class="cta reveal">
-      <h2 class="display cta__title">Want the full picture?</h2>
+    <div class="cta-block reveal">
+      <span class="bracket-label" style="margin-bottom: 0;">Next Step</span>
+      <h2 class="cta-block__title">Want the full picture?</h2>
       <p class="lead">Add P1S Buddy and P1S PELTAST-X to your next mission. Sales and documentation: <a href="mailto:dennis@playeronespace.com">dennis@playeronespace.com</a></p>
-      <div class="cta__btns">
+      <div class="cta-block__btns">
         <a href="mailto:dennis@playeronespace.com" class="btn btn--primary">Talk to Sales</a>
         <a href={PRESENTATION} target="_blank" rel="noopener" class="btn btn--ghost">Company presentation (PDF)</a>
         <a href={BROCHURE} target="_blank" rel="noopener" class="btn btn--ghost">Brochure (PDF)</a>
@@ -157,29 +158,46 @@ const specs = [
 </BaseLayout>
 
 <style>
-  .cta { text-align: center; max-width: 60ch; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
-  .cta__title { font-size: clamp(1.8rem, 4vw, 3rem); }
-  .cta__btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
-  .trl {
-    display: inline-block; margin: 0 0 1.5rem; font-size: var(--fs-label); letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--accent); border: 1px solid var(--accent-line); border-radius: var(--radius); padding: 0.2rem 0.55rem;
-  }
-  .prod { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 2.5rem; align-items: center; margin-bottom: 3rem; }
-  .prod__img { background: #d6d6d7; border-radius: var(--radius); overflow: hidden; }
-  .prod__img img { width: 100%; height: auto; display: block; }
-  @media (max-width: 800px) { .prod { grid-template-columns: 1fr; } }
-  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 0.85rem; }
+  .prod { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); border: 1px solid var(--line); margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+  .prod--flip { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+  .prod--flip .prod__img { order: 2; border-right: none; border-left: 1px solid var(--line); }
+  .prod__img { border-right: 1px solid var(--line); min-height: clamp(18rem, 36vw, 30rem); }
+  .prod__img img { position: absolute; inset: 0; }
+  .prod__txt { padding: clamp(1.6rem, 3vw, 2.75rem); display: flex; flex-direction: column; justify-content: center; gap: 1.25rem; }
+  .prod__txt .chip { align-self: flex-start; margin-bottom: 0.5rem; }
+  .sub-grid { margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+  .tbl { overflow-x: auto; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+
+  .flow { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); }
   .flow__step {
-    font-size: var(--fs-sm); letter-spacing: 0.04em; text-transform: uppercase;
-    padding: 0.6rem 1rem; border: 1px solid var(--border); border-radius: var(--radius);
-    background: var(--surface); color: var(--text-muted);
+    position: relative; padding: 1.4rem 1.5rem 1.6rem; border-right: 1px solid var(--line);
+    font-family: var(--font-heading); font-size: clamp(1.15rem, 1.7vw, 1.45rem); font-weight: 500;
+    letter-spacing: -0.02em; line-height: 1.15; text-transform: none; color: var(--text);
+    display: flex; flex-direction: column; gap: 2.5rem; counter-increment: flow;
   }
-  .flow__step--hi { border-color: var(--accent-line); color: var(--accent); background: var(--accent-dim); }
-  .flow__arrow { color: var(--accent); font-size: 1.1rem; }
+  .flow { counter-reset: flow; }
+  .flow__step::before {
+    content: counter(flow, decimal-leading-zero); font-family: var(--font-mono); font-size: var(--fs-label);
+    letter-spacing: 0.08em; color: var(--text-dim);
+  }
+  .flow__step:last-child { border-right: none; }
+  .flow__step--hi { background: var(--accent); color: var(--on-accent); }
+  .flow__step--hi::before { color: var(--on-accent); }
+  .flow__arrow { display: none; }
+  .flow-lead { margin: clamp(2rem, 4vw, 3rem) 0; }
+
   .spec-wrap { overflow-x: auto; }
-  .spec { min-width: 560px; }
-  .spec th:nth-child(2) { color: var(--accent); }
-  .spec td { color: var(--text-muted); vertical-align: top; }
-  .spec td:first-child { width: 16%; }
-  .spec-note { margin-top: 1rem; font-size: var(--fs-label); color: var(--text-dim); }
+  .spec { min-width: 620px; }
+  .spec thead th:not(:first-child) { color: var(--text); font-family: var(--font-heading); font-size: 1.15rem; letter-spacing: -0.02em; text-transform: none; }
+  .spec td:first-child { width: 16%; font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); font-weight: 500; padding-top: 1.25rem; }
+  .spec td { font-variant-numeric: tabular-nums; }
+
+  @media (max-width: 900px) {
+    .prod, .prod--flip { grid-template-columns: 1fr; }
+    .prod__img, .prod--flip .prod__img { order: 0; border: none; border-bottom: 1px solid var(--line); min-height: 0; aspect-ratio: 14 / 10; }
+    .flow { grid-template-columns: 1fr 1fr; }
+    .flow__step:nth-child(3) { border-right: none; }
+    .flow__step:nth-child(-n + 3) { border-bottom: 1px solid var(--line); }
+    .flow__step { gap: 1.5rem; }
+  }
 </style>

@@ -11,7 +11,7 @@ const { eyebrow, title, alt = false, id } = Astro.props;
   <div class="wrap">
     {(eyebrow || title) && (
       <div class="section__head reveal">
-        {eyebrow && <span class="bracket-label">{eyebrow}</span>}
+        {eyebrow && <span class="section__label"><span class="section__name">{eyebrow}</span></span>}
         {title && <h2 set:html={title}></h2>}
       </div>
     )}
@@ -20,6 +20,24 @@ const { eyebrow, title, alt = false, id } = Astro.props;
 </section>
 
 <style>
-  .section__head { margin-bottom: clamp(2rem, 4vw, 3.25rem); max-width: 46ch; }
-  .section__head h2 { margin-top: 0.25rem; }
+  /* Label on the left, big title on the right. Sections number themselves. */
+  .section__head {
+    display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 1.5rem 2rem;
+    align-items: start; margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+  }
+  .section__label {
+    counter-increment: sec;
+    font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted);
+    display: flex; align-items: center; gap: 0.75rem; padding-top: 0.6rem;
+  }
+  .section__label::before { content: counter(sec, decimal-leading-zero); color: var(--accent); }
+  .section__name::before { content: '/'; color: var(--text-dim); margin-right: 0.75rem; }
+  .section__head h2 { max-width: 20ch; }
+  .section__head h2:only-child { grid-column: 2; }
+  @media (max-width: 860px) {
+    .section__head { grid-template-columns: 1fr; gap: 1rem; }
+    .section__head h2:only-child { grid-column: 1; }
+    .section__label { padding-top: 0; }
+  }
 </style>

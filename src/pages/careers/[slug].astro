@@ -95,25 +95,25 @@ const payText = job.pay
 </BaseLayout>
 
 <style>
-  .jd { display: grid; grid-template-columns: 280px 1fr; gap: 3.5rem; align-items: start; }
+  .jd { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 2rem; align-items: start; }
   .jd__side {
     position: sticky; top: calc(var(--nav-h) + 1.5rem);
-    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;
-    display: flex; flex-direction: column; gap: 1.25rem;
+    border: 1px solid var(--line); padding: 1.5rem;
+    display: flex; flex-direction: column; gap: 1.25rem; margin-right: clamp(0rem, 2vw, 2rem);
   }
-  .jd__side dt { font-size: var(--fs-label); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); }
-  .jd__side dd { font-size: var(--fs-sm); color: var(--text); margin: 0.2rem 0 0.9rem; }
-  .jd__side .btn { justify-content: center; }
-  .jd__back { font-size: var(--fs-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
-  .jd__body .lead { margin-bottom: 1.25rem; }
-  .jd__sec { margin-top: 2.5rem; }
-  .jd__h { font-size: var(--fs-h3); margin-bottom: 1rem; }
-  .jd__sec ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
-  .jd__sec li { position: relative; padding-left: 1.4rem; color: var(--text-muted); max-width: 70ch; }
-  .jd__sec li::before { content: ''; position: absolute; left: 0; top: 0.7em; width: 0.5rem; height: 2px; background: var(--accent); }
-  .jd__sec p { max-width: 70ch; }
+  .jd__side dt { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); }
+  .jd__side dd { font-size: var(--fs-sm); color: var(--text); margin: 0.25rem 0 1rem; }
+  .jd__back { font-size: var(--fs-label); color: var(--text-muted); }
+  .jd__back:hover { color: var(--text); }
+  .jd__body .lead { margin-bottom: 1.25rem; color: var(--text); max-width: 60ch; }
+  .jd__sec { margin-top: clamp(2.5rem, 5vw, 3.5rem); padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  .jd__h { font-size: clamp(1.4rem, 2.2vw, 1.9rem); letter-spacing: -0.03em; margin-bottom: 1.25rem; }
+  .jd__sec ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+  .jd__sec li { position: relative; padding-left: 1.5rem; color: var(--text-muted); max-width: 68ch; }
+  .jd__sec li::before { content: ''; position: absolute; left: 0; top: 0.6em; width: 6px; height: 6px; background: var(--accent); }
+  .jd__sec p { max-width: 68ch; }
   @media (max-width: 860px) {
     .jd { grid-template-columns: 1fr; gap: 2rem; }
-    .jd__side { position: static; order: 2; }
+    .jd__side { position: static; order: 2; margin-right: 0; }
   }
 </style>
